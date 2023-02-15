@@ -1,32 +1,29 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
 import './App.css'
+import { useState, useEffect } from 'react'
+import Axios from 'axios'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [cycleCount, setCycleCount] = useState(0)
+  const startTrial = () => {
+    Axios.get('http://127.0.0.1:5000/start_trial')
+      .then((res) => { console.log(res.data) })
+  }
+  const getCycleCount = () => {
+    Axios.get('http://127.0.0.1:5000/cycleCount')
+      .then((res) => { setCycleCount(res.data) })
+  }
+  useEffect(() => {
+    const myInterval = setInterval(getCycleCount, 500);
 
+    return () => {
+      // should clear the interval when the component unmounts
+      clearInterval(myInterval);
+    };
+  }, []);
   return (
     <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <button onClick={startTrial}>START TRIAL</button>
+      <h1>Cycle count: {cycleCount}</h1>
     </div>
   )
 }
