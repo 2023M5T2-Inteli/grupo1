@@ -5,6 +5,7 @@ import time
 
 trialIsRunning = False
 cycle_count = 0
+ima_state = 1
 
 app = Flask(__name__)
 CORS(app)
@@ -16,6 +17,11 @@ def start_trial():
     execute_trial()
     return 'Iniciou'
 
+
+@app.route('/ima')
+def get_ima():
+    global ima_state
+    return str(ima_state)
 
 def execute_trial():
     robot.rehome()
@@ -34,3 +40,6 @@ def incrementCycle():
 def getCycleCount():
     global cycle_count
     return str(cycle_count)
+
+
+
