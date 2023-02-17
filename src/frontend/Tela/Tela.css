@@ -1,0 +1,12 @@
+.button {
+    height: 200px;
+    text-align: center;
+}
+.button-solid {
+    border: none;
+}
+
+.img {
+    height: 70px;
+    width: 70px;
+}
