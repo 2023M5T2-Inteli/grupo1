@@ -45,7 +45,7 @@ try:
             ligar_ima(12)
         else:
             desligar_ima()
-        time.sleep(0.3)
+        time.sleep(0.1)
 
 except KeyboardInterrupt:
     machine.reset()
