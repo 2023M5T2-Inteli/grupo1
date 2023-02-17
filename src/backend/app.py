@@ -21,7 +21,28 @@ def start_trial():
 @app.route('/ima')
 def get_ima():
     global ima_state
+    print('IMA STATE: ' + str(ima_state))  
+    
     return str(ima_state)
+
+@app.route('/desligar_ima')
+def desligar_ima():
+    desligar()
+    print(ima_state)
+    return 'desligado'
+
+def desligar():
+    global ima_state
+    ima_state = 0
+
+def ligar():
+    global ima_state
+    ima_state = 1
+
+@app.route('/ligar_ima')
+def ligar_ima():
+    ligar()
+    return 'ligado'
 
 def execute_trial():
     robot.rehome()

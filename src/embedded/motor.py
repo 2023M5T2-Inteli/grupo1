@@ -3,8 +3,8 @@ import time
 import network
 import urequests
 
-ssid = 'ratos'
-password = 'ratos!!!'
+ssid = 'Inteli-COLLEGE'
+password = 'QazWsx@123'
 
 ima1 = machine.PWM(machine.Pin(16, machine.Pin.OUT))
 ima2 = machine.PWM(machine.Pin(15, machine.Pin.OUT))
@@ -33,18 +33,19 @@ def connect():
         time.sleep(1)
     print(wlan.ifconfig())
 
-#try:
-ligar_ima(12)
-time.sleep(100)
-    #connect()
-    
-    #while True:
-    #    ima_state = urequests.get('http://192.168.53.42:5000/ima')
-    #    if(int(ima_state.text)):
-     #       ligar_ima()
-      #  else:
-       #     desligar_ima()
-        #time.sleep(0.1)
+try:
+    connect()
+    print('conectado')
+    while True:
+        print('iniciando request')
+        ima_state = urequests.get('http://10.128.3.31:5000/ima')
+        print(ima_state)
+        if(int(ima_state.text)):
+            print(int(ima_state.text))
+            ligar_ima(12)
+        else:
+            desligar_ima()
+        time.sleep(0.3)
 
-#except KeyboardInterrupt:
- #   machine.reset()
+except KeyboardInterrupt:
+    machine.reset()
