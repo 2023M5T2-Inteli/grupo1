@@ -48,7 +48,7 @@ def connect():
         time.sleep(1)
     print(wlan.ifconfig())
 
-ligar_ima()
+ligar_ima(12)
 while True:
     if(sensor.value() == 1):
         led.HIGH()
