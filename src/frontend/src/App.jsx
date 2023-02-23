@@ -42,7 +42,7 @@ const getImaState = () => {
 }
 
 const updateData = () => {
-  //getCycleCount()
+  getCycleCount()
   getImaState()
 }
 

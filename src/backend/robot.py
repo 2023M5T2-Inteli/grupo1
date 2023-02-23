@@ -30,7 +30,21 @@ ima = [
     (35, -248, -32, -86),
     (216, -248, -32, -86),
     (216, -248, 70, -86),
-    (252, -100, 70, 22)
+
+    (263, -112, 70, -86),
+    (263, -112, -32, -86),
+    (263, 68, -32, -86),
+    (263, 68, 70, -86),
+
+    (222, 255, 70, -86), # bandeja 3 - inicio_alto
+    (222, 255, -32, -86), # bandeja 3 - inicio_baixo
+    (125, 255, -32, -86),
+    (19, 255, -32, -86), # bandeja 3 - final_baixo
+    (19, 255, 70, -86), # bandeja 3 - final_alto
+
+    (222, 255, 70, -86), # bandeja 3 - inicio_alto
+    (216, -248, 70, -86),
+
 ]
 
 available_ports = list_ports.comports()
@@ -38,10 +52,13 @@ print(f'available ports: {[x.device for x in available_ports]}')
 port = available_ports[-1].device
 device = pydobot.Dobot(port='COM7', verbose=False)
 
+stop = False
+
 def execute_cycle():
     device.suck(True)
-    for coordinate in tray_coordinates:
-        device.move_to(*coordinate, wait=True)
+    for coordinate in ima:
+        if not stop:
+            device.move_to(*coordinate, wait=True)
 
 def demo():
     device.suck(True)

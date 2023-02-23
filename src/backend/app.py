@@ -46,7 +46,6 @@ def ligar_ima():
 
 def execute_trial():
     robot.rehome()
-    robot.device.move_to(182, -251, 50, -53)
     for i in range(5):
         robot.execute_cycle()
         incrementCycle()
