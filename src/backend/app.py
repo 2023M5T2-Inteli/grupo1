@@ -56,7 +56,6 @@ def incrementCycle():
     global cycle_count
     cycle_count = cycle_count + 1
 
-
 @app.route('/cycleCount')
 def getCycleCount():
     global cycle_count
