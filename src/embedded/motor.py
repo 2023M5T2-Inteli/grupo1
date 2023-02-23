@@ -9,6 +9,10 @@ password = 'QazWsx@123'
 ima1 = machine.PWM(machine.Pin(16, machine.Pin.OUT))
 ima2 = machine.PWM(machine.Pin(15, machine.Pin.OUT))
 
+motor1 = machine.Pin(12, machine.Pin.OUT)
+motor2 = machine.Pin(13, machine.Pin.OUT)
+
+
 def ligar_ima(voltage):
     ima1.freq(1000)
     ima2.freq(1000)
@@ -23,6 +27,16 @@ def desligar_ima():
     ima1.duty_u16(0)
     ima2.duty_u16(0)
     
+def ligar_bomba():
+    motor1.value(1)
+    motor2.value(1)
+
+def desligar_bomba():
+    motor1.value(0)
+    motor2.value(0) 
+
+
+
 def connect():
     #Connect to WLAN
     wlan = network.WLAN(network.STA_IF)
@@ -36,6 +50,7 @@ def connect():
 try:
     connect()
     print('conectado')
+
     while True:
         print('iniciando request')
         ima_state = urequests.get('http://10.128.3.31:5000/ima')
@@ -45,7 +60,21 @@ try:
             ligar_ima(12)
         else:
             desligar_ima()
+
+            ligar_bomba() #------------------#
+
+            time.sleep(5)
+        
+            desligar_bomba() #---------------#
+
+            
         time.sleep(0.1)
 
 except KeyboardInterrupt:
     machine.reset()
+
+# motor1 = machine.Pin(12, machine.Pin.OUT)
+# motor2 = machine.Pin(13, machine.Pin.OUT)
+
+# motor1.value(0)
+# motor2.value(0)
