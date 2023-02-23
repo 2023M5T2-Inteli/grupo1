@@ -55,7 +55,7 @@ def rehome():
 # device.suck(True)
 # time.sleep(1)
 
-# device.move_to(35, -248, 70, -86, wait=True)
+#device.move_to(35, -248, 70, -86, wait=True)
 # device.move_to(35, -248, -32, -86, wait=True)
 # device.move_to(216, -248, -32, -86, wait=True)
 # device.move_to(216, -248, 70, -86, wait=True)
@@ -64,4 +64,4 @@ def rehome():
 # (x, y, z, r, j1, j2, j3, j4) = device.pose()
 # print(f'x:{x} y:{y} z:{z} j1:{j1} j2:{j2} j3:{j3} j4:{j4}')
 
-device.close()
+#device.close()
