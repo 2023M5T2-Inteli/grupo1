@@ -5,7 +5,7 @@ import time
 
 trialIsRunning = False
 cycle_count = 0
-ima_state = 1
+ima_state = 0
 
 app = Flask(__name__)
 CORS(app)
@@ -20,9 +20,7 @@ def start_trial():
 
 @app.route('/ima')
 def get_ima():
-    global ima_state
-    print('IMA STATE: ' + str(ima_state))  
-    
+    global ima_state    
     return str(ima_state)
 
 @app.route('/desligar_ima')

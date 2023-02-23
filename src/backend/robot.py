@@ -33,35 +33,35 @@ ima = [
     (252, -100, 70, 22)
 ]
 
-available_ports = list_ports.comports()
-print(f'available ports: {[x.device for x in available_ports]}')
-port = available_ports[-1].device
-device = pydobot.Dobot(port='COM7', verbose=False)
+# available_ports = list_ports.comports()
+# print(f'available ports: {[x.device for x in available_ports]}')
+# port = available_ports[-1].device
+# device = pydobot.Dobot(port='COM7', verbose=False)
 
-def execute_cycle():
-    device.suck(True)
-    for coordinate in tray_coordinates:
-        device.move_to(*coordinate, wait=True)
+# def execute_cycle():
+#     device.suck(True)
+#     for coordinate in tray_coordinates:
+#         device.move_to(*coordinate, wait=True)
 
-def demo():
-    device.suck(True)
-    for coordinate in ima:
-        device.move_to(*coordinate, wait=True)
+# def demo():
+#     device.suck(True)
+#     for coordinate in ima:
+#         device.move_to(*coordinate, wait=True)
         
 
-def rehome():
-    device.move_to(*home, wait=True)
+# def rehome():
+#     device.move_to(*home, wait=True)
 
-device.suck(True)
-time.sleep(1)
+# device.suck(True)
+# time.sleep(1)
 
-device.move_to(35, -248, 70, -86, wait=True)
-device.move_to(35, -248, -32, -86, wait=True)
-device.move_to(216, -248, -32, -86, wait=True)
-device.move_to(216, -248, 70, -86, wait=True)
-device.move_to(252, -100, 70, 22, wait=True), # bandeja 2 - inicio_alto
+# device.move_to(35, -248, 70, -86, wait=True)
+# device.move_to(35, -248, -32, -86, wait=True)
+# device.move_to(216, -248, -32, -86, wait=True)
+# device.move_to(216, -248, 70, -86, wait=True)
+# device.move_to(252, -100, 70, 22, wait=True), # bandeja 2 - inicio_alto
 
-(x, y, z, r, j1, j2, j3, j4) = device.pose()
-print(f'x:{x} y:{y} z:{z} j1:{j1} j2:{j2} j3:{j3} j4:{j4}')
+# (x, y, z, r, j1, j2, j3, j4) = device.pose()
+# print(f'x:{x} y:{y} z:{z} j1:{j1} j2:{j2} j3:{j3} j4:{j4}')
 
-device.close()
+# device.close()

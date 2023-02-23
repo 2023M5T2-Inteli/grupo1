@@ -48,35 +48,28 @@ def connect():
         time.sleep(1)
     print(wlan.ifconfig())
 
-ligar_ima()
-while True:
-    if(sensor.value() == 1):
-        led.HIGH()
-    else:
-        led.LOW()
-# try:
-#     connect()
-#     print('conectado')
-#     while True:
-#         print('iniciando request')
-#         ima_state = urequests.get('http://10.128.3.31:5000/ima')
-#         print(ima_state)
-#         if(sensor.value() == 1):
-#             led.HIGH()
-#         else:
-#             led.LOW()
-#         if(int(ima_state.text)):
-#             print(int(ima_state.text))
-#             ligar_ima(12)
-#         else:
-#             desligar_ima()
-#         time.sleep(0.1)
+try:
+    connect()
+    print('conectado')
+    while True:
+        print('iniciando request')
+        ima_state = urequests.get('http://10.128.68.206:5000/ima')
+        if(sensor.value() == 1):
+            led.value(1)
+        else:
+            led.value(0)
+        if(int(ima_state.text)):
+            ligar_ima(12)
+        else:
+            desligar_ima()
+        time.sleep(0.1)
 
-# except KeyboardInterrupt:
-#     machine.reset()
+except KeyboardInterrupt:
+    machine.reset()
 
 # motor1 = machine.Pin(12, machine.Pin.OUT)
 # motor2 = machine.Pin(13, machine.Pin.OUT)
 
 # motor1.value(0)
 # motor2.value(0)
+

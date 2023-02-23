@@ -7,7 +7,6 @@ function App() {
   const [imaState, setImaState] = useState(0)
 
   const toggleIma = () => {
-    console.log(imaState)
     if (imaState) {
       Axios.get('http://127.0.0.1:5000/desligar_ima')
         .then((res) => { 
@@ -42,7 +41,7 @@ const getImaState = () => {
 }
 
 const updateData = () => {
-  //getCycleCount()
+  getCycleCount()
   getImaState()
 }
 
