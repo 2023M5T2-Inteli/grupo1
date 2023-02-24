@@ -1,4 +1,3 @@
-import './App.css'
 import { useState, useEffect } from 'react'
 import Axios from 'axios'
 
@@ -54,8 +53,8 @@ useEffect(() => {
   };
 }, []);
 return (
-  <div className="App">
-    <button onClick={startTrial}>START TRIAL</button>
+  <div className="bg-background h-screen w-screen flex flex-row justify-center items-center">
+    <button className="text-green" onClick={startTrial}>START TRIAL</button>
     <button onClick={toggleIma}>{imaState ? "Desligar imã" : "Iniciar imã"}</button>
     <h1>Cycle count: {cycleCount}</h1>
   </div>
