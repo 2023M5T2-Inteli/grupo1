@@ -9,6 +9,7 @@
 # 3. Aumentar dinamicidade dos serviços, com passagem de argumentos em POST
 # 4. Resolver integração das rotas de estados com o front e raspberry (atualmente, temos rotas
 # que retornam a mesma coisa de maneiras diferentes para cada subsistema)
+# 5. Definir se rotas serão em inglês ou português
 
 # Importação dos módulos necessários
 from flask import Flask # módulo de servidor
@@ -40,8 +41,13 @@ def incrementCycle():
     global cycle_count # Chama variável global de contagem
     cycle_count = cycle_count + 1 # Incrementa variável
 
+@app.route('/cycleCount') # Rota para ler número de ciclos (passadas) atual
+def getCycleCount():
+    global cycle_count
+    return str(cycle_count)
 
-# ROTAS PARA LER ESTADOS DO ÍMÃ E DA BOMBA
+
+# CÓDIGO PARA LER ESTADOS DO ÍMÃ E DA BOMBA
 
 @app.route('/states') # Rota para devolver estado do ímã e da bomba em JSON. Atualmente integrado
 # apenas com o front, porque não descobrimos como processar JSON no Raspberry ainda
@@ -60,49 +66,46 @@ def get_pump_state():
     global pump_state 
     return str(pump_state)
 
-#    
+# CÓDIGO PARA MODIFICAR ESTADO DO ÍMÃ 
+# Nesse caso, foi preciso separar as rotas das funções que modificam os valores, por serem variáveis
+# globais. Quando tentamos deixar tudo na mesma função da rota, o programa apresentava erros.
 
-@app.route('/enable_magnet')
+@app.route('/enable_magnet') # Rota para ligar ímã
 def enable_magnet_route():
-    ligar_ima()
-    return 'ligado'
+    enable_magnet()
+    return 'magnet on'
 
-@app.route('/ligar_bomba')
-def ligar_bomba_rota():
-    ligar_bomba()
-    return 'ligado'
+@app.route('/disable_magnet') # Rota para desligar o ímã
+def disable_magnet_route():
+    disable_magnet()
+    return 'magnet off'
 
-@app.route('/desligar_bomba')
-def desligar_bomba_rota():
-    desligar_bomba()
-    return 'desligado'
-
-@app.route('/desligar_ima')
-def desligar_ima_rota():
-    desligar_ima()
-    print(magnet_state)
-    return 'desligado'
-
-def desligar_ima():
+def disable_magnet(): # Modifica estado do ímã para 0
     global magnet_state
     magnet_state = 0
 
-def ligar_ima():
+def enable_magnet(): # Modifica estado do ímã para 1
     global magnet_state
     magnet_state = 1
 
-def ligar_bomba():
-    global pump_state
-    pump_state = 1
+# CÓDIGO PARA MODIFICAR ESTADO DA BOMBA
+# Nesse caso, foi preciso separar as rotas das funções que modificam os valores, por serem variáveis
+# globais. Quando tentamos deixar tudo na mesma função da rota, o programa apresentava erros.
 
-def desligar_bomba():
+@app.route('/enable_pump') # Rota para ligar bomba
+def enable_pump_route():
+    enable_pump()
+    return 'pump on'
+
+@app.route('/disable_pump') # Rota para desligar bomba
+def disable_pump_route():
+    disable_pump()
+    return 'pump off'
+
+def disable_pump(): # Modifica estado da bomba para 0
     global pump_state
     pump_state = 0
 
-@app.route('/cycleCount')
-def getCycleCount():
-    global cycle_count
-    return str(cycle_count)
-
-
-
+def enable_pump(): # Modifica estado da bomba para 1
+    global pump_state
+    pump_state = 1
