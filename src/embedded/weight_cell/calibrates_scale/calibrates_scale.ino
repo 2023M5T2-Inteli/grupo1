@@ -1,4 +1,4 @@
-// Calibração da celula de carga
+// Calibração da célula de carga para testes em C++ no ESP32. Pretendemos fazer o mesmo em micropython no Raspberry Pi Pico W na próxima sprint.
 
 // Bibliotecas necessárias
 #include <Arduino.h>

@@ -1,4 +1,6 @@
 
+// Código para testes da balança em C++ no ESP32. Pretendemos fazer o mesmo em micropython no Raspbery Pi Pico W na próxima sprint.
+
 // Bibliotecas necessárias
 #include <Arduino.h>
 #include "HX711.h"
