@@ -3,8 +3,9 @@ import time
 import network
 import urequests
 
-ssid = 'Inteli-COLLEGE'
-password = 'QazWsx@123'
+ssid = 'Inteli-COLLEGE' #'Inteli-COLLEGE' #'Ratos' #'Inteli-welcome'#'Inteli-COLLEGE'
+password = 'QazWsx@123' #'QazWsx@123'
+host = 'http://192.168.181.42:5000'#'http://10.128.30.195:5000'
 
 ima1 = machine.PWM(machine.Pin(16, machine.Pin.OUT))
 ima2 = machine.PWM(machine.Pin(15, machine.Pin.OUT))
@@ -53,15 +54,18 @@ try:
     print('conectado')
     while True:
         print('iniciando request')
-        ima_state = urequests.get('http://10.128.68.206:5000/ima')
+
+        magnet_state = urequests.get('http://10.128.68.206:5000/magnet_state')
+        pump_state = urequests.get('http://10.128.68.206:5000/pump_state')
+        print(magnet_state, pump_state)
         if(sensor.value() == 1):
             led.value(1)
         else:
             led.value(0)
-        if(int(ima_state.text)):
-            ligar_ima(12)
-        else:
-            desligar_ima()
+        #if(int(ima_state.text)):
+            #ligar_ima(12)
+        #else:
+            #desligar_ima()
         time.sleep(0.1)
 
 except KeyboardInterrupt:
