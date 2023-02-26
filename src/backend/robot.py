@@ -1,84 +1,50 @@
-from serial.tools import list_ports
-import time
+# Código para controlar o robô. Utiliza a API 'pydobot' para se comunicar serialmente com o Magician Lite
 
-import pydobot
+# Importa bibliotecas necessárias
+import pydobot # Controla robô
 
-home = (226, 0, 150, 0)
+home = (226, 0, 150, 0) # Coordenadas do ponto neutro do robô segundo especificação técnica
 
+# Pontos reutilizáveis para a altura do robô e rotação da garra
+high_height = 70
+low_height = -32
+rotation = -86
+
+# Coordenadas para o movimento simples do robô
 tray_coordinates = [
-    (14, -225, 50, -86), # bandeja 1 - inicio_alto
-    (14, -251, -31, -86), # bandeja 1 - inicio_baixo
-    (182, -251, -44, -53), # bandeja 1 - final_baixo
-    (182, -251, 50, -53), # bandeja 1 - final_alto
+    # BANDEJA 1
+    (35, -248, high_height, rotation), # Ponto alto inicial
+    (35, -248, low_height, rotation), # Ponto baixo inicial
+    (216, -248, low_height, rotation), # Ponto baixo final
+    (216, -248, high_height, rotation), # Ponto alto final
 
-    (252, -100, 50, 22), # bandeja 2 - inicio_alto
-    (252, -100, -44, 22), # bandeja 2 - inicio_baixo
-    (248, 77, -44, 61),# bandeja 2 - final_baixo
-    (248, 77, 50, 61),# bandeja 2 - final_alto
+    # BANDEJA 2
+    (263, -112, high_height, rotation), # Ponto alto inicial
+    (263, -112, low_height, rotation), # Ponto baixo inicial
+    (263, 68, low_height, rotation), # Ponto baixo final
+    (263, 68, high_height, rotation), # Ponto alto final
 
-    (224, 226, 50, 88), # bandeja 3 - inicio_alto
-    (224, 226, -44, 88), # bandeja 3 - inicio_baixo
-    (34, 248, -44, 88), # bandeja 3 - final_baixo
-    (34, 248, 50, 88), # bandeja 3 - final_alto
+    # BANDEJA 3
+    (222, 255, high_height, rotation), # Ponto alto inicial
+    (222, 255, low_height, rotation), # Ponto baixo inicial
+    (19, 255, low_height, rotation), # Ponto baixo final
+    (19, 255, high_height, rotation), # Ponto alto final
 
-    (224, 226, 50, 88), # meio ponto de volta
-    (182, -251, 50, -53), # meio ponto de volta
+    # PONTOS INTERMEDIÁRIOS PARA REINICIAR
+    (222, 255, high_height, rotation), # Ponto alto inicial da bandeja 3
+    (216, -248, high_height, rotation) # Ponto alto inicial da bandeja 2
 ]
 
-ima = [
-    (35, -248, 70, -86),
-    (35, -248, -32, -86),
-    (216, -248, -32, -86),
-    (216, -248, 70, -86),
-
-    (263, -112, 70, -86),
-    (263, -112, -32, -86),
-    (263, 68, -32, -86),
-    (263, 68, 70, -86),
-
-    (222, 255, 70, -86), # bandeja 3 - inicio_alto
-    (222, 255, -32, -86), # bandeja 3 - inicio_baixo
-    (125, 255, -32, -86),
-    (19, 255, -32, -86), # bandeja 3 - final_baixo
-    (19, 255, 70, -86), # bandeja 3 - final_alto
-
-    (222, 255, 70, -86), # bandeja 3 - inicio_alto
-    (216, -248, 70, -86),
-
-]
-
-available_ports = list_ports.comports()
-print(f'available ports: {[x.device for x in available_ports]}')
-port = available_ports[-1].device
+# Cria objeto de robô conectado à porta COM7. TO-DO: conexão sem especificar porta antes, já
+# que ela muda de PC para PC (talvez um loop testando todas as possíveis, com try-catch?)
 device = pydobot.Dobot(port='COM7', verbose=False)
 
-stop = False
-
+# Executa ciclo do ensaio conforme coordenadas do array
 def execute_cycle():
-    device.suck(True)
-    for coordinate in ima:
-        if not stop:
+    device.suck(True) # Inicia sucção para segurar o ímã na demo atual
+    for coordinate in tray_coordinates: # Move o robô para cada coordenada
             device.move_to(*coordinate, wait=True)
-
-def demo():
-    device.suck(True)
-    for coordinate in ima:
-        device.move_to(*coordinate, wait=True)
         
-
+# Move robô para ponto neutro utilizando variável de coordenadas do ponto home
 def rehome():
-    device.move_to(*home, wait=True)
-
-# device.suck(True)
-# time.sleep(1)
-
-#device.move_to(35, -248, 70, -86, wait=True)
-# device.move_to(35, -248, -32, -86, wait=True)
-# device.move_to(216, -248, -32, -86, wait=True)
-# device.move_to(216, -248, 70, -86, wait=True)
-# device.move_to(252, -100, 70, 22, wait=True), # bandeja 2 - inicio_alto
-
-# (x, y, z, r, j1, j2, j3, j4) = device.pose()
-# print(f'x:{x} y:{y} z:{z} j1:{j1} j2:{j2} j3:{j3} j4:{j4}')
-
-#device.close()
+    device.move_to(*home, wait=True) 

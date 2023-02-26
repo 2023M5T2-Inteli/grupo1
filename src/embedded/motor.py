@@ -1,79 +1,105 @@
-import machine
-import time
-import network
-import urequests
+# Código para controlar o Raspberry Pi Pico W. Em suma, o microcontrolador se conecta à rede local
+# e então envia requisições continuamente ao servidor para descobrir o estado desejado para os atuadores. Segundo as informações recebidas, ele liga ou desliga os componentes externos (ímã e bomba)
 
-ssid = 'Inteli-COLLEGE' #'Inteli-COLLEGE' #'Ratos' #'Inteli-welcome'#'Inteli-COLLEGE'
-password = 'QazWsx@123' #'QazWsx@123'
-host = 'http://192.168.181.42:5000'#'http://10.128.30.195:5000'
+# Importa bibliotecas necessárias
+import machine  # Controla o Raspberry
+import time  # Permite adicionar delays ao programa
+import network  # Permite conexão
+import urequests  # Permite envio de requisições
 
-ima1 = machine.PWM(machine.Pin(16, machine.Pin.OUT))
-ima2 = machine.PWM(machine.Pin(15, machine.Pin.OUT))
+# Definição da rede local a ser utilizada
+ssid = 'Inteli-COLLEGE'
+password = 'QazWsx@123' 
+# Definição do endereço do servidor na rede atual
+host = 'http://192.168.181.42:5000'
 
-motor1 = machine.Pin(12, machine.Pin.OUT)
-motor2 = machine.Pin(13, machine.Pin.OUT)
+# Definição dos pinos do ímã como PWM e output
+magnet_pin_1 = machine.PWM(machine.Pin(16, machine.Pin.OUT))
+magnet_pin_2 = machine.PWM(machine.Pin(15, machine.Pin.OUT))
+# Define frequências dos pinos dos ímãs
+magnet_pin_1.freq(1000)
+magnet_pin_2.freq(1000)
 
+# Definição dos pinos da bomba como pinos digitais de output. Como a intensidade da bomba não precisa ser dinâmica, não precisamos utilizar PWM
+pump_pin_1 = machine.Pin(12, machine.Pin.OUT)
+pump_pin_2 = machine.Pin(13, machine.Pin.OUT)
+
+# Definição do pino do LED e do sensor de fluxo eletromagnético para testes
 led = machine.Pin(18, machine.Pin.OUT)
 sensor = machine.Pin(14, machine.Pin.IN)
 
+# Esta função liga o ímã na voltagem desejada. A integração com o front passando essa voltagem
+# ainda não foi implementada, então, por enquanto, essa função é sempre executada com argumento
+# 'hardcoded' 12.
+def enable_magnet(voltage):
+    # Seguindo a lógica do ponte H, desligamos um dos pinos e ligamos a proporção desejada no outro
+    magnet_pin_2.duty_u16(0)
+    # O argumento dessa função encontra o valor proporcional de duty cycle a ser enviado para
+    # o ímã, transformando um valor na escala 0-12 para um valor na escala 0-65535
+    magnet_pin_1.duty_u16(int(voltage / 12.0 * 65535))
 
-def ligar_ima(voltage):
-    ima1.freq(1000)
-    ima2.freq(1000)
-    ima2.duty_u16(0)
-    
-    print(int(voltage / 12.0 * 65535))
-    ima1.duty_u16(int(voltage / 12.0 * 65535))
+# Desliga o ímã, enviando a ambos os pinos 0
+def disable_magnet():
+    magnet_pin_1.duty_u16(0)
+    magnet_pin_2.duty_u16(0)
 
-def ligar_bomba():
-    motor1.value(1)
-    motor2.value(1)
+# Liga a bomba, enviando a apenas um pino 1, seguindo a lógica da ponte H
+def enable_pump():
+    pump_pin_1.value(1)
+    pump_pin_2.value(0)
 
-def desligar_bomba():
-    motor1.value(0)
-    motor2.value(0) 
+# Liga a bomba, enviando a ambos os pinos 0
+def disable_pump():
+    pump_pin_1.value(0)
+    pump_pin_2.value(0)
 
-def desligar_ima():
-    ima1.freq(1000)
-    ima2.freq(1000)
-    ima1.duty_u16(0)
-    ima2.duty_u16(0)
-    
+# Conecta à rede local
 def connect():
-    #Connect to WLAN
+    # Cria e inicializa objeto de conexão WLAN
     wlan = network.WLAN(network.STA_IF)
     wlan.active(True)
+
+    # Conecta à rede especificada com a respectiva senha
     wlan.connect(ssid, password)
+
+    # Tenta conectar a cada 1 segundo
     while wlan.isconnected() == False:
         print('Waiting for connection...')
         time.sleep(1)
+
+    # Printa informações da conexão quando é bem-sucedida
     print(wlan.ifconfig())
 
-try:
-    connect()
-    print('conectado')
-    while True:
-        print('iniciando request')
 
-        magnet_state = urequests.get('http://10.128.68.206:5000/magnet_state')
-        pump_state = urequests.get('http://10.128.68.206:5000/pump_state')
-        print(magnet_state, pump_state)
-        if(sensor.value() == 1):
+# Código a ser executado quando o Raspberry é ligado
+try:
+    connect()  # Conecta à rede local
+    while True:  # Loop para ler estado desejado dos atuadores
+        # Ainda não descobrimos como processar um objeto json em micropython. Por isso,
+        # por ora estamos utilizando rotas separadas para cada estado.
+        magnet_state = urequests.get(host + '/magnet_state')
+        pump_state = urequests.get(host + '/pump_state')
+
+        # Liga ímã com voltagem 12 se o valor lido no servidor for maior que zero
+        if (int(magnet_state.text)):
+            enable_magnet(12)
+        else: # Desliga se for 0
+            disable_magnet()
+
+        # Liga bomba se o valor lido no servidor for maior que zero
+        if (int(pump_state.text)):
+            enable_pump()
+        else: # Desliga se for 0
+            disable_pump()
+
+        # Liga o LED se o sensor captar fluxo eletromagnético. TO-DO: transformar leitura em analógica e printar valores a cada segundo.
+        if (sensor.value() == 1):
             led.value(1)
         else:
             led.value(0)
-        #if(int(ima_state.text)):
-            #ligar_ima(12)
-        #else:
-            #desligar_ima()
-        time.sleep(0.1)
 
+        # Espera 0.1s antes de reiniciar o loop
+        time.sleep(0.1)
+        
 except KeyboardInterrupt:
     machine.reset()
-
-# motor1 = machine.Pin(12, machine.Pin.OUT)
-# motor2 = machine.Pin(13, machine.Pin.OUT)
-
-# motor1.value(0)
-# motor2.value(0)
-
