@@ -9,7 +9,9 @@ import urequests  # Permite envio de requisições
 
 # Definição da rede local a ser utilizada
 ssid = 'Inteli-COLLEGE'
-password = 'QazWsx@123'
+password = 'QazWsx@123' 
+# Definição do endereço do servidor na rede atual
+host = 'http://192.168.181.42:5000'
 
 # Definição dos pinos do ímã como PWM e output
 magnet_pin_1 = machine.PWM(machine.Pin(16, machine.Pin.OUT))
@@ -75,8 +77,8 @@ try:
     while True:  # Loop para ler estado desejado dos atuadores
         # Ainda não descobrimos como processar um objeto json em micropython. Por isso,
         # por ora estamos utilizando rotas separadas para cada estado.
-        magnet_state = urequests.get('http://10.128.68.206:5000/magnet_state')
-        pump_state = urequests.get('http://10.128.68.206:5000/pump_state')
+        magnet_state = urequests.get(host + '/magnet_state')
+        pump_state = urequests.get(host + '/pump_state')
 
         # Liga ímã com voltagem 12 se o valor lido no servidor for maior que zero
         if (int(magnet_state.text)):
