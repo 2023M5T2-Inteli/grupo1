@@ -31,21 +31,25 @@ def start_trial():
     return 'Trial started'
 
 def execute_trial():
+    restartCycleCount() # Reinicia contagem de ciclos
     robot.rehome() # Função do módulo do robô para levá-lo ao ponto neutro
     for i in range(5): # Loop para realizar 5 passadas. Esse argumento se tornará dinâmico nas próximas
                         # sprints. Está assim agora apenas para testes.
         robot.execute_cycle() # Executa o ciclo segundo função do módulo do robô
         incrementCycle() # Incrementa variável de contagem dos ciclos atuais
 
-def incrementCycle():
-    global cycle_count # Chama variável global de contagem
-    cycle_count = cycle_count + 1 # Incrementa variável
-
 @app.route('/cycleCount') # Rota para ler número de ciclos (passadas) atual
 def getCycleCount():
     global cycle_count
     return str(cycle_count)
 
+def restartCycleCount():
+    global cycle_count
+    cycle_count = 0
+
+def incrementCycle():
+    global cycle_count # Chama variável global de contagem
+    cycle_count = cycle_count + 1 # Incrementa variável
 
 # CÓDIGO PARA LER ESTADOS DO ÍMÃ E DA BOMBA
 
