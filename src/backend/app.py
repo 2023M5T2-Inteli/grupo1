@@ -31,7 +31,7 @@ def start_trial():
     return 'Trial started'
 
 def execute_trial():
-    restartCycleCount() # Reinicia contagem de ciclos
+    restartCycleCount() # Reinicia contagem de dobo
     robot.rehome() # Função do módulo do robô para levá-lo ao ponto neutro
     for i in range(5): # Loop para realizar 5 passadas. Esse argumento se tornará dinâmico nas próximas
                         # sprints. Está assim agora apenas para testes.
