@@ -1,0 +1,1 @@
+Para rodar o backend, conecte o PC ao Dobot Magician Lite e altere a constante 'robot_port' para a porta em que 

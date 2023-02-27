@@ -3,6 +3,10 @@
 # Importa bibliotecas necessárias
 import pydobot # Controla robô
 
+# Especificação da porta em que o robô está conectado.
+# TO-DO: conexão sem especificar porta antes, já que ela muda de PC para PC (talvez um loop testando todas as possíveis, com try-catch?)
+robot_port = 'COM7' 
+
 home = (226, 0, 150, 0) # Coordenadas do ponto neutro do robô segundo especificação técnica
 
 # Pontos reutilizáveis para a altura do robô e rotação da garra
@@ -35,9 +39,7 @@ tray_coordinates = [
     (216, -248, high_height, rotation) # Ponto alto inicial da bandeja 2
 ]
 
-# Cria objeto de robô conectado à porta COM7. TO-DO: conexão sem especificar porta antes, já
-# que ela muda de PC para PC (talvez um loop testando todas as possíveis, com try-catch?)
-device = pydobot.Dobot(port='COM7', verbose=False)
+device = pydobot.Dobot(port=robot_port, verbose=False)
 
 # Executa ciclo do ensaio conforme coordenadas do array
 def execute_cycle():
