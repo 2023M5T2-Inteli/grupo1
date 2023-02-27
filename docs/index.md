@@ -196,7 +196,11 @@ Considerando que uso do tradicional custe e demore mais que do Magnetum e que a 
 
 A movimentação do robô foi testada em três etapas. Inicialmente, fizemos uma exploração das funcionalidades do Magician Lite com o auxílio do software de controle Dobot Studio. Nesse momento, testamos as diferentes possibilidades de periféricos, como a garra, a sucção e a caneta, e nos familiarizamos com os limites físicos do robô, no que tange a range of motion. Um produto disso foi o teste de controle fino do robô no modo de desenho, em que experimentamos delinear um vetor de alta complexidade, conforme visto no vídeo abaixo.
 
-Na segunda etapa, instalamos a biblioteca Pydobot, que permite a comunicação com o robô diretamente de scripts em Python. Com isso, testamos scripts simples de movimentação, com sucesso.
+[Teste de desenho](https://github.com/2023M5T2-Inteli/tectonics/blob/docs_sprint_2/media/testes_de_componentes/celula_de_carga/celula_de_carga.mp4?raw=true)
+
+Na segunda etapa, instalamos a biblioteca Pydobot, que permite a comunicação com o robô diretamente de scripts em Python. Com isso, testamos scripts simples de movimentação sobre as bandejas, com sucesso.
+
+[Movimentação simples](https://github.com/2023M5T2-Inteli/tectonics/blob/docs_sprint_2/media/testes_de_componentes/movimento_robo/movimento_robo.mp4?raw=true)
 
 Na terceira etapa, criamos um servidor simples em Flask para automatizar uma movimentação específica através de uma interface gráfica web. Para isso, fizemos uma rota GET que, quando requisitada, executava a função de movimentação do robô.
 
@@ -223,15 +227,15 @@ Posteriormente, conectamos essa parte do circuito ao restante do sistema. Resta 
 A célula de carga converte uma força em um sinal elétrico que pode ser medido. Este sinal irá mudar proporcionalmente à força aplicada. A células de carga é composta por uma barra de metal com extensômetros fixados. Os extensômetros são sensores elétricos que medem força ou tensão em um objeto. Quando uma força externa é aplicada a um objeto, como a barra de metal, ocorre uma deformação em sua forma, o que faz com que a resistência dos extensômetros varie. A mudança na resistência é proporcional à carga aplicada, permitindo-nos calcular o peso dos objetos.
 Sabe-se que existem alterações de tensão, todavia, como essas mudanças são muito pequenas, é necessário um amplificador. O amplificador utilizado se chama HX711 e se comunica com o microcontrolador utilizando de uma interfaze de dois fios, "Clock" e "Data". Para realizar o teste foi preciso prender a célula de carga de maneira a criar uma tensão entre as extremidades opostas da barra de metal. 
 
-![image](https://user-images.githubusercontent.com/99221221/221018613-c6259f9e-ffcd-4f65-9466-c43a668d1b19.png)
-*Fonte: autoria própria*
+![image](https://github.com/2023M5T2-Inteli/tectonics/blob/docs_sprint_2/media/testes_de_componentes/celula_de_carga/c%C3%A9lula_de_carga_entre_placas.png?raw=true)
 
 Após isso, foram feitas as seguintes ligações:
-![image](https://user-images.githubusercontent.com/99221221/221019861-66465ce6-810e-44d8-8232-191ae4f89dd6.png)
+
+![image](https://github.com/2023M5T2-Inteli/tectonics/blob/docs_sprint_2/media/testes_de_componentes/celula_de_carga/conexoes_celula_de_carga.png?raw=true)
 
 O teste consistiu em duas etapas: a calibração da célula e a medição de peso de objetos previamente conhecidos. A primeira etapa é crucial para o teste, pois é a partir dela que determinamos o fator de calibração, que pode ser obtido dividindo o valor lido pela célula pelo peso já conhecido. A segunda etapa consistiu na medição real dos objetos, utilizando o fator de calibração obtido na primeira etapa.
 
-[Vídeo do teste realizado](https://drive.google.com/file/d/1GvVsDhN7IshUwO-Z0ahV_5d9YwZygBXT/view?usp=sharing)
+[Vídeo do teste realizado](https://github.com/2023M5T2-Inteli/tectonics/blob/docs_sprint_2/media/testes_de_componentes/celula_de_carga/celula_de_carga.mp4?raw=true)
 
 Isso tudo foi testado em um ESP-32 com C++. Pretendemos adaptar essa funcionalidade para o Raspberry Pi Pico W com Micropython, integrando isso ao resto do sistema, na Sprint 3.
 
