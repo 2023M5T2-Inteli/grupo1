@@ -76,8 +76,12 @@ def get_states():
 # Rota que devolve apenas valor do estado do ímã para o Raspberry
 @app.route('/magnet_state')
 def get_magnet_state():
-    global magnet_state
-    return str(magnet_state)
+    # global magnet_state
+    # return '0'
+    return {
+        "greeting": ["hello", "world"],
+        "date": 1
+    }
 
 
 # Rota que devolve apenas valor do estado da bomba para o Raspberry
