@@ -273,9 +273,11 @@ Como linha geral, priorizamos elementos minimalistas, intuitivos e de fácil ent
 
 A interface do Figma apresenta uma sidebar simples, com tela inicial, histórico de relatórios e perfil. A tela principal, por sua vez, traz um botão de destaque para iniciar um ciclo, assim como campos de preenchimento de mais informações para cada execução. Abaixo, tem-se um atalho para o ensaio mais recente. Já na aba de histórico, ainda não construída no Figma, poder-se-á visualizar ensaios antigos com diversas funcionalidades de filtragem, compilação, exportação e compartilhamento.
 
+![image](https://github.com/2023M5T2-Inteli/tectonics/blob/docs_sprint_2/media/interface_grafica/figma.png?raw=true)
+
 Para a interface de testes, utilizamos um design simples, com um único vetor em tons de verde para decoração na base da página.
 
-[image](https://github.com/2023M5T2-Inteli/tectonics/blob/docs_sprint_2/media/testes_de_componentes/celula_de_carga/celula_de_carga.mp4?raw=true)
+![image](https://github.com/2023M5T2-Inteli/tectonics/blob/docs_sprint_2/media/interface_grafica/interface_demo.png?raw=true)
 
 # Projeto de Banco de Dados
 
