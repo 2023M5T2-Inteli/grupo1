@@ -265,7 +265,6 @@ Isso tudo foi testado em um ESP-32 com C++. Pretendemos adaptar essa funcionalid
 | Contagem de ciclos (interface gráfica) | Repetição dos ciclos (passadas) do robô em um mesmo ensaio    | Atualização do número de ciclos (passadas) no frontend.                          | Sucesso. A linha de contagem de ciclos mudou conforme o esperado.                                                                                                                                                                                  |
 | Contagem de ciclos (interface gráfica) | Finalização de um ensaio                                      | Reset da contagem de ciclos, voltando ao 0.                                      | Sucesso. Ao terminar um ensaio, assim que o robô parava de se movimentar, o contador voltava a 0.                                                                                                                                                  |
 
-
 # UX e UI Design
 
 Até o momento (Sprint 2), iniciamos um design de interface gráfica no Figma e implementamos uma versão simplista como demo para os testes de integração.
@@ -275,6 +274,8 @@ Como linha geral, priorizamos elementos minimalistas, intuitivos e de fácil ent
 A interface do Figma apresenta uma sidebar simples, com tela inicial, histórico de relatórios e perfil. A tela principal, por sua vez, traz um botão de destaque para iniciar um ciclo, assim como campos de preenchimento de mais informações para cada execução. Abaixo, tem-se um atalho para o ensaio mais recente. Já na aba de histórico, ainda não construída no Figma, poder-se-á visualizar ensaios antigos com diversas funcionalidades de filtragem, compilação, exportação e compartilhamento.
 
 Para a interface de testes, utilizamos um design simples, com um único vetor em tons de verde para decoração na base da página.
+
+[image](https://github.com/2023M5T2-Inteli/tectonics/blob/docs_sprint_2/media/testes_de_componentes/celula_de_carga/celula_de_carga.mp4?raw=true)
 
 # Projeto de Banco de Dados
 
