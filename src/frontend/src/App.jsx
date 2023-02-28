@@ -16,7 +16,7 @@ function App() {
   const [pumpState, setPumpState] = useState(0) // Estado da bomba d'água
 
   // Declaração do endereço do servidor atual
-  const serverHost = 'http://127.0.0.1:5000'
+  const serverHost = 'http://10.128.20.240:5000'
 
   // Função para trocar estado do ímã. Como ainda não fizemos rotas de POST, essa mudança
   // no servidor é feita através de diferentes rotas de GET
@@ -64,11 +64,11 @@ function App() {
   // Função que faz requisição ao servidor para ler o estado do ímã e da bomba atualmente.
   // O objetivo é eventualmente utilizar essa função para receber erros do servidor.
   const getStates = () => {
-    Axios.get(serverHost + '/states')
-      .then((res) => {
-        // Atualiza estados no frontend
-        setMagnetState(Number.parseInt(res.data.magnet))
-        setPumpState(Number.parseInt(res.data.pump))
+    fetch(serverHost + '/states')
+      .then(res => res.json())
+      .then(data => {
+        setMagnetState(Number.parseInt(data.magnet))
+        setPumpState(Number.parseInt(data.pump))
       })
   }
 

@@ -70,18 +70,14 @@ def incrementCycle():
 def get_states():
     global magnet_state
     global pump_state
-    return str({"magnet": magnet_state, "pump": pump_state})
+    return {"magnet": magnet_state, "pump": pump_state}
 
 
 # Rota que devolve apenas valor do estado do ímã para o Raspberry
 @app.route('/magnet_state')
 def get_magnet_state():
-    # global magnet_state
-    # return '0'
-    return {
-        "greeting": ["hello", "world"],
-        "date": 1
-    }
+    global magnet_state
+    return str(magnet_state)
 
 
 # Rota que devolve apenas valor do estado da bomba para o Raspberry
@@ -98,6 +94,7 @@ def get_pump_state():
 @app.route('/enable_magnet')  # Rota para ligar ímã
 def enable_magnet_route():
     enable_magnet()
+    print(magnet_state)
     return 'magnet on'
 
 
