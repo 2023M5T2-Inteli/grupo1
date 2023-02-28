@@ -21,6 +21,7 @@ from flask_cors import CORS  # módulo para evitar erros de CORS
 cycle_count = 0
 magnet_state = 0  # Estado do ímã (ligado/desligado)
 pump_state = 0  # Estado da bomba d'água (ligada/desligada)
+sensor_state = 0  # Estado do sensor magnético (ligada/desligada)
 
 # Número de passadas em cada ciclo. A ser dinamizado através das rotas nas próximas sprints.
 cycles_per_trial = 5
@@ -70,7 +71,8 @@ def incrementCycle():
 def get_states():
     global magnet_state
     global pump_state
-    return str({"magnet": magnet_state, "pump": pump_state})
+    global sensor_state
+    return str({"magnet": magnet_state, "pump": pump_state, "sensor": sensor_state})
 
 
 # Rota que devolve apenas valor do estado do ímã para o Raspberry
@@ -85,6 +87,14 @@ def get_magnet_state():
 def get_pump_state():
     global pump_state
     return str(pump_state)
+
+
+# Rota que devolve apenas valor do estado do sensor para o Raspberry
+@app.route('/sensor_state')
+def get_sensor_state():
+    global sensor_state
+    return str(sensor_state)
+
 
 # CÓDIGO PARA MODIFICAR ESTADO DO ÍMÃ
 # Nesse caso, foi preciso separar as rotas das funções que modificam os valores, por serem variáveis
@@ -137,3 +147,30 @@ def disable_pump():  # Modifica estado da bomba para 0
 def enable_pump():  # Modifica estado da bomba para 1
     global pump_state
     pump_state = 1
+
+
+# CÓDIGO PARA MODIFICAR ESTADO DA SENSOR
+# Nesse caso, foi preciso separar as rotas das funções que modificam os valores, por serem variáveis
+# globais. Quando tentamos deixar tudo na mesma função da rota, o programa apresentava erros.
+
+
+@app.route('/enable_sensor')  # Rota para ligar sensor
+def enable_sensor_route():
+    enable_sensor()
+    return 'sensor on'
+
+
+@app.route('/disable_sensor')  # Rota para desligar sensor
+def disable_sensor_route():
+    disable_sensor()
+    return 'sensor off'
+
+
+def disable_sensor():  # Modifica estado da sensor para 0
+    global sensor_state
+    sensor_state = 0
+
+
+def enable_sensor():  # Modifica estado da sensor para 1
+    global sensor_state
+    sensor_state = 1

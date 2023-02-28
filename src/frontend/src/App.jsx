@@ -14,6 +14,7 @@ function App() {
   const [cycleCount, setCycleCount] = useState(0) // Contagem de ciclos atual
   const [magnetState, setMagnetState] = useState(0) // Estado do ímã
   const [pumpState, setPumpState] = useState(0) // Estado da bomba d'água
+  const [sensorState, setSensorState] = useState(0) // Estado da sensor magnético
 
   // Declaração do endereço do servidor atual
   const serverHost = 'http://127.0.0.1:5000'
@@ -49,6 +50,21 @@ function App() {
     }
   }
 
+  // Função para trocar estado da bomba. Segue a mesma lógica dos dois anteriores.
+  const toggleSensor = () => {
+    if (pumpState) {
+      Axios.get(serverHost + '/disable_sensor')
+        .then((res) => {
+          setSensorState(0)
+        })
+    } else {
+      Axios.get(serverHost + '/enable_sensor')
+        .then((res) => {
+          setSensorState(1)
+        })
+    }
+  }
+
   // Função que faz requisição ao servidor para começar o ensaio com o robô
   const startTrial = () => {
     Axios.get(serverHost + '/start_trial')
@@ -69,6 +85,7 @@ function App() {
         // Atualiza estados no frontend
         setMagnetState(Number.parseInt(res.data.magnet))
         setPumpState(Number.parseInt(res.data.pump))
+        setPumpState(Number.parseInt(res.data.sensor))
       })
   }
 
@@ -92,6 +109,7 @@ function App() {
       <Button onClick={startTrial} content="Iniciar ensaio" />
       <Button onClick={toggleMagnet} content={magnetState ? "Desligar imã" : "Ligar imã"} />
       <Button onClick={togglePump} content={pumpState ? "Desligar bomba" : "Ligar bomba"} />
+      <Button onClick={toggleSensor} content={sensorState ? "Desligar sensor" : "Ligar sensor"} />
       <h1>Cycle count: {cycleCount}</h1>
       <img className='fixed bottom-0' src={bgWaves} />
     </div>
