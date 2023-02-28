@@ -90,7 +90,7 @@ function App() {
   return (
     <div className="bg-background h-screen w-screen flex flex-col justify-center items-center">
       <Button onClick={startTrial} content="Iniciar ensaio" />
-      <Button onClick={toggleMagnet} content={magnetState ? "Desligar imã" : "Ligar imã"} />
+      <Button onClick={toggleMagnet} content={magnetState ? "Desligar imã" : "Ligar imã"} name= "enable_magnet"/>
       <Button onClick={togglePump} content={pumpState ? "Desligar bomba" : "Ligar bomba"} />
       <h1>Cycle count: {cycleCount}</h1>
       <img className='fixed bottom-0' src={bgWaves} />

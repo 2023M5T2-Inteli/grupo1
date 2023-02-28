@@ -12,7 +12,7 @@
 # 5. Definir se rotas serão em inglês ou português
 
 # Importação dos módulos necessários
-from flask import Flask  # módulo de servidor
+from flask import Flask, request  # módulo de servidor
 import robot  # módulo personalizado para controlar o robô
 from flask_cors import CORS  # módulo para evitar erros de CORS
 
@@ -90,6 +90,10 @@ def get_pump_state():
 # Nesse caso, foi preciso separar as rotas das funções que modificam os valores, por serem variáveis
 # globais. Quando tentamos deixar tudo na mesma função da rota, o programa apresentava erros.
 
+@app.route('/magnet', methods=['POST'])
+def magnet():
+    enable_magnet = request.json['enable_magnet']
+    return 'teste'
 
 @app.route('/enable_magnet')  # Rota para ligar ímã
 def enable_magnet_route():
@@ -137,3 +141,6 @@ def disable_pump():  # Modifica estado da bomba para 0
 def enable_pump():  # Modifica estado da bomba para 1
     global pump_state
     pump_state = 1
+
+if __name__ == '__main__':
+    app.run()
