@@ -178,6 +178,16 @@ Considerando que uso do tradicional custe e demore mais que do Magnetum e que a 
 * Como técnico, quero ter um histórico das separações magnéticas que fiz para que possa consultar futuramente.
 * Como técnico, quero que tenha filtros de busca por data de realização e por material para que consiga consultar com maior facilidade.
 
+## Módulos do Sistema e Visão Geral (Big Picture)
+
+![image](https://user-images.githubusercontent.com/99221221/221013792-5d18d134-7978-4332-8e0a-9203602521d0.png)
+
+## Descrição dos Subsistemas
+
+### Descrição dos componentes
+
+![image](https://user-images.githubusercontent.com/99221221/221013920-fce75aeb-2683-48bb-841a-5461bb479c9a.png)
+
 
 # Arquitetura do Sistema
 
@@ -195,17 +205,6 @@ Considerando que uso do tradicional custe e demore mais que do Magnetum e que a 
 
 ## Croqui Robô
 ![image](https://github.com/2023M5T2-Inteli/tectonics/blob/main/media/Arquitetura%20Do%20Sistema/CroquiRobo.png?raw=true)
-
-## Módulos do Sistema e Visão Geral (Big Picture)
-
-![image](https://user-images.githubusercontent.com/99221221/221013792-5d18d134-7978-4332-8e0a-9203602521d0.png)
-
-## Descrição dos Subsistemas
-
-### Descrição dos componentes
-
-![image](https://user-images.githubusercontent.com/99221221/221013920-fce75aeb-2683-48bb-841a-5461bb479c9a.png)
-
 
 ## Tecnologias Utilizadas
 ### Testes de componentes
