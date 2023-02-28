@@ -239,11 +239,11 @@ Posteriormente, conectamos essa parte do circuito ao restante do sistema. Resta 
 A célula de carga converte uma força em um sinal elétrico que pode ser medido. Este sinal irá mudar proporcionalmente à força aplicada. A células de carga é composta por uma barra de metal com extensômetros fixados. Os extensômetros são sensores elétricos que medem força ou tensão em um objeto. Quando uma força externa é aplicada a um objeto, como a barra de metal, ocorre uma deformação em sua forma, o que faz com que a resistência dos extensômetros varie. A mudança na resistência é proporcional à carga aplicada, permitindo-nos calcular o peso dos objetos.
 Sabe-se que existem alterações de tensão, todavia, como essas mudanças são muito pequenas, é necessário um amplificador. O amplificador utilizado se chama HX711 e se comunica com o microcontrolador utilizando de uma interfaze de dois fios, "Clock" e "Data". Para realizar o teste foi preciso prender a célula de carga de maneira a criar uma tensão entre as extremidades opostas da barra de metal. 
 
-![image](https://github.com/2023M5T2-Inteli/tectonics/blob/docs_sprint_2/media/testes_de_componentes/celula_de_carga/c%C3%A9lula_de_carga_entre_placas.png?raw=true)
+![image](https://github.com/2023M5T2-Inteli/tectonics/blob/main/media/testes_de_componentes/celula_de_carga/c%C3%A9lula_de_carga_entre_placas.png)
 
 Após isso, foram feitas as seguintes ligações:
 
-![image](https://github.com/2023M5T2-Inteli/tectonics/blob/docs_sprint_2/media/testes_de_componentes/celula_de_carga/conexoes_celula_de_carga.png?raw=true)
+![image](https://github.com/2023M5T2-Inteli/tectonics/blob/main/media/testes_de_componentes/celula_de_carga/conexoes_celula_de_carga.png)
 
 O teste consistiu em duas etapas: a calibração da célula e a medição de peso de objetos previamente conhecidos. A primeira etapa é crucial para o teste, pois é a partir dela que determinamos o fator de calibração, que pode ser obtido dividindo o valor lido pela célula pelo peso já conhecido. A segunda etapa consistiu na medição real dos objetos, utilizando o fator de calibração obtido na primeira etapa.
 
@@ -273,11 +273,11 @@ Como linha geral, priorizamos elementos minimalistas, intuitivos e de fácil ent
 
 A interface do Figma apresenta uma sidebar simples, com tela inicial, histórico de relatórios e perfil. A tela principal, por sua vez, traz um botão de destaque para iniciar um ciclo, assim como campos de preenchimento de mais informações para cada execução. Abaixo, tem-se um atalho para o ensaio mais recente. Já na aba de histórico, ainda não construída no Figma, poder-se-á visualizar ensaios antigos com diversas funcionalidades de filtragem, compilação, exportação e compartilhamento.
 
-![image](https://github.com/2023M5T2-Inteli/tectonics/blob/docs_sprint_2/media/interface_grafica/figma.png?raw=true)
+![image](https://github.com/2023M5T2-Inteli/tectonics/blob/main/media/interface_grafica/figma.png)
 
 Para a interface de testes, utilizamos um design simples, com um único vetor em tons de verde para decoração na base da página.
 
-![image](https://github.com/2023M5T2-Inteli/tectonics/blob/docs_sprint_2/media/interface_grafica/interface_demo.png?raw=true)
+![image](https://github.com/2023M5T2-Inteli/tectonics/blob/main/media/interface_grafica/interface_demo.png)
 
 # Projeto de Banco de Dados
 
