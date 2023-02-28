@@ -34,7 +34,7 @@ Magnetum | Concepção de sistema de automação industrial para separação mag
   - [Legenda da Solução](#Legenda-do-Diagrama)
   - [Croqui Visão Superior](#Croqui-Visão-Superior)
   - [Croqui Visão Lateral](#Croqui-Visão-Lateral)
-  - [Croqui Robô](#Croqui-Robô)
+  - [Tabela](#Tabela)
   - [Módulos do Sistema e Visão Geral (Big Picture)](#módulos-do-sistema-e-visão-geral-big-picture)
   - [Descrição dos Subsistemas](#descrição-dos-subsistemas)
     - [Descrição dos componentes](#descrição-dos-componentes)
@@ -198,9 +198,14 @@ Considerando que uso do tradicional custe e demore mais que do Magnetum e que a 
 ## Croqui Robô
 ![image](https://github.com/2023M5T2-Inteli/tectonics/blob/main/media/Arquitetura%20Do%20Sistema/CroquiRobo.png?raw=true)
 
+## Tabela
+![image](https://github.com/2023M5T2-Inteli/tectonics/blob/main/media/Arquitetura%20Do%20Sistema/CroquiRobo.png?raw=true)
+![image](https://github.com/2023M5T2-Inteli/tectonics/blob/main/media/Arquitetura%20Do%20Sistema/Tabela2.png?raw=true)
+![image](https://github.com/2023M5T2-Inteli/tectonics/blob/main/media/Arquitetura%20Do%20Sistema/Tabela3.png?raw=true)
+
 ## Módulos do Sistema e Visão Geral (Big Picture)
 
-![image](https://user-images.githubusercontent.com/99221221/221013792-5d18d134-7978-4332-8e0a-9203602521d0.png)
+![image](https://github.com/2023M5T2-Inteli/tectonics/blob/main/media/Arquitetura%20Do%20Sistema/Tabela1.png?raw=true)
 
 ## Descrição dos Subsistemas
 
