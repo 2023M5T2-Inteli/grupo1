@@ -108,7 +108,7 @@ try:
             disable_sensor()    
 
         # Liga o LED se o sensor captar fluxo eletromagnético. TO-DO: transformar leitura em analógica e printar valores a cada segundo.
-        if (sensor_pin.value() == 1):
+        if (int(sensor_state.text) == 1 and sensor_pin.value() == 1):
             led_pin.value(1)
         else:
             led_pin.value(0)
