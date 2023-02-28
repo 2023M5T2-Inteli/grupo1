@@ -179,6 +179,7 @@ Considerando que uso do tradicional custe e demore mais que do Magnetum e que a 
 
 
 # Arquitetura do Sistema
+![image](https://drive.google.com/drive/u/0/folders/1hsgjb5U-CrFbMAPLPe0HC5EyrDQLJ2MO)
 
 ## Arquitetura da Solução
 
