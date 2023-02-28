@@ -11,7 +11,7 @@ import urequests  # Permite envio de requisições
 ssid = 'Inteli-COLLEGE'
 password = 'QazWsx@123' 
 # Definição do endereço do servidor na rede atual
-host = 'http://192.168.181.42:5000'
+host = 'http://10.128.20.240:5000'
 
 # Definição dos pinos do ímã como PWM e output
 magnet_pin_1 = machine.PWM(machine.Pin(16, machine.Pin.OUT))
@@ -109,6 +109,7 @@ try:
 
         # Liga o LED se o sensor captar fluxo eletromagnético. TO-DO: transformar leitura em analógica e printar valores a cada segundo.
         if (sensor_pin.value() == 1):
+            print(sensor_pin.read())
             led_pin.value(1)
         else:
             led_pin.value(0)

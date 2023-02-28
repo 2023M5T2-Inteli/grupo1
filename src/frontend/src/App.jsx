@@ -52,7 +52,7 @@ function App() {
 
   // Função para trocar estado da bomba. Segue a mesma lógica dos dois anteriores.
   const toggleSensor = () => {
-    if (pumpState) {
+    if (sensorState) {
       Axios.get(serverHost + '/disable_sensor')
         .then((res) => {
           setSensorState(0)
