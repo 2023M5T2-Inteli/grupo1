@@ -30,6 +30,7 @@ Magnetum | Concepção de sistema de automação industrial para separação mag
   - [Personas](#personas)
   - [Histórias dos usuários (user stories)](#histórias-dos-usuários-user-stories)
 - [Arquitetura do Sistema](#arquitetura-do-sistema)
+  - [Arquitetura da Solução)](#módulos-do-sistema-e-visão-geral-big-picture)
   - [Módulos do Sistema e Visão Geral (Big Picture)](#módulos-do-sistema-e-visão-geral-big-picture)
   - [Descrição dos Subsistemas](#descrição-dos-subsistemas)
     - [Descrição dos componentes](#descrição-dos-componentes)
@@ -178,6 +179,8 @@ Considerando que uso do tradicional custe e demore mais que do Magnetum e que a 
 
 
 # Arquitetura do Sistema
+
+## Arquitetura da Solução
 
 ## Módulos do Sistema e Visão Geral (Big Picture)
 
