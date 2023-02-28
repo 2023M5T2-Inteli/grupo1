@@ -90,22 +90,6 @@ def get_pump_state():
 # Nesse caso, foi preciso separar as rotas das funções que modificam os valores, por serem variáveis
 # globais. Quando tentamos deixar tudo na mesma função da rota, o programa apresentava erros.
 
-@app.route('/magnet', methods=['POST'])
-def magnet():
-    enable_magnet = request.json['enable_magnet']
-    return 'teste'
-
-@app.route('/enable_magnet')  # Rota para ligar ímã
-def enable_magnet_route():
-    enable_magnet()
-    return 'magnet on'
-
-
-@app.route('/disable_magnet')  # Rota para desligar o ímã
-def disable_magnet_route():
-    disable_magnet()
-    return 'magnet off'
-
 
 def disable_magnet():  # Modifica estado do ímã para 0
     global magnet_state
@@ -115,6 +99,20 @@ def disable_magnet():  # Modifica estado do ímã para 0
 def enable_magnet():  # Modifica estado do ímã para 1
     global magnet_state
     magnet_state = 1
+
+@app.route('/toggle_magnet', methods=['POST'])
+def magnet():
+    magnet_state = request.json['enable_magnet']
+    if magnet_state == 1:
+        enable_magnet()
+        return 'magnet on'
+    elif magnet_state == 0:
+        disable_magnet()
+        return 'magnet off'
+    else:
+        return 'error connecting magnet'
+
+
 
 # CÓDIGO PARA MODIFICAR ESTADO DA BOMBA
 # Nesse caso, foi preciso separar as rotas das funções que modificam os valores, por serem variáveis
