@@ -12,7 +12,7 @@
 # 5. Definir se rotas serão em inglês ou português
 
 # Importação dos módulos necessários
-from flask import Flask, request  # módulo de servidor
+from flask import Flask, request, jsonify  # módulo de servidor
 import robot  # módulo personalizado para controlar o robô
 from flask_cors import CORS  # módulo para evitar erros de CORS
 
@@ -91,6 +91,22 @@ def get_pump_state():
 # globais. Quando tentamos deixar tudo na mesma função da rota, o programa apresentava erros.
 
 
+@app.route('/toggle_magnet', methods=['POST'])
+def magnet():
+    try:
+        magnet_state = bool(request.json['magnet_state'])
+        if magnet_state:
+            enable_magnet()
+            response = {'status': 'success', 'message': 'magnet enabled'}
+        elif magnet_state == False:
+            disable_magnet()
+            response = {'status': 'success', 'message': 'magnet disabled'}
+        else:
+            response = {'status': 'error', 'message': 'invalid value for enable parameter'}
+    except Exception as e:
+        response = {'status': 'error', 'message': str(e)}
+    return jsonify(response)
+
 def disable_magnet():  # Modifica estado do ímã para 0
     global magnet_state
     magnet_state = 0
@@ -99,20 +115,6 @@ def disable_magnet():  # Modifica estado do ímã para 0
 def enable_magnet():  # Modifica estado do ímã para 1
     global magnet_state
     magnet_state = 1
-
-@app.route('/toggle_magnet', methods=['POST'])
-def magnet():
-    magnet_state = request.json['enable_magnet']
-    if magnet_state == 1:
-        enable_magnet()
-        return 'magnet on'
-    elif magnet_state == 0:
-        disable_magnet()
-        return 'magnet off'
-    else:
-        return 'error connecting magnet'
-
-
 
 # CÓDIGO PARA MODIFICAR ESTADO DA BOMBA
 # Nesse caso, foi preciso separar as rotas das funções que modificam os valores, por serem variáveis
