@@ -90,7 +90,7 @@ O IPT possui uma área de atuação em materiais avançados e a separação magn
 
 ### Objetivos específicos
 
-O objetivo é automatizar os ensaios de separação magnética em amostras de mineração, com a finalidade de aumentar a precisão e reduzir a intervenção humana no processo. Para alcançar esse objetivo, serão utilizados um braço robótico Dobot Magician Lite, microcontroladores Raspberry Pi Pico W e um eletroímã.
+O projeto objetiva a automatização dos ensaios de separação magnética de amostras de minerais, por meio de um braço mecânico capaz de coletar, limpar e despejar o material captado. Esse processo visa aumentar a produtividade, repetibilidade, eficiência e precisão dos ensaios. Para isso, foi utilizado um  braço mecânico (Dobot Magician Lite),um eletroímã com intensidade ajustável para diferentes tipos de minerais e sensores capazes de detectar o peso do material extraído e medir o fluxo magnético produzido pelo eletroímã.
 
 ## Partes interessadas
 
