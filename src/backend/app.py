@@ -12,7 +12,7 @@
 # 5. Definir se rotas serão em inglês ou português
 
 # Importação dos módulos necessários
-from flask import Flask  # módulo de servidor
+from flask import Flask, request, jsonify  # módulo de servidor
 import robot  # módulo personalizado para controlar o robô
 from flask_cors import CORS  # módulo para evitar erros de CORS
 
@@ -99,19 +99,21 @@ def get_sensor_state():
 # Nesse caso, foi preciso separar as rotas das funções que modificam os valores, por serem variáveis
 # globais. Quando tentamos deixar tudo na mesma função da rota, o programa apresentava erros.
 
-
-@app.route('/enable_magnet')  # Rota para ligar ímã
-def enable_magnet_route():
-    enable_magnet()
-    print(magnet_state)
-    return 'magnet on'
-
-
-@app.route('/disable_magnet')  # Rota para desligar o ímã
-def disable_magnet_route():
-    disable_magnet()
-    return 'magnet off'
-
+@app.route('/toggle_magnet', methods=['POST'])
+def magnet():
+    try:
+        magnet_state = bool(request.json['magnet_state'])
+        if magnet_state:
+            enable_magnet()
+            response = {'status': 'success', 'message': 'magnet enabled'}
+        elif magnet_state == False:
+            disable_magnet()
+            response = {'status': 'success', 'message': 'magnet disabled'}
+        else:
+            response = {'status': 'error', 'message': 'invalid value for enable parameter'}
+    except Exception as e:
+        response = {'status': 'error', 'message': str(e)}
+    return jsonify(response)
 
 def disable_magnet():  # Modifica estado do ímã para 0
     global magnet_state
