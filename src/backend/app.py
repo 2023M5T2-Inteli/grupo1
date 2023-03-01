@@ -21,7 +21,6 @@ from flask_cors import CORS  # módulo para evitar erros de CORS
 cycle_count = 0
 magnet_state = 0  # Estado do ímã (ligado/desligado)
 pump_state = 0  # Estado da bomba d'água (ligada/desligada)
-sensor_state = 0  # Estado do sensor magnético (ligada/desligada)
 
 # Número de passadas em cada ciclo. A ser dinamizado através das rotas nas próximas sprints.
 cycles_per_trial = 5
@@ -88,13 +87,6 @@ def get_pump_state():
     return str(pump_state)
 
 
-# Rota que devolve apenas valor do estado do sensor para o Raspberry
-@app.route('/sensor_state')
-def get_sensor_state():
-    global sensor_state
-    return str(sensor_state)
-
-
 # CÓDIGO PARA MODIFICAR ESTADO DO ÍMÃ
 # Nesse caso, foi preciso separar as rotas das funções que modificam os valores, por serem variáveis
 # globais. Quando tentamos deixar tudo na mesma função da rota, o programa apresentava erros.
@@ -113,7 +105,7 @@ def magnet():
             response = {'status': 'error', 'message': 'invalid value for enable parameter'}
     except Exception as e:
         response = {'status': 'error', 'message': str(e)}
-    return jsonify(response)
+    return response
 
 def disable_magnet():  # Modifica estado do ímã para 0
     global magnet_state
