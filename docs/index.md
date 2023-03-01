@@ -220,11 +220,11 @@ Considerando que uso do tradicional custe e demore mais que do Magnetum e que a 
 
 A movimentação do robô foi testada em três etapas. Inicialmente, fizemos uma exploração das funcionalidades do Magician Lite com o auxílio do software de controle Dobot Studio. Nesse momento, testamos as diferentes possibilidades de periféricos, como a garra, a sucção e a caneta, e nos familiarizamos com os limites físicos do robô, no que tange a range of motion. Um produto disso foi o teste de controle fino do robô no modo de desenho, em que experimentamos delinear um vetor de alta complexidade, conforme visto no vídeo abaixo.
 
-[Teste de desenho](https://github.com/2023M5T2-Inteli/tectonics/blob/docs_sprint_2/media/testes_de_componentes/movimento_robo/desenho.mp4?raw=true)
+[Teste de desenho](https://drive.google.com/file/d/1DKwGRYJMMwX0WrUkw78yCvqYAucw6ZM4/view?usp=share_link)
 
 Na segunda etapa, instalamos a biblioteca Pydobot, que permite a comunicação com o robô diretamente de scripts em Python. Com isso, testamos scripts simples de movimentação sobre as bandejas, com sucesso.
 
-[Movimentação simples](https://github.com/2023M5T2-Inteli/tectonics/blob/docs_sprint_2/media/testes_de_componentes/movimento_robo/movimento_robo.mp4?raw=true)
+[Movimentação simples](https://drive.google.com/file/d/1U_hwCO9obIUuMkyjYx5wSZpOMIPoqCgo/view?usp=share_link)
 
 Na terceira etapa, criamos um servidor simples em Flask para automatizar uma movimentação específica através de uma interface gráfica web. Para isso, fizemos uma rota GET que, quando requisitada, executava a função de movimentação do robô.
 
@@ -232,13 +232,13 @@ Na terceira etapa, criamos um servidor simples em Flask para automatizar uma mov
 
 O teste de eletroímã também teve três estágios. Primeiro, construímos o hardware e ativamos o ímã diretamente na fonte com 12V. Com esse sucesso, passamos a programar uma função simples de liga e desliga. Iniciamos com métodos de PWM, mas não conseguimos atingir o comportamento esperado. Por isso, resolvemos testar algo mais simples e apenas ligamos os pinos digitalmente, com sinais de HIGH e LOW. Isso funcionou perfeitamente, e pudemos conectar essa funcionalidade ao servidor e ao frontend.
 
-[Ímã ligando e desligando no front](https://github.com/2023M5T2-Inteli/tectonics/blob/docs_sprint_2/media/testes_de_componentes/eletroima/ima_liga_e_desliga.mp4?raw=true)
+[Ímã ligando e desligando no front](https://drive.google.com/file/d/1tNGGaVWdjG-uf2RkJPIhACx0uDh1AWXc/view?usp=share_link)
 
 Depois, integramos o ímã ao robô fisicamente, utilizando a ponta de sucção. Também programamos um timer no ímã para que ele alterasse o sentido do campo magnético periodicamente, atraindo e soltando o material magnético das bandejas.
 
-[Ímã conectado ao braço](https://github.com/2023M5T2-Inteli/tectonics/blob/docs_sprint_2/media/testes_de_componentes/integracao/ima_atrai_e_solta.mp4?raw=true)
+[Ímã conectado ao braço](https://drive.google.com/file/d/1nGkIPEVVNb14Duce5NOnQtC0NVbb49da/view?usp=share_link)
 
-[Ímã atraindo e soltando](https://github.com/2023M5T2-Inteli/tectonics/blob/docs_sprint_2/media/testes_de_componentes/integracao/integracao_ima_robo.mp4?raw=true)
+[Ímã atraindo e soltando](https://drive.google.com/file/d/1BsyC2OAy1rQ2wr6AESUv17umzp112OJZ/view?usp=share_link)
 
 Feito isso, tentamos dinamizar a intensidade do eletroímã. Para isso, modificamos o código para contemplar o uso de PWM e convertemos o argumento de voltagem (0-12V) para a escala de duty cycle (0-65535). Isso funcionou quando rodávamos o código do Raspberry diretamente ou enviávamos uma requisição do servidor. Todavia, não tivemos tempo para integrar plenamente com o frontend. Isso será feito na sprint 3.
 
@@ -246,7 +246,7 @@ Feito isso, tentamos dinamizar a intensidade do eletroímã. Para isso, modifica
 
 O teste da bomba d'água teve duas fases. Começamos pelo teste da bomba d'água diretamente na fonte através da ponte H.
 
-[Bomba d'água na fonte](https://github.com/2023M5T2-Inteli/tectonics/blob/docs_sprint_2/media/testes_de_componentes/bomba_dagua/bomba_dagua.mp4?raw=true)
+[Bomba d'água na fonte](https://drive.google.com/file/d/1jfaO7tCQ4pp-55x3oSPvWAU1O0QgRn3F/view?usp=share_link)
 
 Depois, fizemos adicionamos funções de ligar e desligar no código do Raspberry Pi, utilizando pinos digitais, já que não seria necessário controlar a intensidade do atuador. Infelizmente, não tivemos tempo de testá-las. Chegamos a codificar o restante da integração com servidor e frontend, porém não pudemos testá-la por problemas de conexão com a internet no final da sprint.
 
@@ -254,7 +254,7 @@ Depois, fizemos adicionamos funções de ligar e desligar no código do Raspberr
 
 Um dos diferenciais de nosso projeto é a possibilidade de se estimar o peso da amostra magnética coletada através da variação do campo magnético do ímã. Para tanto, estamos utilizando um sensor de efeito hall KY-024. Assim, nos testes, inicialmente construímos um circuito simples com o sensor e um LED de feedback, de modo que o LED brilhasse quando o sensor captasse campo magnético. 
 
-[Sensor de campo eletromagnético](https://github.com/2023M5T2-Inteli/tectonics/blob/docs_sprint_2/media/testes_de_componentes/sensor_campo_magnetico/sensor_de_campo_magnetico.mp4?raw=true)
+[Sensor de campo eletromagnético](https://drive.google.com/file/d/1ZvMhhsyrQqPlQ1OZxav6_Ht2Wmu-avOB/view?usp=share_link)
 
 Posteriormente, conectamos essa parte do circuito ao restante do sistema. Resta para a Sprint 3 aprimorar esse módulo, para que ele mostre a leitura no frontend e, para fins de teste e aprendizado, modifique a intensidade do brilho do LED proporcionalmente.
 
@@ -263,15 +263,15 @@ Posteriormente, conectamos essa parte do circuito ao restante do sistema. Resta 
 A célula de carga converte uma força em um sinal elétrico que pode ser medido. Este sinal irá mudar proporcionalmente à força aplicada. A células de carga é composta por uma barra de metal com extensômetros fixados. Os extensômetros são sensores elétricos que medem força ou tensão em um objeto. Quando uma força externa é aplicada a um objeto, como a barra de metal, ocorre uma deformação em sua forma, o que faz com que a resistência dos extensômetros varie. A mudança na resistência é proporcional à carga aplicada, permitindo-nos calcular o peso dos objetos.
 Sabe-se que existem alterações de tensão, todavia, como essas mudanças são muito pequenas, é necessário um amplificador. O amplificador utilizado se chama HX711 e se comunica com o microcontrolador utilizando de uma interfaze de dois fios, "Clock" e "Data". Para realizar o teste foi preciso prender a célula de carga de maneira a criar uma tensão entre as extremidades opostas da barra de metal. 
 
-![image](https://github.com/2023M5T2-Inteli/tectonics/blob/main/media/testes_de_componentes/celula_de_carga/c%C3%A9lula_de_carga_entre_placas.png)
+![image](https://drive.google.com/file/d/1JK4yn8pjqhxpNzYoVWIgsizEVdNnHBG4/view?usp=share_link)
 
 Após isso, foram feitas as seguintes ligações:
 
-![image](https://github.com/2023M5T2-Inteli/tectonics/blob/main/media/testes_de_componentes/celula_de_carga/conexoes_celula_de_carga.png)
+![image](https://drive.google.com/file/d/19O3Ytz32RXSgKzZRLLSN9QrGYWN9cwjP/view?usp=share_link)
 
 O teste consistiu em duas etapas: a calibração da célula e a medição de peso de objetos previamente conhecidos. A primeira etapa é crucial para o teste, pois é a partir dela que determinamos o fator de calibração, que pode ser obtido dividindo o valor lido pela célula pelo peso já conhecido. A segunda etapa consistiu na medição real dos objetos, utilizando o fator de calibração obtido na primeira etapa.
 
-[Vídeo do teste realizado](https://github.com/2023M5T2-Inteli/tectonics/blob/docs_sprint_2/media/testes_de_componentes/celula_de_carga/celula_de_carga.mp4?raw=true)
+[Vídeo do teste realizado](https://drive.google.com/file/d/19G_qC6mr0JAeuuYVfvO6fVKM8mR57QWV/view?usp=share_link)
 
 Isso tudo foi testado em um ESP-32 com C++. Pretendemos adaptar essa funcionalidade para o Raspberry Pi Pico W com Micropython, integrando isso ao resto do sistema, na Sprint 3.
 
