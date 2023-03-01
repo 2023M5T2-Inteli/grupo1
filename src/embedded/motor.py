@@ -76,6 +76,10 @@ try:
         magnet_state = urequests.get(host + '/magnet_state')
         pump_state = urequests.get(host + '/pump_state')
         
+        print('Magnet: ' + magnet_state.text)
+        print('Pump: ' + pump_state.text)
+
+        
         # Liga ímã com voltagem 12 se o valor lido no servidor for maior que zero
         if (int(magnet_state.text)):
             enable_magnet(12)
@@ -86,6 +90,7 @@ try:
         if (int(pump_state.text)):
             enable_pump()
         else: # Desliga se for 0
+            print('disable pump')
             disable_pump() 
 
         # Espera 0.1s antes de reiniciar o loop

@@ -33,6 +33,7 @@ CORS(app)  # Adiciona proteção contra erros CORS
 
 @app.route('/start_trial')  # Rota para iniciar ensaio com o robô
 def start_trial():
+    print('START')
     execute_trial()  # Chama função do servidor que organiza o ensaio
     return 'Trial started'
 
@@ -95,6 +96,8 @@ def get_pump_state():
 def magnet():
     try:
         magnet_state = bool(request.json['magnet_state'])
+
+        print('dentro do toggle')
         if magnet_state:
             enable_magnet()
             response = {'status': 'success', 'message': 'magnet enabled'}

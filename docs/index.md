@@ -194,7 +194,9 @@ Considerando que uso do tradicional custe e demore mais que do Magnetum e que a 
 ### Testes de componentes
 #### Movimentação do robô
 
-A movimentação do robô foi testada em três etapas. Inicialmente, fizemos uma exploração das funcionalidades do Magician Lite com o auxílio do software de controle Dobot Studio. Nesse momento, testamos as diferentes possibilidades de periféricos, como a garra, a sucção e a caneta, e nos familiarizamos com os limites físicos do robô, no que tange a range of motion. Um produto disso foi o teste de controle fino do robô no modo de desenho, em que experimentamos delinear um vetor de alta complexidade, conforme visto no vídeo abaixo.
+A movimentação do robô foi testada em três etapas. Inicialmente, fizemos uma exploração das funcionalidades do Magician Lite com o auxílio do software de controle Dobot Studio. Nesse momento, testamos as diferentes possibilidades de periféricos, como a garra, a sucção e a caneta, e nos familiarizamos com os limites físicos do robô, no que tange a envelope de trabalho. Um produto disso foi o teste de controle fino do robô no modo de desenho, em que experimentamos delinear um vetor de alta complexidade. Para isso, seguimos as seguintes etapas:
+
+1. Abrimos 
 
 [Teste de desenho](https://drive.google.com/file/d/1DKwGRYJMMwX0WrUkw78yCvqYAucw6ZM4/view?usp=share_link)
 
