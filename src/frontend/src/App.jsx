@@ -16,12 +16,12 @@ function App() {
   const [pumpState, setPumpState] = useState(0); // Estado da bomba d'água
 
   // Declaração do endereço do servidor atual
-  const serverHost = "http://10.128.71.64:5000";
+  const serverHost = " http://127.0.0.1:5173/";
 
   // Função para trocar estado do ímã. Como ainda não fizemos rotas de POST, essa mudança
   // no servidor é feita através de diferentes rotas de GET
   const toggleMagnet = () => {
-    fetch("http://127.0.0.1:5000/toggle_magnet", {
+    fetch(serverHost + "/toggle_magnet", {
       method: "POST",
       body: JSON.stringify({
         magnet_state: !magnetState
@@ -48,15 +48,26 @@ function App() {
 
   // Função para trocar estado da bomba. Segue a mesma lógica do ímã.
   const togglePump = () => {
-    if (pumpState) {
-      Axios.get(serverHost + "/disable_pump").then((res) => {
-        setPumpState(0);
-      });
-    } else {
-      Axios.get(serverHost + "/enable_pump").then((res) => {
-        setPumpState(1);
-      });
-    }
+    fetch(serverHost + "/toggle_pump", {
+      method: "POST",
+      body: JSON.stringify({
+        pump_state: !pumpState
+      }),
+      headers: { "Content-type": "application/json;charset=UTF-8" },
+    })
+      .then((response) => response.json())
+      .then((data) => console.log(data));
+
+      setPumpState(!pumpState)
+    // if (pumpState) {
+    //   Axios.get(serverHost + "/disable_pump").then((res) => {
+    //     setPumpState(0);
+    //   });
+    // } else {
+    //   Axios.get(serverHost + "/enable_pump").then((res) => {
+    //     setPumpState(1);
+    //   });
+    // }
   };
 
   // Função para trocar estado da bomba. Segue a mesma lógica dos dois anteriores.
