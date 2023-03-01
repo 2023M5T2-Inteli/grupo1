@@ -10,7 +10,7 @@ import Button from './components/Button'
 
 // Componente principal
 function App() {
-  // Declaração dos hooks de estado
+  // Declaração dos hooks de estadoF
   const [cycleCount, setCycleCount] = useState(0) // Contagem de ciclos atual
   const [magnetState, setMagnetState] = useState(0) // Estado do ímã
   const [pumpState, setPumpState] = useState(0) // Estado da bomba d'água
