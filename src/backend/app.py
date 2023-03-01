@@ -124,16 +124,21 @@ def enable_magnet():  # Modifica estado do ímã para 1
 # globais. Quando tentamos deixar tudo na mesma função da rota, o programa apresentava erros.
 
 
-@app.route('/enable_pump')  # Rota para ligar bomba
-def enable_pump_route():
-    enable_pump()
-    return 'pump on'
-
-
-@app.route('/disable_pump')  # Rota para desligar bomba
-def disable_pump_route():
-    disable_pump()
-    return 'pump off'
+@app.route('/toggle_pump', methods=['POST'])
+def pump():
+    try:
+        pump_state = bool(request.json['pump_state'])
+        if pump_state == True:
+            enable_pump()
+            response = {'status': 'success', 'message': 'pump on'}
+        elif pump_state == False:
+            disable_pump()
+            response = {'status': 'success', 'message': 'pump off'}
+        else:
+            response = {'status': 'error', 'message': 'invalid value'}
+    except Exception as e:
+        response = {'status': 'error', 'message': str(e)}
+    return response
 
 
 def disable_pump():  # Modifica estado da bomba para 0

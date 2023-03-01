@@ -18,10 +18,12 @@ function App() {
   // Declaração do endereço do servidor atual
   const serverHost = "http://10.128.20.240:5000";
 
+
   // Função para trocar estado do ímã. Como ainda não fizemos rotas de POST, essa mudança
   // no servidor é feita através de diferentes rotas de GET
   const toggleMagnet = () => {
-    fetch("http://10.128.20.240:5000/toggle_magnet", {
+    fetch(serverHost + "/toggle_magnet", {
+
       method: "POST",
       body: JSON.stringify({
         magnet_state: !magnetState
@@ -32,48 +34,22 @@ function App() {
       .then((data) => console.log(data));
 
       setMagnetState(!magnetState)
-    // if (magnetState) {
-    //   // Se o valor atual é maior do que 0, uma requisição é feita para a rota que  desliga o ímã
-    //   Axios.get(serverHost + "/disable_magnet") // requisição
-    //     .then((res) => {
-    //       setMagnetState(0); // troca estado no script para 0
-    //     });
-    // } else {
-    //   // se o valor é 0, liga ímã e troca estado
-    //   Axios.get(serverHost + "/enable_magnet").then((res) => {
-    //     setMagnetState(1);
-    //   });
-    // }
   };
 
   // Função para trocar estado da bomba. Segue a mesma lógica do ímã.
   const togglePump = () => {
-    if (pumpState) {
-      Axios.get(serverHost + "/disable_pump").then((res) => {
-        setPumpState(0);
-        console.log(pumpState)
-      });
-    } else {
-      Axios.get(serverHost + "/enable_pump").then((res) => {
-        setPumpState(1);
-      });
-    }
-  };
+    fetch(serverHost + "/toggle_pump", {
+      method: "POST",
+      body: JSON.stringify({
+        pump_state: !pumpState
+      }),
+      headers: { "Content-type": "application/json;charset=UTF-8" },
+    })
+      .then((response) => response.json())
+      .then((data) => console.log(data));
 
-  // Função para trocar estado da bomba. Segue a mesma lógica dos dois anteriores.
-  const toggleSensor = () => {
-    if (sensorState) {
-      Axios.get(serverHost + '/disable_sensor')
-        .then((res) => {
-          setSensorState(0)
-        })
-    } else {
-      Axios.get(serverHost + '/enable_sensor')
-        .then((res) => {
-          setSensorState(1)
-        })
-    }
-  }
+      setPumpState(!pumpState)
+  };
 
   // Função que faz requisição ao servidor para começar o ensaio com o robô
   const startTrial = () => {
