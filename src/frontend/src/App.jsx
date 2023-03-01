@@ -59,6 +59,21 @@ function App() {
     }
   };
 
+  // Função para trocar estado da bomba. Segue a mesma lógica dos dois anteriores.
+  const toggleSensor = () => {
+    if (sensorState) {
+      Axios.get(serverHost + '/disable_sensor')
+        .then((res) => {
+          setSensorState(0)
+        })
+    } else {
+      Axios.get(serverHost + '/enable_sensor')
+        .then((res) => {
+          setSensorState(1)
+        })
+    }
+  }
+
   // Função que faz requisição ao servidor para começar o ensaio com o robô
   const startTrial = () => {
     Axios.get(serverHost + "/start_trial").then((res) => {});
@@ -74,13 +89,13 @@ function App() {
   // Função que faz requisição ao servidor para ler o estado do ímã e da bomba atualmente.
   // O objetivo é eventualmente utilizar essa função para receber erros do servidor.
   const getStates = () => {
-    Axios.get(serverHost + "/states").then((res) => {
-      // Atualiza estados no frontend
-      setMagnetState(Number.parseInt(res.data.magnet));
-      setPumpState(Number.parseInt(res.data.pump));
-    });
-  };
-
+    fetch(serverHost + '/states')
+      .then(res => res.json())
+      .then(data => {
+        setMagnetState(Number.parseInt(data.magnet))
+        setPumpState(Number.parseInt(data.pump))
+      })
+  }
   // Executa funções para atualizar estados
   const updateData = () => {
     getCycleCount();
