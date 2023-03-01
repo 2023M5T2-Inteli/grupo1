@@ -48,10 +48,18 @@ def enable_pump():
     pump_pin_1.value(1)
     pump_pin_2.value(0)
 
-# Liga a bomba, enviando a ambos os pinos 0
+# Desliga a bomba, enviando a ambos os pinos 0
 def disable_pump():
     pump_pin_1.value(0)
     pump_pin_2.value(0)
+
+# Liga a sensor
+def enable_sensor():
+    sensor_pin.value(1)
+
+# Desliga a sensor
+def disable_sensor():
+    sensor_pin.value(0)
 
 # Conecta à rede local
 def connect():
@@ -92,6 +100,12 @@ try:
             enable_pump()
         else: # Desliga se for 0
             disable_pump()
+
+        # Liga sensor se o valor lido no servidor for maior que zero
+        if (int(sensor_state.text)):
+            enable_sensor()
+        else: # Desliga se for 0
+            disable_sensor()    
 
         # Liga o LED se o sensor captar fluxo eletromagnético. TO-DO: transformar leitura em analógica e printar valores a cada segundo.
         print(sensor.read_u16())
