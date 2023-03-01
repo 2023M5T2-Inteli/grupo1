@@ -32,18 +32,6 @@ function App() {
       .then((data) => console.log(data));
 
       setMagnetState(!magnetState)
-    // if (magnetState) {
-    //   // Se o valor atual é maior do que 0, uma requisição é feita para a rota que  desliga o ímã
-    //   Axios.get(serverHost + "/disable_magnet") // requisição
-    //     .then((res) => {
-    //       setMagnetState(0); // troca estado no script para 0
-    //     });
-    // } else {
-    //   // se o valor é 0, liga ímã e troca estado
-    //   Axios.get(serverHost + "/enable_magnet").then((res) => {
-    //     setMagnetState(1);
-    //   });
-    // }
   };
 
   // Função para trocar estado da bomba. Segue a mesma lógica do ímã.
@@ -59,31 +47,7 @@ function App() {
       .then((data) => console.log(data));
 
       setPumpState(!pumpState)
-    // if (pumpState) {
-    //   Axios.get(serverHost + "/disable_pump").then((res) => {
-    //     setPumpState(0);
-    //   });
-    // } else {
-    //   Axios.get(serverHost + "/enable_pump").then((res) => {
-    //     setPumpState(1);
-    //   });
-    // }
   };
-
-  // Função para trocar estado da bomba. Segue a mesma lógica dos dois anteriores.
-  const toggleSensor = () => {
-    if (sensorState) {
-      Axios.get(serverHost + '/disable_sensor')
-        .then((res) => {
-          setSensorState(0)
-        })
-    } else {
-      Axios.get(serverHost + '/enable_sensor')
-        .then((res) => {
-          setSensorState(1)
-        })
-    }
-  }
 
   // Função que faz requisição ao servidor para começar o ensaio com o robô
   const startTrial = () => {
