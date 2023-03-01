@@ -10,14 +10,14 @@ import Button from './components/Button'
 
 // Componente principal
 function App() {
-  // Declaração dos hooks de estado
+  // Declaração dos hooks de estadoF
   const [cycleCount, setCycleCount] = useState(0) // Contagem de ciclos atual
   const [magnetState, setMagnetState] = useState(0) // Estado do ímã
   const [pumpState, setPumpState] = useState(0) // Estado da bomba d'água
   const [sensorState, setSensorState] = useState(0) // Estado da sensor magnético
 
   // Declaração do endereço do servidor atual
-  const serverHost = 'http://127.0.0.1:5000'
+  const serverHost = 'http://10.128.20.240:5000'
 
   // Função para trocar estado do ímã. Como ainda não fizemos rotas de POST, essa mudança
   // no servidor é feita através de diferentes rotas de GET
@@ -80,12 +80,11 @@ function App() {
   // Função que faz requisição ao servidor para ler o estado do ímã e da bomba atualmente.
   // O objetivo é eventualmente utilizar essa função para receber erros do servidor.
   const getStates = () => {
-    Axios.get(serverHost + '/states')
-      .then((res) => {
-        // Atualiza estados no frontend
-        setMagnetState(Number.parseInt(res.data.magnet))
-        setPumpState(Number.parseInt(res.data.pump))
-        setPumpState(Number.parseInt(res.data.sensor))
+    fetch(serverHost + '/states')
+      .then(res => res.json())
+      .then(data => {
+        setMagnetState(Number.parseInt(data.magnet))
+        setPumpState(Number.parseInt(data.pump))
       })
   }
 

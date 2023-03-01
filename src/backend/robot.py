@@ -39,7 +39,7 @@ tray_coordinates = [
     (216, -248, high_height, rotation) # Ponto alto inicial da bandeja 2
 ]
 
-device = '' #pydobot.Dobot(port=robot_port, verbose=False)
+device = ''#pydobot.Dobot(port=robot_port, verbose=False)
 
 # Executa ciclo do ensaio conforme coordenadas do array
 def execute_cycle():

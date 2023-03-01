@@ -25,8 +25,8 @@ pump_pin_1 = machine.Pin(12, machine.Pin.OUT)
 pump_pin_2 = machine.Pin(13, machine.Pin.OUT)
 
 # Definição do pino do LED e do sensor de fluxo eletromagnético para testes
-led_pin = machine.Pin(18, machine.Pin.OUT)
-sensor_pin = machine.Pin(14, machine.Pin.IN)
+led = machine.Pin(18, machine.Pin.OUT)
+sensor = machine.ADC(28)
 
 # Esta função liga o ímã na voltagem desejada. A integração com o front passando essa voltagem
 # ainda não foi implementada, então, por enquanto, essa função é sempre executada com argumento
@@ -87,8 +87,8 @@ try:
         # por ora estamos utilizando rotas separadas para cada estado.
         magnet_state = urequests.get(host + '/magnet_state')
         pump_state = urequests.get(host + '/pump_state')
-        sensor_state = urequests.get(host + '/sensor_state')
-
+        #sensor_state = urequests.get(host + '/pump_state')
+        
         # Liga ímã com voltagem 12 se o valor lido no servidor for maior que zero
         if (int(magnet_state.text)):
             enable_magnet(12)
@@ -108,11 +108,11 @@ try:
             disable_sensor()    
 
         # Liga o LED se o sensor captar fluxo eletromagnético. TO-DO: transformar leitura em analógica e printar valores a cada segundo.
-        if (int(sensor_state.text) == 1 and sensor_pin.value() == 1):
-            print(sensor_pin.read())
-            led_pin.value(1)
-        else:
-            led_pin.value(0)
+        print(sensor.read_u16())
+        #if (int(sensor_state.text) == 1 and sensor.value() == 1):
+            #led.value(1)
+        #else:
+            #led.value(0)
 
         # Espera 0.1s antes de reiniciar o loop
         time.sleep(0.1)
