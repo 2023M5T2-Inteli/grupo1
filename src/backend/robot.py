@@ -2,6 +2,7 @@
 
 # Importa bibliotecas necessárias
 import pydobot # Controla robô
+import time
 
 # Especificação da porta em que o robô está conectado.
 # TO-DO: conexão sem especificar porta antes, já que ela muda de PC para PC (talvez um loop testando todas as possíveis, com try-catch?)
@@ -39,11 +40,12 @@ tray_coordinates = [
     (216, -248, high_height, rotation) # Ponto alto inicial da bandeja 2
 ]
 
-device = ''#pydobot.Dobot(port=robot_port, verbose=False)
+device = pydobot.Dobot(port=robot_port, verbose=False)
 
 # Executa ciclo do ensaio conforme coordenadas do array
 def execute_cycle():
     device.suck(True) # Inicia sucção para segurar o ímã na demo atual
+    time.sleep(1)
     for coordinate in tray_coordinates: # Move o robô para cada coordenada
             device.move_to(*coordinate, wait=True)
         

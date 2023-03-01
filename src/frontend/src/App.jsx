@@ -16,12 +16,14 @@ function App() {
   const [pumpState, setPumpState] = useState(0); // Estado da bomba d'água
 
   // Declaração do endereço do servidor atual
-  const serverHost = " http://127.0.0.1:5173/";
+  const serverHost = "http://10.128.20.240:5000";
+
 
   // Função para trocar estado do ímã. Como ainda não fizemos rotas de POST, essa mudança
   // no servidor é feita através de diferentes rotas de GET
   const toggleMagnet = () => {
     fetch(serverHost + "/toggle_magnet", {
+
       method: "POST",
       body: JSON.stringify({
         magnet_state: !magnetState
@@ -51,7 +53,7 @@ function App() {
 
   // Função que faz requisição ao servidor para começar o ensaio com o robô
   const startTrial = () => {
-    Axios.get(serverHost + "/start_trial").then((res) => {});
+    fetch(serverHost + "/start_trial").then((res) => {});
   };
 
   // Função que faz requisição ao servidor para ler o número de ciclos atual
