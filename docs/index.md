@@ -471,11 +471,11 @@ A célula de carga converte uma força em um sinal elétrico que pode ser medido
 
 Sabe-se que existem alterações de tensão, todavia, como essas mudanças são muito pequenas, é necessário um amplificador. O amplificador utilizado se chama HX711 e se comunica com o microcontrolador utilizando de uma interfaze de dois fios, "Clock" e "Data". Para realizar o teste foi preciso prender a célula de carga de maneira a criar uma tensão entre as extremidades opostas da barra de metal. 
 
-![image](https://drive.google.com/file/d/1JK4yn8pjqhxpNzYoVWIgsizEVdNnHBG4/view?usp=share_link)
+![image](https://raw.githubusercontent.com/2023M5T2-Inteli/tectonics/main/media/testes_de_componentes/celula_de_carga/c%C3%A9lula_de_carga_entre_placas.png)
 
 Após isso, foram feitas as seguintes ligações:
 
-![image](https://drive.google.com/file/d/19O3Ytz32RXSgKzZRLLSN9QrGYWN9cwjP/view?usp=share_link)
+![image](https://raw.githubusercontent.com/2023M5T2-Inteli/tectonics/main/media/testes_de_componentes/celula_de_carga/conexoes_celula_de_carga.png)
 
 O teste consistiu em duas etapas: a calibração da célula e a medição de peso de objetos previamente conhecidos. A primeira etapa é crucial para o teste, pois é a partir dela que determinamos o fator de calibração, que pode ser obtido dividindo o valor lido pela célula pelo peso já conhecido. A segunda etapa consistiu na medição real dos objetos, utilizando o fator de calibração obtido na primeira etapa.
 
