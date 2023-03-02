@@ -30,11 +30,12 @@ Magnetum | Concepção de sistema de automação industrial para separação mag
   - [Personas](#personas)
   - [Histórias dos usuários (user stories)](#histórias-dos-usuários-user-stories)
 - [Arquitetura do Sistema](#arquitetura-do-sistema)
-  - [Arquitetura da Solução](#Arquitetura-da-Solução)
-  - [Legenda da Solução](#Legenda-do-Diagrama)
-  - [Croqui Visão Superior](#Croqui-Visão-Superior)
-  - [Croqui Visão Lateral](#Croqui-Visão-Lateral)
-  - [Tabela](#Tabela)
+  - [Arquitetura da Solução](#arquitetura-da-solução)
+  - [Legenda do Diagrama](#legenda-do-diagrama)
+  - [Croqui Visão Superior](#croqui-visão-superior)
+  - [Croqui Visão Lateral](#croqui-visão-lateral)
+  - [Croqui Robô](#croqui-robô)
+  - [Tabela](#tabela)
   - [Módulos do Sistema e Visão Geral (Big Picture)](#módulos-do-sistema-e-visão-geral-big-picture)
   - [Descrição dos Subsistemas](#descrição-dos-subsistemas)
     - [Descrição dos componentes](#descrição-dos-componentes)
@@ -218,41 +219,211 @@ Considerando que uso do tradicional custe e demore mais que do Magnetum e que a 
 ### Testes de componentes
 #### Movimentação do robô
 
-A movimentação do robô foi testada em três etapas. Inicialmente, fizemos uma exploração das funcionalidades do Magician Lite com o auxílio do software de controle Dobot Studio. Nesse momento, testamos as diferentes possibilidades de periféricos, como a garra, a sucção e a caneta, e nos familiarizamos com os limites físicos do robô, no que tange a range of motion. Um produto disso foi o teste de controle fino do robô no modo de desenho, em que experimentamos delinear um vetor de alta complexidade, conforme visto no vídeo abaixo.
+A movimentação do robô foi testada em três etapas. Inicialmente, fizemos uma exploração das funcionalidades do Magician Lite com o auxílio do software de controle Dobot Studio. Nesse momento, utilizamos os controles manuais da plataforma para nos familiarizarmos com os de periféricos disponíveis, como a garra, a sucção e a caneta. Com isso, também aprendemos mais sobre os limites físicos do robô, no que tange a envelope de trabalho em diferentes configurações das articulações. 
+
+Começando a testar as funcionalidades de programação do robô, configuramos o desenho de um vetor de alta complexidade. Para isso, seguimos os seguintes passos:
+
+1. Fizemos o download do vetor desejado (em svg)
+2. Conectamos o robô à fonte e ao computador via USB
+3. Trocamos a ponta do robô pelo suporte de caneta
+4. Posicionamos um caderno A3 horizontalmente à frente do robô, sob a ponta
+5. Calibramos a altura manualmente, utilizando os controles do software, para que a ponta da caneta trocasse o papel
+6. Acessamos a seção de "Write & Draw" do Dobot Studio
+7. Importamos o vetor na área de configuração de desenho
+8. Redimensionamos e reposicionamos o vetor para que ela ficasse contida nos limites do caderno
+9. Pressionamos o botão 'AutoZ' para desativá-lo. Isso evita que o robô modifique a altura da caneta, que foi calibrada no passo 4
+10. Pressionamos o botão 'Start'
+
+A execução do desenho levou em torno de 10 minutos. Um vídeo acompanhando o processo se encontra abaixo.
 
 [Teste de desenho](https://drive.google.com/file/d/1DKwGRYJMMwX0WrUkw78yCvqYAucw6ZM4/view?usp=share_link)
 
-Na segunda etapa, instalamos a biblioteca Pydobot, que permite a comunicação com o robô diretamente de scripts em Python. Com isso, testamos scripts simples de movimentação sobre as bandejas, com sucesso.
+Na segunda etapa, objetivamos movimentar o robô diretamente por scripts em Python. Para isso, seguimos os seguintes passos:
+
+1. Instalamos a biblioteca (API) de comunicação Pydobot através de 'pip install pydobot'
+2. Conectamos o robô à fonte e ao computador via USB
+3. Descobrimos qual porta estava conectada ao robô através de tentativa e erro na interface do Dobot Studio. Isso foi feito apertando o botão "Conectar" para cada opção de porta até que a conexão fosse bem-sucedida.
+4. Utilizamos um código de exemplo de movimentação simples, trocando o argumento de porta pela porta encontrada na etapa 3 (no caso, 'COM7')
+
+```
+from serial.tools import list_ports
+
+import pydobot
+
+available_ports = list_ports.comports()
+print(f'available ports: {[x.device for x in available_ports]}')
+port = 'COM7'
+
+device = pydobot.Dobot(port=port, verbose=True)
+
+(x, y, z, r, j1, j2, j3, j4) = device.pose()
+print(f'x:{x} y:{y} z:{z} j1:{j1} j2:{j2} j3:{j3} j4:{j4}')
+
+device.move_to(x + 20, y, z, r, wait=False)
+device.move_to(x, y, z, r, wait=True)  # we wait until this movement is done before continuing
+
+device.close()
+```
+
+5. Executamos o código
+
+O teste foi bem-sucedido e o robô se movimentou conforme esperado. A partir daí, passamos algum tempo testando diferentes argumentos e operações algébricas na função move_to(). Nesse momento, descobrimos que os limites de envelope de trabalho também se aplicam a essa função, de modo que, quando o robô está posicionado em certos pontos, ele é incapaz de se movimentar para alguns outros pontos específicos. 
+
+Posteriormente, mapeamos as coordenadas desejadas para a movimentação do robô sobre as três bandejas, almejando quatro posições em cada: duas altas e duas baixas. Como os valores de altura e de rotação eram constates, também os substituímos por variáveis. Ademais, adicionamos "pontos de volta" no final do ciclo, correspondentes ao ponto alto final das bandejas 2 e 3, para facilitar a volta do robô. Sem eles, o braço travaria devido às limitações do envelope de trabalho. Este foi o array resultante:
+
+```
+high_height = 70
+low_height = -32
+rotation = -86
+
+tray_coordinates = [
+    # BANDEJA 1
+    (35, -248, high_height, rotation), # Ponto alto inicial
+    (35, -248, low_height, rotation), # Ponto baixo inicial
+    (216, -248, low_height, rotation), # Ponto baixo final
+    (216, -248, high_height, rotation), # Ponto alto final
+
+    # BANDEJA 2
+    (263, -112, high_height, rotation), # Ponto alto inicial
+    (263, -112, low_height, rotation), # Ponto baixo inicial
+    (263, 68, low_height, rotation), # Ponto baixo final
+    (263, 68, high_height, rotation), # Ponto alto final
+
+    # BANDEJA 3
+    (222, 255, high_height, rotation), # Ponto alto inicial
+    (222, 255, low_height, rotation), # Ponto baixo inicial
+    (19, 255, low_height, rotation), # Ponto baixo final
+    (19, 255, high_height, rotation), # Ponto alto final
+
+    # PONTOS INTERMEDIÁRIOS PARA REINICIAR
+    (222, 255, high_height, rotation), # Ponto alto inicial da bandeja 3
+    (216, -248, high_height, rotation) # Ponto alto inicial da bandeja 2
+]
+```
+
+Então, juntamos esse array com um código de execução básico:
+
+```
+for coordinate in tray_coordinates: 
+  device.move_to(*coordinate, wait=True)
+```
+
+Rodando tudo isso, conseguimos fazer o braço se movimentar uma vez sobre cada bandeja, conforme vídeo abaixo.
 
 [Movimentação simples](https://drive.google.com/file/d/1U_hwCO9obIUuMkyjYx5wSZpOMIPoqCgo/view?usp=share_link)
 
-Na terceira etapa, criamos um servidor simples em Flask para automatizar uma movimentação específica através de uma interface gráfica web. Para isso, fizemos uma rota GET que, quando requisitada, executava a função de movimentação do robô.
+Por fim, iniciamos a implementação um servidor simples em Flask para automatizar uma movimentação específica através de uma interface gráfica web. Para isso, fizemos uma rota GET que, quando requisitada, executa a função de movimentação do robô. Este código, por ser muito extenso, está disponível na pasta src deste repositório git. Como ainda não foi completamente desenvolvido, não há vídeos mostrando seu funcionamento integral. Isso é uma meta para a Sprint 3.
 
 #### Eletroímã na ponte H
 
-O teste de eletroímã também teve três estágios. Primeiro, construímos o hardware e ativamos o ímã diretamente na fonte com 12V. Com esse sucesso, passamos a programar uma função simples de liga e desliga. Iniciamos com métodos de PWM, mas não conseguimos atingir o comportamento esperado. Por isso, resolvemos testar algo mais simples e apenas ligamos os pinos digitalmente, com sinais de HIGH e LOW. Isso funcionou perfeitamente, e pudemos conectar essa funcionalidade ao servidor e ao frontend.
+Um dos fatores fundamentais em nosso projeto é o uso de um eletroímã acoplado ao braço robótico. Com ele, será possível não só ativar e desativar o campo magnético, permitindo a programação da captura e despejo de partículas magnéticas, como também será possível varial a intensidade do campo produzido a fim de atrair diferentes categorias de material.
+
+Nesse sentido, inicialmente testamos um eletroímã diretamente na fonte de 12V (a voltagem máxima do eletroímã). Como esperado, ele foi capaz de atrair uma moeda de dez centavos quando ligado na fonte e a soltou quando o desconectamos. Tendo esse conhecimentos, passamos a estudar a integração do ímã com o Raspberry Pi Pico W. A dificuldade, nesse momento, era alimentar uma voltagem variável ao ímã superior à voltagem disponível no VCC do microcontrolador (3V3).
+
+Para solucionar isso, conectamos o ímã a uma ponte H. Dessa forma, pudemos alimentar a ponte continuamente com os 12V enquanto controlávamos o estado (ativado/desativado) do ímã através dos pinos de direção da ponte, responsáveis por inverter a polaridade da voltagem. Seguindo a lógica de ponte H, para que o ímã ligasse, apenas um pino deveria estar ativo. Com ambos ligados ou desligados, o ímã permanecia desativado. Nesse contexto, os pinos foram conectados a pinos de output do Raspberry, de modo que o microcontrolador decidisse, através de sinais binários, quais pinos da ponte H deveriam ser ativados. Ademais, a entrada positiva da ponte H foi conectada diretamente à fonte, enquando a entrada negativa foi conectada em paralelo à saída negativa da fonte e do GND do Raspberry.
+
+Feita essa configuração de hardware, iniciamos os testes com código. Pensando apenas no comportamento binário, construímos um programa simples que envia sinal de HIGH para apenas um pino na função de ligar o ímã, e mandava sinais de LOW para ambos os pinos na função de desligar o ímã. O código está disponível abaixo.
+
+
+```
+import machine
+
+magnet_pin_1 = machine.Pin(16, machine.Pin.OUT)
+magnet_pin_2 = machine.Pin(15, machine.Pin.OUT)
+
+def enable_magnet():
+    magnet_pin_1.value(1)
+    magnet_pin_2.value(0)
+
+def disable_magnet():
+    magnet_pin_1.value(0)
+    magnet_pin_2.value(0)
+
+```
+
+Então, chamamos cada função separadamente em diversas execuções. O resultado foi conforme o esperado.
+
+O próximo passo foi dinamizar a intensidade do ímã. O método utilizado para esse fim foi o PWM (Pulse Width Modulation). Ele consiste em alternar rapidamente a tensão aplicada ao dispositivo entre níveis altos e baixos em um determinado ciclo de tempo, conhecido como período. Ao variar a largura dos pulsos (ou seja, a quantidade de tempo que a tensão é mantida alta em relação ao período), é possível controlar a tensão média aplicada ao dispositivo. Por exemplo, se a tensão é alternada entre 0V e 12V com uma frequência de 1kHz e uma largura de pulso de 50%, a tensão média aplicada seria de 6V.
+
+Nesse sentido, para atingir a intensidade magnética de qualquer voltagem abaixo de 12V, bastaria enviar uma largura de pulso proporcional à fração de voltagem desejada. Felizmente, o Micropython, linguagem utilizada para programar o Raspberry Pi Pico W, possui um método nativo para PWM. Nosso código, então, começava com a declaração dos pinos como pinos PWM, em vez de apenas pinos binários. Também definimos a frequência como 1kHz, como valor de teste.
+
+```
+import machine
+
+magnet_pin_1 = machine.PWM(machine.Pin(16, machine.Pin.OUT))
+magnet_pin_2 = machine.PWM(machine.Pin(15, machine.Pin.OUT))
+
+magnet_pin_1.freq(1000)
+magnet_pin_2.freq(1000)
+
+```
+Depois, atualizamos as funções de ligar e desligar o ímã. Nessa primeira, adicionamos um argumento de voltagem desejadas e aplicamos o método PWM.duty_u16() para definir a largura de pulso a ser enviada ao pino. Um ponto importante nesta etapa é que a unidade desse argumento não deveria ser passada na porcentagem escolhida (50%, por exemplo), e sim no valor proporcional no intervalo 0 a 65535. Logo, tivemos de converter a voltagem desejada para a fração dessa escala em cada chamada da função de duty_u16(). A função de desligar, por sua vez, passava 0 como argumentos para ambos os pinos.
+
+```
+
+def enable_magnet(voltage):
+    magnet_pin_2.duty_u16(0)
+    magnet_pin_1.duty_u16(int(voltage / 12.0 * 65535))
+
+def disable_magnet():
+    magnet_pin_1.duty_u16(0)
+    magnet_pin_2.duty_u16(0)
+
+```
+Executando essas funções com diferentes voltagens, atingimos o comportamento esperado, com a intensidade da atração entre o ímã e os materias magnéticos de teste variando conforme aumentávamos e diminuíamos o argumento de voltagem.
+
+Feito isso, adicionamos rotas no servidor e um botão no frontend para controlar o liga e desliga do ímã, ainda sem variação da voltagem. Este código está disponível na pasta src deste repositório git, por ser muito extenso para adicionar aqui. Dito isso, o vídeo abaixo demonstra seu funcionamento:
 
 [Ímã ligando e desligando no front](https://drive.google.com/file/d/1tNGGaVWdjG-uf2RkJPIhACx0uDh1AWXc/view?usp=share_link)
 
-Depois, integramos o ímã ao robô fisicamente, utilizando a ponta de sucção. Também programamos um timer no ímã para que ele alterasse o sentido do campo magnético periodicamente, atraindo e soltando o material magnético das bandejas.
+Por fim, voltando ao código de movimentação do robô visto no final do teste anterior, adicionamos uma linha que ativava a sucção da ponta. 
+
+```
+device.suck(True)
+for coordinate in tray_coordinates: 
+  device.move_to(*coordinate, wait=True)
+```
+
+Com isso, pudemos conectar o ímã ao movimento braço robótico:
 
 [Ímã conectado ao braço](https://drive.google.com/file/d/1nGkIPEVVNb14Duce5NOnQtC0NVbb49da/view?usp=share_link)
 
-[Ímã atraindo e soltando](https://drive.google.com/file/d/1BsyC2OAy1rQ2wr6AESUv17umzp112OJZ/view?usp=share_link)
-
-Feito isso, tentamos dinamizar a intensidade do eletroímã. Para isso, modificamos o código para contemplar o uso de PWM e convertemos o argumento de voltagem (0-12V) para a escala de duty cycle (0-65535). Isso funcionou quando rodávamos o código do Raspberry diretamente ou enviávamos uma requisição do servidor. Todavia, não tivemos tempo para integrar plenamente com o frontend. Isso será feito na sprint 3.
 
 #### Bomba d'água na ponte H
 
-O teste da bomba d'água teve duas fases. Começamos pelo teste da bomba d'água diretamente na fonte através da ponte H.
+Similarmente ao eletroímã, a bomba d'água também requereu o uso do ponte H por exigir voltagem acima de 3V3. Ainda assim, inicialmente, fizemos um teste conectando-a diretamente a fonte em 12V. Como esperado, ela foi ativada e movimentou a água significativamente.
 
 [Bomba d'água na fonte](https://drive.google.com/file/d/1jfaO7tCQ4pp-55x3oSPvWAU1O0QgRn3F/view?usp=share_link)
 
-Depois, fizemos adicionamos funções de ligar e desligar no código do Raspberry Pi, utilizando pinos digitais, já que não seria necessário controlar a intensidade do atuador. Infelizmente, não tivemos tempo de testá-las. Chegamos a codificar o restante da integração com servidor e frontend, porém não pudemos testá-la por problemas de conexão com a internet no final da sprint.
+Depois, conectamos a bomba à ponte H e ligamos os pinos de sentido restantes a dois pinos digitais livres do Raspberry. Implementamos, então, funções de ligar e desligar, semelhantemente ao primeiro código utilizado para o eletroímã. Nesse caso, o pino ativado influencia no sentido de rotação da bomba. Ainda assim, como esse sentido não influencia no objetivo do uso da bomba (movimentar a água para dispersar material e lavar impurezas), pode-se ativar qualquer um dos pinos. Semelhante, como não é necessário alterar a intensidade da bomba, não tivemos que trabalhar PWM neste teste.
+
+
+```
+import machine
+
+pump_pin_1 = machine.Pin(16, machine.Pin.OUT)
+pump_pin_2 = machine.Pin(15, machine.Pin.OUT)
+
+def enable_pump():
+    pump_pin_1.value(1)
+    pump_pin_2.value(0)
+
+def disable_pump():
+    pump_pin_1.value(0)
+    pump_pin_2.value(0)
+
+```
+
+O teste unitário de cada função foi bem-sucedido. Então, conectamos essas funções também a rotas de servidor e um botão na interface gráfica, conforme descrito na pasta src deste repositório git. O vídeo abaixo sumariza o funcionamento final dos componentes da ponte H integrados ao frontend:
+
 
 #### Sensor de campo eletromagnético
 
-Um dos diferenciais de nosso projeto é a possibilidade de se estimar o peso da amostra magnética coletada através da variação do campo magnético do ímã. Para tanto, estamos utilizando um sensor de efeito hall KY-024. Assim, nos testes, inicialmente construímos um circuito simples com o sensor e um LED de feedback, de modo que o LED brilhasse quando o sensor captasse campo magnético. 
+Um dos objetivos deste projeto é estimar o peso do material magnético captado pelo eletroímã sem depender da secagem do mesmo. Nossa ideia inicial para isso foi acoplar um sensor magnético atrás do eletroímã, a fim de aproximar o peso da amostra através das variações no campo magnético conforme mais material fosse captado. 
+
+Para testar essa hipótese, utilizamos um sensor de efeito hall KY-024 em um circuito simples. Esse circuito continha um LED de feedback, que brilharia quando o sensor captasse campo magnético. Assim, nesse primeiro teste, o comportamento esperado era binário, informando apenas se havia algum campo significativo na região.
+
+
 
 [Sensor de campo eletromagnético](https://drive.google.com/file/d/1ZvMhhsyrQqPlQ1OZxav6_Ht2Wmu-avOB/view?usp=share_link)
 
@@ -261,6 +432,7 @@ Posteriormente, conectamos essa parte do circuito ao restante do sistema. Resta 
 #### Célula de carga e amplificador HX711
 
 A célula de carga converte uma força em um sinal elétrico que pode ser medido. Este sinal irá mudar proporcionalmente à força aplicada. A células de carga é composta por uma barra de metal com extensômetros fixados. Os extensômetros são sensores elétricos que medem força ou tensão em um objeto. Quando uma força externa é aplicada a um objeto, como a barra de metal, ocorre uma deformação em sua forma, o que faz com que a resistência dos extensômetros varie. A mudança na resistência é proporcional à carga aplicada, permitindo-nos calcular o peso dos objetos.
+
 Sabe-se que existem alterações de tensão, todavia, como essas mudanças são muito pequenas, é necessário um amplificador. O amplificador utilizado se chama HX711 e se comunica com o microcontrolador utilizando de uma interfaze de dois fios, "Clock" e "Data". Para realizar o teste foi preciso prender a célula de carga de maneira a criar uma tensão entre as extremidades opostas da barra de metal. 
 
 ![image](https://drive.google.com/file/d/1JK4yn8pjqhxpNzYoVWIgsizEVdNnHBG4/view?usp=share_link)
@@ -270,6 +442,8 @@ Após isso, foram feitas as seguintes ligações:
 ![image](https://drive.google.com/file/d/19O3Ytz32RXSgKzZRLLSN9QrGYWN9cwjP/view?usp=share_link)
 
 O teste consistiu em duas etapas: a calibração da célula e a medição de peso de objetos previamente conhecidos. A primeira etapa é crucial para o teste, pois é a partir dela que determinamos o fator de calibração, que pode ser obtido dividindo o valor lido pela célula pelo peso já conhecido. A segunda etapa consistiu na medição real dos objetos, utilizando o fator de calibração obtido na primeira etapa.
+
+O código em sua íntegra está disponível em src/embedded/weight_cell. Não foi colocado neste relatório por ser muito extenso. Ainda assim, o vídeo abaixo demonstra o funcionalmento final.
 
 [Vídeo do teste realizado](https://drive.google.com/file/d/19G_qC6mr0JAeuuYVfvO6fVKM8mR57QWV/view?usp=share_link)
 
@@ -284,10 +458,14 @@ Isso tudo foi testado em um ESP-32 com C++. Pretendemos adaptar essa funcionalid
 | Eletroímã                              | Acionamento do botão de "desligar" na interface gráfica       | Cessão da emissão de campo eletromagnético, soltando quaisquer objetos captados. | Sucesso. Ao apertar o botão, o ímã soltou a moeda e parou de atrair materiais magnéticos.                                                                                                                                                          |
 | Sensor de campo eletromagnético        | Aproximação de campo magnético                                | Iluminação do LED de feedback                                                    | Sucesso. Ao aproximar o ímã ligado, o LED acendeu.                                                                                                                                                                                                 |
 | Sensor de campo eletromagnético        | Afastamento de campo magnético                                | Apagamento do LED de feedback                                                    | Sucesso. Ao afastar ou desligar o ímã, o LED se apagou.                                                                                                                                                                                            |
+| Sensor de campo eletromagnético analógico     | Aproximação de campo magnético                                | Aumento gradual e granular do valor das leituras                                                    | Fracasso. Leituras passaram do intervalo de 800-900 para 20.000-27.000 e depois 64.000-65.0000.                                                                                                                                                                                            |
+| Sensor de campo eletromagnético analógico     | Afastamento de campo magnético                                | Diiminuição gradual e granular do valor das leituras                                                    | Fracasso. Leituras passaram do intervalo de 64.000-65.0000 para 20.000-27.000 e depois 800-900.                                                                                                                                                                                            |
 | Célula de carga e amplificador         | Adição de massa sobre a placa da célula de carga              | Exibição do peso da massa adicionada no console do microcontrolador              | Sucesso. A adição de um case de fone de ouvido foi reconhecida e corretamente pesada pela célula de carga. A acuracidade foi estimada através da comparação do peso calculado pela célula de carga com o peso calculado por uma balança calibrada. |
 | Bomba d'água                           | Conexão da bomba d'água, na ponte H, à fonte em 5V            | Ativação da bomba em um dos sentidos de rotação.                                 | Sucesso. A bomba ativou-se corretamente.                                                                                                                                                                                                           |
 | Contagem de ciclos (interface gráfica) | Repetição dos ciclos (passadas) do robô em um mesmo ensaio    | Atualização do número de ciclos (passadas) no frontend.                          | Sucesso. A linha de contagem de ciclos mudou conforme o esperado.                                                                                                                                                                                  |
 | Contagem de ciclos (interface gráfica) | Finalização de um ensaio                                      | Reset da contagem de ciclos, voltando ao 0.                                      | Sucesso. Ao terminar um ensaio, assim que o robô parava de se movimentar, o contador voltava a 0.                                                                                                                                                  |
+
+
 
 # UX e UI Design
 
