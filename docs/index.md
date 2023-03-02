@@ -236,6 +236,12 @@ Começando a testar as funcionalidades de programação do robô, configuramos o
 
 A execução do desenho levou em torno de 10 minutos. Um vídeo acompanhando o processo se encontra abaixo.
 
+<iframe width="560" height="315"
+src="https://drive.google.com/file/d/1DKwGRYJMMwX0WrUkw78yCvqYAucw6ZM4/view?usp=share_link" 
+frameborder="0" 
+allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+allowfullscreen></iframe>
+
 [Teste de desenho](https://drive.google.com/file/d/1DKwGRYJMMwX0WrUkw78yCvqYAucw6ZM4/view?usp=share_link)
 
 Na segunda etapa, objetivamos movimentar o robô diretamente por scripts em Python. Para isso, seguimos os seguintes passos:
