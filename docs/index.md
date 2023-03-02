@@ -423,11 +423,43 @@ Um dos objetivos deste projeto é estimar o peso do material magnético captado 
 
 Para testar essa hipótese, utilizamos um sensor de efeito hall KY-024 em um circuito simples. Esse circuito continha um LED de feedback, que brilharia quando o sensor captasse campo magnético. Assim, nesse primeiro teste, o comportamento esperado era binário, informando apenas se havia algum campo significativo na região.
 
+Um esquemático do circuito do sensor pode ser visto abaixo. O capacitor, em cinza, não foi utilizado, e o LED foi conectado separadamente, em outra porta do Raspberry, e controlado apenas por código.
 
+IMAGEM
+
+O código, por sua vez, foi o seguinte:
+
+```
+import machine
+led = machine.Pin(18, machine.Pin.OUT)
+sensor = machine.Pin(14, machine.Pin.IN)
+
+while True:
+    if(sensor.value() == 1):
+        led.HIGH()
+    else:
+        led.LOW()
+```
+
+O funcionamento pode ser visto no vídeo abaixo:
 
 [Sensor de campo eletromagnético](https://drive.google.com/file/d/1ZvMhhsyrQqPlQ1OZxav6_Ht2Wmu-avOB/view?usp=share_link)
 
-Posteriormente, conectamos essa parte do circuito ao restante do sistema. Resta para a Sprint 3 aprimorar esse módulo, para que ele mostre a leitura no frontend e, para fins de teste e aprendizado, modifique a intensidade do brilho do LED proporcionalmente.
+Posteriormente, refatoramos esse código para que ele lesse valores analógicos, a fim de examinar as variações no campo perante a quantidade de material atraído pelo ímã. Para isso, trocamos o tipo de pino por ADC e utilizamos a função read_u16.
+
+```
+import machine
+sensor = machine.ADC(28)
+
+while True:
+    print(sensor.read_u16())
+    time.sleep(0.1)
+```
+
+Infelizmente, neste teste, as leituras obtidas se concentravam em três intervalos muito distantes entre si: quando o ímã estava desligado, o console exibia leituras em torno de 800; com o ímã a média distância, líamos 20.000 a 27.000; por fim, com o ímã muito perto, tínhamos 64.000-65.000. O vídeo abaixo exibe o comportamento errático.
+
+De todo, esses saltos eram bruscos e não representavam as microvariações que pretendíamos analisar. Com isso, percebemos que esse sensor não atenderá nossos objetivos. Concluímos, portanto, ser de fato necessário utilizar a célula de carga para estimar o peso da amostra.
+
 
 #### Célula de carga e amplificador HX711
 
