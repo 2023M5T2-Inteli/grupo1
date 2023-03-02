@@ -223,24 +223,19 @@ A movimentação do robô foi testada em três etapas. Inicialmente, fizemos uma
 
 Começando a testar as funcionalidades de programação do robô, configuramos o desenho de um vetor de alta complexidade. Para isso, seguimos os seguintes passos:
 
-1. Fizemos o download do vetor desejado (em svg)
-2. Conectamos o robô à fonte e ao computador via USB
-3. Trocamos a ponta do robô pelo suporte de caneta
-4. Posicionamos um caderno A3 horizontalmente à frente do robô, sob a ponta
-5. Calibramos a altura manualmente, utilizando os controles do software, para que a ponta da caneta trocasse o papel
-6. Acessamos a seção de "Write & Draw" do Dobot Studio
-7. Importamos o vetor na área de configuração de desenho
-8. Redimensionamos e reposicionamos o vetor para que ela ficasse contida nos limites do caderno
-9. Pressionamos o botão 'AutoZ' para desativá-lo. Isso evita que o robô modifique a altura da caneta, que foi calibrada no passo 4
-10. Pressionamos o botão 'Start'
+1. Fizemos o download do [vetor desejado](https://drive.google.com/file/d/1btHzWGOxXzzZMx91I4lkRq3Hw46jGhcT/view?usp=sharing
+) (em svg)
+1. Conectamos o robô à fonte e ao computador via USB
+2. Trocamos a ponta do robô pelo suporte de caneta
+3. Posicionamos um caderno A3 horizontalmente à frente do robô, sob a ponta
+4. Calibramos a altura manualmente, utilizando os controles do software, para que a ponta da caneta trocasse o papel
+5. Acessamos a seção de "Write & Draw" do Dobot Studio
+6. Importamos o vetor na área de configuração de desenho
+7. Redimensionamos e reposicionamos o vetor para que ela ficasse contida nos limites do caderno
+8. Pressionamos o botão 'AutoZ' para desativá-lo. Isso evita que o robô modifique a altura da caneta, que foi calibrada no passo 4
+9.  Pressionamos o botão 'Start'
 
 A execução do desenho levou em torno de 10 minutos. Um vídeo acompanhando o processo se encontra abaixo.
-
-<iframe width="560" height="315"
-src="https://drive.google.com/file/d/1DKwGRYJMMwX0WrUkw78yCvqYAucw6ZM4/view?usp=share_link" 
-frameborder="0" 
-allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
-allowfullscreen></iframe>
 
 [Teste de desenho](https://drive.google.com/file/d/1DKwGRYJMMwX0WrUkw78yCvqYAucw6ZM4/view?usp=share_link)
 
@@ -422,6 +417,8 @@ def disable_pump():
 
 O teste unitário de cada função foi bem-sucedido. Então, conectamos essas funções também a rotas de servidor e um botão na interface gráfica, conforme descrito na pasta src deste repositório git. O vídeo abaixo sumariza o funcionamento final dos componentes da ponte H integrados ao frontend:
 
+[Componentes integrados](https://drive.google.com/file/d/1iMuU_Au-HOIZtkMis8Z6_jKLUNROaPFZ/view?usp=sharing)
+
 
 #### Sensor de campo eletromagnético
 
@@ -431,7 +428,7 @@ Para testar essa hipótese, utilizamos um sensor de efeito hall KY-024 em um cir
 
 Um esquemático do circuito do sensor pode ser visto abaixo. O capacitor, em cinza, não foi utilizado, e o LED foi conectado separadamente, em outra porta do Raspberry, e controlado apenas por código.
 
-IMAGEM
+![image](https://raw.githubusercontent.com/2023M5T2-Inteli/tectonics/main/media/testes_de_componentes/sensor_campo_magnetico/hall_effect_sensor_circuit.png)
 
 O código, por sua vez, foi o seguinte:
 
@@ -464,8 +461,9 @@ while True:
 
 Infelizmente, neste teste, as leituras obtidas se concentravam em três intervalos muito distantes entre si: quando o ímã estava desligado, o console exibia leituras em torno de 800; com o ímã a média distância, líamos 20.000 a 27.000; por fim, com o ímã muito perto, tínhamos 64.000-65.000. O vídeo abaixo exibe o comportamento errático.
 
-De todo, esses saltos eram bruscos e não representavam as microvariações que pretendíamos analisar. Com isso, percebemos que esse sensor não atenderá nossos objetivos. Concluímos, portanto, ser de fato necessário utilizar a célula de carga para estimar o peso da amostra.
+[Leituras do sensor](https://drive.google.com/file/d/1FX70Vs9eu51dPvugF0spTe9vWaQVk8CA/view?usp=sharing)
 
+De todo, esses saltos eram bruscos e não representavam as microvariações que pretendíamos analisar. Com isso, percebemos que esse sensor não atenderá nossos objetivos. Concluímos, portanto, ser de fato necessário utilizar a célula de carga para estimar o peso da amostra.
 
 #### Célula de carga e amplificador HX711
 
