@@ -1,0 +1,308 @@
+.dummy-container {
+    width: 100%;
+    height: 900px;
+  }
+  .homebutton {
+    width: 100%;
+    height: 1024px;
+    display: flex;
+    overflow: hidden;
+    position: relative;
+    align-items: flex-start;
+    flex-shrink: 0;
+    border-color: transparent;
+    background-color: rgba(255, 255, 255, 1);
+  }
+  .rectangle1 {
+    top: 0px;
+    left: 0px;
+    width: 116px;
+    height: 1024px;
+    position: absolute;
+    border-color: transparent;
+  }
+  .logo {
+    top: 40px;
+    left: 29px;
+    width: 58px;
+    height: 59px;
+    position: absolute;
+    border-color: transparent;
+  }
+  .usericon1button {
+    top: 931px;
+    left: 31px;
+    width: 55px;
+    height: 55px;
+    position: absolute;
+    border-color: transparent;
+  }
+  .reportsicon1 {
+    top: 166px;
+    left: 30px;
+    width: 57px;
+    height: 59px;
+    position: absolute;
+    border-color: transparent;
+  }
+  .text {
+    top: 38px;
+    left: 1289px;
+    color: rgba(0, 0, 0, 1);
+    height: auto;
+    position: absolute;
+    font-size: 15px;
+    align-self: auto;
+    font-style: Regular;
+    text-align: left;
+    font-family: Montserrat;
+    font-weight: 400;
+    line-height: normal;
+    font-stretch: normal;
+    margin-right: 0;
+    margin-bottom: 0;
+    text-decoration: none;
+  }
+  .text02 {
+    top: 38px;
+    left: 173px;
+    color: rgba(0, 0, 0, 1);
+    height: auto;
+    position: absolute;
+    font-size: 15px;
+    align-self: auto;
+    font-style: Regular;
+    text-align: left;
+    font-family: Montserrat;
+    font-weight: 400;
+    line-height: normal;
+    font-stretch: normal;
+    margin-right: 0;
+    margin-bottom: 0;
+    text-decoration: none;
+  }
+  .group27 {
+    top: 144px;
+    left: 173px;
+    width: 1129.71728515625px;
+    height: 698.115478515625px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: transparent;
+    border-style: none;
+    border-width: 0;
+    margin-right: 0;
+    border-radius: 0px 0px 0px 0px;
+    margin-bottom: 0;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: transparent;
+  }
+  .group15 {
+    top: -7px;
+    left: -34px;
+    width: 1129.71728515625px;
+    height: 698.115478515625px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: transparent;
+    border-style: none;
+    border-width: 0;
+    border-radius: 0px 0px 0px 0px;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: transparent;
+  }
+  .image1 {
+    top: 0px;
+    left: 0px;
+    width: 274px;
+    height: 275px;
+    position: absolute;
+    border-color: transparent;
+  }
+  .text04 {
+    top: 85px;
+    left: 434px;
+    color: rgba(0, 0, 0, 1);
+    width: 547px;
+    height: auto;
+    position: absolute;
+    font-size: 55px;
+    align-self: auto;
+    font-style: Bold;
+    text-align: left;
+    font-family: Montserrat;
+    font-weight: 700;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .group14 {
+    top: 493px;
+    left: 434px;
+    width: 695.71728515625px;
+    height: 43.329524993896484px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: transparent;
+    border-style: none;
+    border-width: 0;
+    border-radius: 0px 0px 0px 0px;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: transparent;
+  }
+  .text06 {
+    color: rgba(0, 0, 0, 1);
+    width: 386px;
+    height: auto;
+    position: absolute;
+    font-size: 36px;
+    align-self: auto;
+    font-style: Medium;
+    text-align: left;
+    font-family: Montserrat;
+    font-weight: 500;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .text08 {
+    top: 0.000005959053851256613px;
+    left: 396.3597717285156px;
+    color: rgba(0, 0, 0, 1);
+    width: 299px;
+    height: auto;
+    position: absolute;
+    font-size: 36px;
+    align-self: auto;
+    font-style: Regular;
+    text-align: left;
+    font-family: Montserrat;
+    font-weight: 400;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .group13 {
+    top: 307px;
+    left: 434px;
+    width: 611.9238891601562px;
+    height: 39.73406982421875px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: transparent;
+    border-style: none;
+    border-width: 0;
+    border-radius: 0px 0px 0px 0px;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: transparent;
+  }
+  .text10 {
+    top: 4.0788984298706055px;
+    left: -0.0000444259203504771px;
+    color: rgba(0, 0, 0, 1);
+    width: 152px;
+    height: auto;
+    position: absolute;
+    font-size: 36px;
+    align-self: auto;
+    font-style: Medium;
+    text-align: left;
+    font-family: Montserrat;
+    font-weight: 500;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .text12 {
+    top: 0.000012098685147066135px;
+    left: 214.5706787109375px;
+    color: rgba(0, 0, 0, 1);
+    width: 397px;
+    height: auto;
+    position: absolute;
+    font-size: 36px;
+    align-self: auto;
+    font-style: Regular;
+    text-align: left;
+    font-family: Montserrat;
+    font-weight: 400;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .group151 {
+    top: 662px;
+    left: 434px;
+    width: 430.08056640625px;
+    height: 36.11549377441406px;
+    display: flex;
+    padding: 0;
+    position: absolute;
+    align-self: auto;
+    box-sizing: border-box;
+    align-items: flex-start;
+    flex-shrink: 1;
+    border-color: transparent;
+    border-style: none;
+    border-width: 0;
+    border-radius: 0px 0px 0px 0px;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: transparent;
+  }
+  .text14 {
+    color: rgba(0, 0, 0, 1);
+    width: 173px;
+    height: auto;
+    position: absolute;
+    font-size: 36px;
+    align-self: auto;
+    font-style: Medium;
+    text-align: left;
+    font-family: Montserrat;
+    font-weight: 500;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .text16 {
+    top: 0.46031835675239563px;
+    left: 204.6368408203125px;
+    color: rgba(0, 0, 0, 1);
+    width: 225px;
+    height: auto;
+    position: absolute;
+    font-size: 36px;
+    align-self: auto;
+    font-style: Regular;
+    text-align: left;
+    font-family: Montserrat;
+    font-weight: 400;
+    line-height: normal;
+    font-stretch: normal;
+    text-decoration: none;
+  }
