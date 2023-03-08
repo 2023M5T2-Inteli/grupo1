@@ -37,6 +37,7 @@ Magnetum | Concepção de sistema de automação industrial para separação mag
   - [Croqui Robô](#croqui-robô)
   - [Tabela](#tabela)
   - [Componentes Utilizados](#componentes-utilizados)
+  - [PCB](#pcb)
   - [Módulos do Sistema e Visão Geral (Big Picture)](#módulos-do-sistema-e-visão-geral-big-picture)
   - [Descrição dos Subsistemas](#descrição-dos-subsistemas)
     - [Descrição dos componentes](#descrição-dos-componentes)
@@ -213,6 +214,11 @@ Considerando que uso do tradicional custe e demore mais que do Magnetum e que a 
 | 1x| Raspberry Pi Pico W    | [ datasheet ](https://datasheets.raspberrypi.com/picow/pico-w-datasheet.pdf)    |
 | 4x| Eletroímã 12v    | [ compra ](https://produto.mercadolivre.com.br/MLB-1756894287-eletroim-12vdc-12v-5kg-forca-de-033a-_JM#position=12&search_layout=stack&type=item&tracking_id=f99d5a87-91f9-4bc5-bf67-01991f1188e0)    |
 | 2x| Submersível Dc 3-5V 100l / H    | [ compra ](https://shopee.com.br/Bomba-D-'%C3%81gua-Submers%C3%ADvel-Pet-Mini-Dc3-5V-100l-H-Acess%C3%B3rios-Tanque-De-Peixes-Silenciosa-Para-Aqu%C3%A1rio-i.298167688.4751307098)    |
+
+## PCB
+Utilizamos uma placa perfurada nas dimensões ()
+
+###  Esquemático da placa
 
 ## Módulos do Sistema e Visão Geral (Big Picture)
 
