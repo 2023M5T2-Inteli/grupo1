@@ -208,11 +208,11 @@ Considerando que uso do tradicional custe e demore mais que do Magnetum e que a 
 ## Componentes Utilizados
 | Unidades | Nome | Link |
 |------|-----------|-------|
-| 2x  | Silva     | [![image](raw=true) ](https://files.comunidades.net/mutcom/Driver_Motor_ponteH__L298N.pdf)  |
-| 1x| Santos    | 25    |
-| 1x| Santos    | 25    |
-| 4x| Santos    | 25    |
-| 2x| Santos    | 25    |
+| 2x  | Ponte H L298N     | [ datasheet ](https://files.comunidades.net/mutcom/Driver_Motor_ponteH__L298N.pdf)  |
+| 1x| Regulador de Tensão Ajustável MT3608    | [ datasheet ](https://www.olimex.com/Products/Breadboarding/BB-PWR-3608/resources/MT3608.pdf)    |
+| 1x| Raspberry Pi Pico W    | [ datasheet ](https://datasheets.raspberrypi.com/picow/pico-w-datasheet.pdf)    |
+| 4x| Eletroímã 12v    | [ compra ](https://produto.mercadolivre.com.br/MLB-1756894287-eletroim-12vdc-12v-5kg-forca-de-033a-_JM#position=12&search_layout=stack&type=item&tracking_id=f99d5a87-91f9-4bc5-bf67-01991f1188e0)    |
+| 2x| Submersível Dc 3-5V 100l / H    | [ compra ](https://shopee.com.br/Bomba-D-'%C3%81gua-Submers%C3%ADvel-Pet-Mini-Dc3-5V-100l-H-Acess%C3%B3rios-Tanque-De-Peixes-Silenciosa-Para-Aqu%C3%A1rio-i.298167688.4751307098)    |
 
 ## Módulos do Sistema e Visão Geral (Big Picture)
 
