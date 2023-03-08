@@ -11,14 +11,14 @@ import urequests  # Permite envio de requisições
 ssid = 'Inteli-COLLEGE'
 password = 'QazWsx@123' 
 # Definição do endereço do servidor na rede atual
-host = 'http://10.128.20.240:5000'
+host = 'http://10.128.64.137:5000'
 
 # Definição dos pinos do ímã como PWM e output
-magnets_a = [PWM(Pin(16, Pin.OUT)),
-           PWM(Pin(16, Pin.OUT))]
+magnets_a = [PWM(Pin(10, Pin.OUT)),
+           PWM(Pin(11, Pin.OUT))]
 
-magnets_b = [PWM(Pin(16, Pin.OUT)),
-           PWM(Pin(16, Pin.OUT))]
+magnets_b = [PWM(Pin(9, Pin.OUT)),
+           PWM(Pin(8, Pin.OUT))]
 
 for magnet in magnets_a:
     magnet.freq(1000)
@@ -27,9 +27,9 @@ for magnet in magnets_b:
     magnet.freq(1000)
 
 # Definição dos pinos da bomba como pinos digitais de output. Como a intensidade da bomba não precisa ser dinâmica, não precisamos utilizar PWM
-shaker_pump = [Pin(12, Pin.OUT), Pin(13, Pin.OUT)]
+shaker_pump = [Pin(0, Pin.OUT), Pin(1, Pin.OUT)]
 
-cleaner_pump = [Pin(14, Pin.OUT), Pin(15, Pin.OUT)]
+cleaner_pump = [Pin(2, Pin.OUT), Pin(3, Pin.OUT)]
 
 def init():
     disable_magnets()

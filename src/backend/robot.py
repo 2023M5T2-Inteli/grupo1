@@ -8,8 +8,7 @@ import requests
 # Especificação da porta em que o robô está conectado.
 # TO-DO: conexão sem especificar porta antes, já que ela muda de PC para PC (talvez um loop testando todas as possíveis, com try-catch?)
 robot_port = 'COM7'
-host = 'http://10.128.20.240:5000'
-
+host = 'http://10.128.64.137:5000'
 
 # Coordenadas do ponto neutro do robô segundo especificação técnica
 home = (226, 0, 150, 0)
@@ -36,8 +35,8 @@ tray2 = [
 tray3 = [
     (222, 255, high_height, rotation),  # Ponto alto inicial
     (222, 255, low_height, rotation),  # Ponto baixo inicial
-    (19, 255, low_height, rotation),  # Ponto baixo final
-    (19, 255, high_height, rotation),  # Ponto alto final
+    #(19, 255, low_height, rotation),  # Ponto baixo final
+    #(19, 255, high_height, rotation),  # Ponto alto final
 ]
 
 intermediary_points = [
