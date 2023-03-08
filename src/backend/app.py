@@ -29,11 +29,8 @@ app = Flask(__name__)  # Cria servidor
 CORS(app)  # Adiciona proteção contra erros CORS
 
 # CÓDIGO REFERENTE AO ROBÔ
-
-
 @app.route('/start_trial')  # Rota para iniciar ensaio com o robô
 def start_trial():
-    print('START')
     execute_trial()  # Chama função do servidor que organiza o ensaio
     return 'Trial started'
 
