@@ -36,6 +36,7 @@ Magnetum | Concepção de sistema de automação industrial para separação mag
   - [Croqui Visão Lateral](#croqui-visão-lateral)
   - [Croqui Robô](#croqui-robô)
   - [Tabela](#tabela)
+  - [Componentes Utilizados](#componentes-utilizados)
   - [Módulos do Sistema e Visão Geral (Big Picture)](#módulos-do-sistema-e-visão-geral-big-picture)
   - [Descrição dos Subsistemas](#descrição-dos-subsistemas)
     - [Descrição dos componentes](#descrição-dos-componentes)
@@ -203,6 +204,15 @@ Considerando que uso do tradicional custe e demore mais que do Magnetum e que a 
 ![image](https://github.com/2023M5T2-Inteli/tectonics/blob/main/media/Arquitetura%20Do%20Sistema/Tabela1.png?raw=true)
 ![image](https://github.com/2023M5T2-Inteli/tectonics/blob/main/media/Arquitetura%20Do%20Sistema/Tabela2.png?raw=true)
 ![image](https://github.com/2023M5T2-Inteli/tectonics/blob/main/media/Arquitetura%20Do%20Sistema/Tabela3.png?raw=true)
+
+## Componentes Utilizados
+| Unidades | Nome | Link |
+|------|-----------|-------|
+| 2x  | Silva     | [![image](raw=true) ](https://files.comunidades.net/mutcom/Driver_Motor_ponteH__L298N.pdf)  |
+| 1x| Santos    | 25    |
+| 1x| Santos    | 25    |
+| 4x| Santos    | 25    |
+| 2x| Santos    | 25    |
 
 ## Módulos do Sistema e Visão Geral (Big Picture)
 
