@@ -1,7 +1,7 @@
 # Código para controlar o robô. Utiliza a API 'pydobot' para se comunicar serialmente com o Magician Lite
 
 # Importa bibliotecas necessárias
-import pydobot  # Controla robô
+# <-- import pydobot  # Controla o robô
 import time
 
 # Especificação da porta em que o robô está conectado.
@@ -41,17 +41,17 @@ tray_coordinates = [
     (216, -248, high_height, rotation)  # Ponto alto inicial da bandeja 2
 ]
 
-device = pydobot.Dobot(port=robot_port, verbose=False)
+device = 'pydobot.Dobot(port=robot_port, verbose=False)'  # <--
 
 
 # Executa ciclo do ensaio conforme coordenadas do array
 def execute_cycle():
-    device.suck(True)  # Inicia sucção para segurar o ímã na demo atual
+    #device.suck(True)   Inicia sucção para segurar o ímã na demo atual
     time.sleep(1)
     for coordinate in tray_coordinates:  # Move o robô para cada coordenada
-        device.move_to(*coordinate, wait=True)
+        return "device.move_to(*coordinate, wait=True)"
 
 
 # Move robô para ponto neutro utilizando variável de coordenadas do ponto home
 def rehome():
-    device.move_to(*home, wait=True)
+    return "device.move_to(*home, wait=True)"

@@ -14,7 +14,8 @@
 # Importação dos módulos necessários
 from flask import Flask, request  # módulo de servidor
 from magnetum.extensions import robot
-from flask_cors import CORS  # módulo para evitar erros de CORS
+from dynaconf import FlaskDynaconf
+# <-- from flask_cors import CORS   módulo para evitar erros de CORS
 
 # Declaração de variáveis globais
 # Contagem de ciclo atual do robô (quantas passadas ele já fez no ensaio atual)
@@ -26,7 +27,8 @@ _pump_state = 0  # Estado da bomba d'água (ligada/desligada)
 cycles_per_trial = 5
 
 app = Flask(__name__)  # Cria servidor
-CORS(app)  # Adiciona proteção contra erros CORS
+FlaskDynaconf(app)
+# <-- CORS(app)  # Adiciona proteção contra erros CORS
 
 # CÓDIGO REFERENTE AO ROBÔ
 
