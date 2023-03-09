@@ -84,7 +84,7 @@ function Begin(){
     return(
         <div className="bg-background h-screen w-screen flex flex-col justify-center items-center">
             <Button onClick={startTrial} content="Iniciar ensaio" />
-            <Button
+            <Button 
                 onClick={toggleMagnet}
                 content={magnetState ? "Desligar imã" : "Ligar imã"}
             />
