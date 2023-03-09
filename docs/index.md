@@ -219,6 +219,8 @@ Considerando que uso do tradicional custe e demore mais que do Magnetum e que a 
 Utilizamos uma placa perfurada de dimensão 12x18 cm.
 
 ###  Esquemático da placa
+[Esquemático](https://github.com/2023M5T2-Inteli/tectonics/tree/main/docs/Sprint_3)
+
 
 
 ## Módulos do Sistema e Visão Geral (Big Picture)
