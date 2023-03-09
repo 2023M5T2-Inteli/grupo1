@@ -216,9 +216,10 @@ Considerando que uso do tradicional custe e demore mais que do Magnetum e que a 
 | 2x| Submersível Dc 3-5V 100l / H    | [ compra ](https://shopee.com.br/Bomba-D-'%C3%81gua-Submers%C3%ADvel-Pet-Mini-Dc3-5V-100l-H-Acess%C3%B3rios-Tanque-De-Peixes-Silenciosa-Para-Aqu%C3%A1rio-i.298167688.4751307098)    |
 
 ## PCB
-Utilizamos uma placa perfurada nas dimensões ()
+Utilizamos uma placa perfurada de dimensão 12x18 cm.
 
 ###  Esquemático da placa
+
 
 ## Módulos do Sistema e Visão Geral (Big Picture)
 
