@@ -1,9 +1,8 @@
 // Importa recursos necessários 
 import Axios from 'axios' // Biblioteca para fazer requisições HTTP
 import bgWaves from './assets/bg-waves.png' // Vetor de decoração na base da página
-import logo from './assets/TECTONICS2.png'
-import sidebarButton from './components/sidebar-button'
-import magnet from './assets/magnet.png'
+import Sidebar from './components/Sidebar'
+import StartButton from './assets/startButton.jpeg'
 
 // Componente principal
 function App() {
@@ -13,38 +12,54 @@ function App() {
 
   // Elementos a serem mostrados na tela
   return (
-    <div className="bg-blue-600">
-        <span className="absolute text-white text-4xl top-5 left-4 cursor-pointer" onclick="openSidebar()">
-            <i className="bi bi-filter-left px-2 bg-gray-900 rounded-md"></i>
-        </span>
-        <div className="sidebar fixed top-0 bottom-0 lg:left-0 p-2 w-[300px] overflow-y-auto text-center bg-gray-900">
-            <div className="text-gray-100 text-xl">
-                <div className="p-2.5 mt-1 flex items-center">
-                    <img className="p-2 w-[40px]"src={magnet}/>
-                    <h1 className="font-bold text-gray-200 text-[15px] ml-2">Tectonics</h1>
-                    <i className="bi bi-x cursor-pointer ml-28 lg:hidden" onclick="openSidebar()">
-                    </i>
-                </div>
-            <div className="my-2 bg-gray-600 h-[1px]"></div>
+  <div className="grid grid-cols-12 gap-7 h-full">
+    <div className="col-span-2"><Sidebar/></div>
+    <div className="flex transform transition duration-300 shadow-2xl rounded-lg col-span-9 bg-white mt-3 p-5">
+      <div className="justify-between">
+        <button><img className="hover:scale-105 p-2 w-[300px]" src={StartButton}></img></button>
+      </div>
+      <div className='ml-7 flex-1'>
+        <div className="mt-3 text-3xl font-bold leading-8 font-family-Montserrat">Amostra #0000</div>
+        <div className='mt-10'>
+          <div>
+            <a className='mt-8 font-family-Montserrat text-xl font-semibold text-left'>Data:</a>
+          </div>
+          <div>
+            <div className='mt-8 font-family-Montserrat text-xl font-semibold'>Peso:</div>
+          </div>
+          <div>
+            <div className='mt-8 font-family-Montserrat text-xl font-semibold'>Horário de Início:</div>
+          </div>
         </div>
-
-        <sidebarButton content="Home"/>
-        <sidebarButton content="Histórico"/>
-
-        <div className="p-2.5 flex items-center rounded-md px-4 duration-300 cursor-pointer bg-gray-900 hover:bg-blue-600 text-white">
-            <i className="bi bi-house-door-fill"></i>
-            <span className="text-[15px] ml-4 text-gray-200 font-bold">Home</span>
-        </div>
-
-        <div className="my-4 bg-gray-600 h-[1px]"></div>
-
-        <div className="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white">
-            <i className="bi bi-box-arrow-in-right"></i>
-            <span className="text-[15px] ml-4 text-gray-200 font-bold">Logout</span>
-        </div>
-        </div>
+        <div className="absolute mr-10 mb-3 text-xl font-bold text-gray-600 left-30px text-right right-0 bottom-0">Duração</div>
+      </div>
     </div>
-    )
+
+    <div className='col-start-3 col-end-5'>
+      <div className="mt-3 text-3xl font-bold leading-8 font-family-Montserrat flex ">Último Ensaio:</div>
+    </div>
+
+    <div className="flex transform transition duration-300 shadow-2xl rounded-lg col-start-3 col-end-12 bg-white mt-3 p-5">
+      <div className="justify-between">
+        <button><img className="hover:scale-105 p-2 w-[150px]" src={StartButton}></img></button>
+      </div>
+      <div className='ml-7 flex-1'>
+        <div className="mt-3 text-3xl font-bold leading-8 font-family-Montserrat">Amostra #0000</div>
+        <div>
+            <div>
+              <div className='mt-4 font-family-Montserrat text-xl font-semibold text-left'>Data:</div>
+            </div>
+            <div>
+              <div className='mt-4 font-family-Montserrat text-xl font-semibold text-left'>Peso:</div>
+            </div> 
+        </div>
+        <div className="absolute mr-10 mb-3 text-xl font-bold text-gray-600 left-30px text-right right-0 bottom-0">Duração</div>
+      </div>
+    </div>
+
+  </div>
+  )
 }
 
 export default App
+
