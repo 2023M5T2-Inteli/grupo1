@@ -49,12 +49,13 @@ trays = [
     tray1, tray2, tray3, intermediary_points
 ]
 
-device = pydobot.Dobot(port=robot_port, verbose=False)
+#device = pydobot.Dobot(port=robot_port, verbose=False)
 
 # Executa ciclo do ensaio conforme coordenadas do array
 
 
 def execute_cycle():
+    rehome()
     device.suck(True)  # Inicia sucção para segurar o ímã na demo atual
     time.sleep(1)
     requests.post(host + '/toggle_magnet', json = {"magnet_state": 1})

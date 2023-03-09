@@ -8,10 +8,10 @@ import network  # Permite conexão
 import urequests  # Permite envio de requisições
 
 # Definição da rede local a ser utilizada
-ssid = 'Inteli-COLLEGE'
-password = 'QazWsx@123' 
+ssid = 'Inteli-welcome'#'Inteli-COLLEGE'
+password = "" #QazWsx@123' 
 # Definição do endereço do servidor na rede atual
-host = 'http://10.128.64.137:5000'
+host = 'http://10.128.1.161:5000'
 
 # Definição dos pinos do ímã como PWM e output
 magnets_a = [PWM(Pin(10, Pin.OUT)),
