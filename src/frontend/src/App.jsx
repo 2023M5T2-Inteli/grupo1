@@ -16,7 +16,7 @@ function App() {
   const [pumpState, setPumpState] = useState(0); // Estado da bomba d'água
 
   // Declaração do endereço do servidor atual
-  const serverHost = "http://10.128.64.137:5000";
+  const serverHost = "http://10.128.64.149:5000";
 
 
   // Função para trocar estado do ímã. Como ainda não fizemos rotas de POST, essa mudança
