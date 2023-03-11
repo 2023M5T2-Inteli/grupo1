@@ -16,6 +16,10 @@ from flask import Flask, request, jsonify  # módulo de servidor
 import robot  # módulo personalizado para controlar o robô
 from flask_cors import CORS  # módulo para evitar erros de CORS
 
+import logging
+#log = logging.getLogger('werkzeug')
+#log.setLevel(logging.ERROR)
+
 # Declaração de variáveis globais
 # Contagem de ciclo atual do robô (quantas passadas ele já fez no ensaio atual)
 cycle_count = 0
@@ -33,8 +37,13 @@ CORS(app)  # Adiciona proteção contra erros CORS
 
 @app.route('/start_trial')  # Rota para iniciar ensaio com o robô
 def start_trial():
+<<<<<<< Updated upstream
     print('START')
+=======
+    print('trial')
+>>>>>>> Stashed changes
     execute_trial()  # Chama função do servidor que organiza o ensaio
+    robot.rehome()
     return 'Trial started'
 
 

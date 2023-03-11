@@ -11,7 +11,11 @@ import urequests  # Permite envio de requisições
 ssid = 'Inteli-COLLEGE'
 password = 'QazWsx@123' 
 # Definição do endereço do servidor na rede atual
+<<<<<<< Updated upstream
 host = 'http://10.128.20.240:5000'
+=======
+host = 'http://10.128.64.149:5000'
+>>>>>>> Stashed changes
 
 # Definição dos pinos do ímã como PWM e output
 magnet_pin_1 = machine.PWM(machine.Pin(16, machine.Pin.OUT))
@@ -27,12 +31,25 @@ pump_pin_2 = machine.Pin(13, machine.Pin.OUT)
 # Esta função liga o ímã na voltagem desejada. A integração com o front passando essa voltagem
 # ainda não foi implementada, então, por enquanto, essa função é sempre executada com argumento
 # 'hardcoded' 12.
+<<<<<<< Updated upstream
 def enable_magnet(voltage):
     # Seguindo a lógica do ponte H, desligamos um dos pinos e ligamos a proporção desejada no outro
     magnet_pin_2.duty_u16(0)
     # O argumento dessa função encontra o valor proporcional de duty cycle a ser enviado para
     # o ímã, transformando um valor na escala 0-12 para um valor na escala 0-65535
     magnet_pin_1.duty_u16(int(voltage / 12.0 * 65535))
+=======
+def enable_magnets(voltage):
+    max_voltage = 12.0
+    max_duty_u16 = 65535
+    magnets_a[0].duty_u16(0)
+    magnets_b[0].duty_u16(0)
+
+    magnets_a[1].duty_u16(int(voltage / max_voltage * max_duty_u16))
+    magnets_b[1].duty_u16(int(voltage / max_voltage * max_duty_u16))
+    
+    print(voltage / max_voltage * max_duty_u16)
+>>>>>>> Stashed changes
 
 # Desliga o ímã, enviando a ambos os pinos 0
 def disable_magnet():
