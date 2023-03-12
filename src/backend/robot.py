@@ -7,15 +7,15 @@ import requests
 
 # Especificação da porta em que o robô está conectado.
 # TO-DO: conexão sem especificar porta antes, já que ela muda de PC para PC (talvez um loop testando todas as possíveis, com try-catch?)
-robot_port = 'COM7'
-host = 'http://10.128.64.137:5000'
+robot_port = 'COM5'
+host = 'http://10.128.64.149:5000'
 
 # Coordenadas do ponto neutro do robô segundo especificação técnica
 home = (226, 0, 150, 0)
 
 # Pontos reutilizáveis para a altura do robô e rotação da garra
-high_height = 70
-low_height = -32
+high_height = 77
+low_height = -40
 rotation = -86
 
 tray1 = [
@@ -43,6 +43,31 @@ intermediary_points = [
     (222, 255, high_height, rotation),  # Ponto alto inicial da bandeja 3
     (216, -248, high_height, rotation)  # Ponto alto inicial da bandeja 2
 ]
+tray1 = [
+    (215, -155, high_height, rotation),  # Ponto alto inicial
+    (215, -155, low_height, rotation),  # Ponto baixo inicial
+    (315, -141, low_height, rotation),  # Ponto baixo final
+    (315, -141, high_height, rotation),  # Ponto alto final
+]
+
+tray2 = [
+    (326, 1, high_height, rotation),  # Ponto alto inicial
+    #(263, -112, low_height, rotation),  # Ponto baixo inicial
+    #(263, 68, low_height, rotation),  # Ponto baixo final
+    (184, 1, high_height, rotation),  # Ponto alto final
+]
+
+tray3 = [
+    (200, 157, high_height, rotation),  # Ponto alto inicial
+    (200, 157, low_height, rotation),  # Ponto baixo inicial
+    (311, 157, low_height, rotation),  # Ponto baixo final
+    (311, 157, high_height, rotation),  # Ponto alto final
+]
+
+intermediary_points = [
+    (222, 255, high_height, rotation),  # Ponto alto inicial da bandeja 3
+    (216, -248, high_height, rotation)  # Ponto alto inicial da bandeja 2
+]
 # Coordenadas para o movimento simples do robô
 trays = [
     # BANDEJA 1
@@ -55,6 +80,7 @@ trays = [
 
 
 def execute_cycle():
+    device.speed(velocity=75, acceleration=50)
     rehome()
     device.suck(True)  # Inicia sucção para segurar o ímã na demo atual
     time.sleep(1)
