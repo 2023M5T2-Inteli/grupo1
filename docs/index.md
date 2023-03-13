@@ -577,11 +577,17 @@ Isso tudo foi testado em um ESP-32 com C++. Pretendemos adaptar essa funcionalid
 
 # UX e UI Design
 
-Até o momento (Sprint 2), iniciamos um design de interface gráfica no Figma e implementamos uma versão simplista como demo para os testes de integração.
+Na Sprint 3, implementamos as principais telas da interface gráfica e ampliamos a integração da página "/demo" para testes. Na Sprint 4, pretendemos integrar o as telas oficiais, isto é, as implementadas na Sprint 3 com base no design do Figma, com o resto do sistema.
 
 Como linha geral, priorizamos elementos minimalistas, intuitivos e de fácil entendimento. Seguindo o estilo utilizado até agora nos slides e logotipos, apostamos em uma paleta de cores com alto contraste e foco em tons de roxo. 
 
-A interface do Figma apresenta uma sidebar simples, com tela inicial, histórico de relatórios e perfil. A tela principal, por sua vez, traz um botão de destaque para iniciar um ciclo, assim como campos de preenchimento de mais informações para cada execução. Abaixo, tem-se um atalho para o ensaio mais recente. Já na aba de histórico, ainda não construída no Figma, poder-se-á visualizar ensaios antigos com diversas funcionalidades de filtragem, compilação, exportação e compartilhamento.
+A interface oficial apresenta uma sidebar simples, com tela inicial, histórico de relatórios, perfil e link temporário à página de demo. A tela principal, por sua vez, traz um botão de destaque para iniciar um ciclo, assim como campos de preenchimento de mais informações para cada execução. Clicando na seta na base da página, pode-se visualizar um card na qual serão disponibilizadas mais detalhes sobre o ensaio. O template dessas informações será implementado na Sprint 4.
+
+Já na aba de histórico, tem-se ensaios antigos com diversas funcionalidades de filtragem. Futuramente, objetivamos adicionar opções de compilação, exportação e compartilhamento também.
+
+Por fim, a página de perfil permanece em construção.
+
+Agregamos abaixo algumas imagens da implementação e um link para o design inicial no Figma, o qual modificamos um pouco durante o desenvolvimento.
 
 ![image](https://github.com/2023M5T2-Inteli/tectonics/blob/main/media/interface_grafica/figma.png)
 
@@ -594,7 +600,6 @@ Para a interface de testes, utilizamos um design simples, com um único vetor em
 ## Modelo Conceitual
 
 ## Modelo Lógico
-
 
 # Teste de Software
 
