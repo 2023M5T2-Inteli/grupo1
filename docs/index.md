@@ -256,7 +256,7 @@ Nas próximas sprints, pretendemos refatorar esse circuito, otimizando a organiz
 
 #### Validação dos dispositivos eletrônicos
 
-Os testes de validação de nosso circuito foi executado utilizando o mesmo código-fonte do teste de componentes. Nesse contexto, empregamos a interface gráfica da página "/demo" do frontend. Como esta seção trata dos dispositivos eletrônicos, relatamos apenas os testes referentes a essa parte do sistema (excluímos metas para braço robótico e feedback na interface gráfica).
+Os testes de validação de nosso circuito foram executados utilizando o mesmo código-fonte do teste de componentes. Nesse contexto, empregamos a interface gráfica da página "/demo" do frontend. Como esta seção trata dos dispositivos eletrônicos, relatamos apenas os testes referentes a essa parte do sistema (excluímos metas para braço robótico e feedback na interface gráfica).
 
 | Componente                             | Entrada                                                       | Saída esperada                                                                   | Resultado do teste                                                                                                                                                                                                                                 |
 | -------------------------------------- | ------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -274,6 +274,9 @@ Os testes de validação de nosso circuito foi executado utilizando o mesmo cód
 Entretanto, ao examinar a voltagem em diferentes pontos do circuito utilizando um voltímetro, descobrimos que, apesar de a ponte H receber 12V do regulador de tensão, ela está enviando apenas 0,65V-0,75V para os ímãs. Logo, acreditamos ser um problema de divisão de corrente dentro do componente. 
 
 Portanto, na Sprint 4, pretendemos testar a troca da ponte H e, se isso não funcionar, a diminuição do número de eletroímãs por ponte.
+
+
+O teste de integração pode ser visto [neste link](https://drive.google.com/file/d/1cPIdNrdqBF0necSuE6qcQWNYOLx2EU66/view?usp=sharing)
 
 ## Módulos do Sistema e Visão Geral (Big Picture)
 
@@ -589,11 +592,13 @@ A interface oficial apresenta uma sidebar simples, com tela inicial, histórico 
 
 Já na aba de histórico, tem-se ensaios antigos com diversas funcionalidades de filtragem. Futuramente, objetivamos adicionar opções de compilação, exportação e compartilhamento também.
 
-![image](https://raw.githubusercontent.com/2023M5T2-Inteli/tectonics/main/media/testes_de_componentes/celula_de_carga/c%C3%A9lula_de_carga_entre_placas.png)
+![image](https://github.com/2023M5T2-Inteli/tectonics/blob/dev/media/interface_grafica/history1.png?raw=true)
+
+![image](https://github.com/2023M5T2-Inteli/tectonics/blob/dev/media/interface_grafica/history2.png?raw=true)
 
 Por fim, a página de perfil permanece em construção.
 
-O design inicial do Figma pode ser conferido aqui. Para a interface de testes, utilizamos um design simples, com um único vetor em tons de verde para decoração na base da página.
+O design inicial do Figma pode ser conferido [aqui](https://www.figma.com/file/6mBFBLaAB9pjVo9Z3GzauB/Magnetum?node-id=23%3A2&t=tj4cyeV3llJXr2hb-1). Para a interface de testes, utilizamos um design simples, com um único vetor em tons de verde para decoração na base da página.
 
 ![image](https://github.com/2023M5T2-Inteli/tectonics/blob/main/media/interface_grafica/interface_demo.png)
 
