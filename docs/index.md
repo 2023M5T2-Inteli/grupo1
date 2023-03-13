@@ -228,7 +228,7 @@ A figura abaixo apresenta as dimensões do braço robótico Magician Lite, confo
 Como demonstrado na arquitetura da solução, o âmbito eletrônico do nosso projeto contempla, em visão geral, uma Raspberry Pi Pico W, eletroímãs e bombas d'água. A conexão entre esses componentes, por sua vez, é viabilizada através de reguladores de tensão e pontes H. Ressaltamos que, na esquemático e implementação do circuito da Sprint 3, utilizamos apenas quatro eletroímãs e duas bombas da água, conectados a duas pontes H, para prova de conceito. Futuramente, pretendemos agregar mais desses atuadores através de testes de eficácia e otimização.
 
 ###  Esquemático do circuito
-[Esquemático](https://github.com/2023M5T2-Inteli/tectonics/tree/main/docs/Sprint_3)
+![image](https://github.com/2023M5T2-Inteli/tectonics/blob/dev/media/Arquitetura%20Do%20Sistema/esquematicoDoCircuito.png?raw=true)
 
 Conforme a figura, nosso circuito utiliza 10 pinos da Raspberry Pi Pico W, duas bombas d'água, quatro eletroímãs, duas pontes H e um regulador de tensão. Tudo isso é alimentado por uma fonte de 5V. 
 
@@ -256,7 +256,7 @@ Nas próximas sprints, pretendemos refatorar esse circuito, otimizando a organiz
 
 #### Validação dos dispositivos eletrônicos
 
-Os testes de validação de nosso circuito foi executado utilizando o mesmo código-fonte do teste de componentes. Nesse contexto, empregamos a interface gráfica da página "/demo" do frontend. Como esta seção trata dos dispositivos eletrônicos, relatamos apenas os testes referentes a essa parte do sistema (excluímos metas para braço robótico e feedback na interface gráfica).
+Os testes de validação de nosso circuito foram executados utilizando o mesmo código-fonte do teste de componentes. Nesse contexto, empregamos a interface gráfica da página "/demo" do frontend. Como esta seção trata dos dispositivos eletrônicos, relatamos apenas os testes referentes a essa parte do sistema (excluímos metas para braço robótico e feedback na interface gráfica).
 
 | Componente                             | Entrada                                                       | Saída esperada                                                                   | Resultado do teste                                                                                                                                                                                                                                 |
 | -------------------------------------- | ------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -274,6 +274,9 @@ Os testes de validação de nosso circuito foi executado utilizando o mesmo cód
 Entretanto, ao examinar a voltagem em diferentes pontos do circuito utilizando um voltímetro, descobrimos que, apesar de a ponte H receber 12V do regulador de tensão, ela está enviando apenas 0,65V-0,75V para os ímãs. Logo, acreditamos ser um problema de divisão de corrente dentro do componente. 
 
 Portanto, na Sprint 4, pretendemos testar a troca da ponte H e, se isso não funcionar, a diminuição do número de eletroímãs por ponte.
+
+
+O teste de integração pode ser visto [neste link](https://drive.google.com/file/d/1cPIdNrdqBF0necSuE6qcQWNYOLx2EU66/view?usp=sharing).
 
 ## Módulos do Sistema e Visão Geral (Big Picture)
 
@@ -583,15 +586,19 @@ Como linha geral, priorizamos elementos minimalistas, intuitivos e de fácil ent
 
 A interface oficial apresenta uma sidebar simples, com tela inicial, histórico de relatórios, perfil e link temporário à página de demo. A tela principal, por sua vez, traz um botão de destaque para iniciar um ciclo, assim como campos de preenchimento de mais informações para cada execução. Clicando na seta na base da página, pode-se visualizar um card na qual serão disponibilizadas mais detalhes sobre o ensaio. O template dessas informações será implementado na Sprint 4.
 
+![image](https://github.com/2023M5T2-Inteli/tectonics/blob/dev/media/interface_grafica/home1.png?raw=true)
+
+![image](https://github.com/2023M5T2-Inteli/tectonics/blob/dev/media/interface_grafica/home2.png?raw=true)
+
 Já na aba de histórico, tem-se ensaios antigos com diversas funcionalidades de filtragem. Futuramente, objetivamos adicionar opções de compilação, exportação e compartilhamento também.
+
+![image](https://github.com/2023M5T2-Inteli/tectonics/blob/dev/media/interface_grafica/history1.png?raw=true)
+
+![image](https://github.com/2023M5T2-Inteli/tectonics/blob/dev/media/interface_grafica/history2.png?raw=true)
 
 Por fim, a página de perfil permanece em construção.
 
-Agregamos abaixo algumas imagens da implementação e um link para o design inicial no Figma, o qual modificamos um pouco durante o desenvolvimento.
-
-![image](https://github.com/2023M5T2-Inteli/tectonics/blob/main/media/interface_grafica/figma.png)
-
-Para a interface de testes, utilizamos um design simples, com um único vetor em tons de verde para decoração na base da página.
+O design inicial do Figma pode ser conferido [aqui](https://www.figma.com/file/6mBFBLaAB9pjVo9Z3GzauB/Magnetum?node-id=23%3A2&t=tj4cyeV3llJXr2hb-1). Para a interface de testes, utilizamos um design simples, com um único vetor em tons de verde para decoração na base da página.
 
 ![image](https://github.com/2023M5T2-Inteli/tectonics/blob/main/media/interface_grafica/interface_demo.png)
 

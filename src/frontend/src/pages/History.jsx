@@ -1,11 +1,13 @@
-import finalizado from '../assets/finalizado_icon.svg'
+// Script para a página de histórico de ensaios
+
 import Card from '../components/CardHistory'
 import Sidebar from '../components/Sidebar';
+
 function History() {
     return (
         <div>
-                <Sidebar />
-                <div className='ml-20 max-w-7xl mb-8'>
+            <Sidebar />
+            <div className='ml-20 max-w-7xl mb-8'>
                 <h1 className="font-montserrat font-bold text-4xl box-border p-16">Histórico de ensaios</h1>
                 <div className="flex justify-end mb-10">
                     <select className="font-montserrat bg-gray-300 text-center	w-2/12 h-9 font-bold rounded-xl mr-4 cursor-pointer hover:scale-105">
