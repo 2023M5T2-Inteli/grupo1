@@ -1,0 +1,9 @@
+TITLE = "Magnetum"
+
+
+# Imports do Projeto #
+
+EXTENTIONS = [
+    from magnetum.bluprints import views
+]
+
