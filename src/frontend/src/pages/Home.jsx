@@ -13,7 +13,7 @@ function Home() {
                 <button><img src={startButton}/></button>
                 <div>
                     <h1 className="text-3xl font-bold">Novo ensaio</h1>
-                    <div>
+                    <div className="border p-5">
                         <Input title='amostra'/>
                         <Input title='cliente'/>
                         <Input title='peso'/>
@@ -22,7 +22,7 @@ function Home() {
                         <Input title='duração'/>
                     </div>
                     <div>
-                        <RangeSlider />
+                        <RangeSlider min={0} max={12} thumbsDisabled={[true, false]} defaultValue={[0, 12]}/>
                         <p>Ciclo</p>
                         <p>Status</p>
                     </div>

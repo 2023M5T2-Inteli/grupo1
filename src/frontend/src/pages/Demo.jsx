@@ -3,7 +3,7 @@ import Axios from "axios"; // Biblioteca para fazer requisições HTTP
 import bgWaves from "../assets/bg-waves.png"; // Vetor de decoração na base da página
 import Button from "../components/Button";
 
-function Begin(){
+function Demo(){
     
     // Declaração dos hooks de estado
     const [cycleCount, setCycleCount] = useState(0); // Contagem de ciclos atual
@@ -98,4 +98,4 @@ function Begin(){
     );
 } 
 
-export default Begin;
+export default Demo;
