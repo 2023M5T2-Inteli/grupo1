@@ -32,10 +32,11 @@ Magnetum | Concepção de sistema de automação industrial para separação mag
 - [Arquitetura do Sistema](#arquitetura-do-sistema)
   - [Diagrama geral](#diagrama-geral)
   - [Projeto mecânico](#projeto-mecânico)
-  - [Componentes Utilizados](#componentes-utilizados)
   - [Projeto eletrônico](#projeto-eletrônico)
-  - [PCB](#pcb)
-    - [Esquemático da placa](#esquemático-da-placa)
+    - [Esquemático do circuito](#esquemático-do-circuito)
+    - [Implementação do circuito](#implementação-do-circuito)
+    - [Esquemático do circuito](#esquemático-do-circuito-1)
+  - [Componentes Utilizados](#componentes-utilizados)
   - [Módulos do Sistema e Visão Geral (Big Picture)](#módulos-do-sistema-e-visão-geral-big-picture)
   - [Descrição dos Subsistemas](#descrição-dos-subsistemas)
     - [Descrição dos componentes](#descrição-dos-componentes)
@@ -198,19 +199,40 @@ O projeto mecânico para nossa solução envolve dois módulos: um invólucro re
 
 ![image](https://github.com/2023M5T2-Inteli/tectonics/blob/main/media/Arquitetura%20Do%20Sistema/CroquiVisaoSuperior.png?raw=true)
 
+O suporte para PCB será produzido em polímero resistente à água, como em acrílico (polimetilmetacrilato - PMMA) ou PVC (policloreto de vinila) através de corte a laser. Nossa preferência é por PVC, neste módulo, por ser mais acessível e oferecer níveis consideráveis de resistência e durabilidade. Ademais, por não ser transparente, cumpre a tarefa de ocultar o circuito de vista, otimizando a experiência do usuário.
+
+O case terá as dimensões 12 cm x 12 cm x 5 cm e será posicionado logo atrás do braço robótico. Caso a produção desse artefato não seja possível por falta de tempo ou acesso à infraestrutura necessária, pretendemos adquirir um case eletrônico IP65 online com dimensões semelhantes às desejadas.
+
 **Visão Lateral**
+
+O suporte para ímãs consiste em uma case octagonal, na qual serão fixados de dois a quatro ímãs. Por entrar em contato direto com a água, é essencial que o material de fabricação seja muito resistente a líquidos e, ao mesmo tempo, exerça interferência mínima no campo magnético. 
+
+Nesse sentido, nossa ideia principal é produzir uma placa em PVC através de corte a laser, sob a qual os ímãs serão posicionados, e, então, agregar uma capa de plástico flexível sob a base deles para assegurar a resistência à água. Caso isso não funcione e/ou não seja viável, consideramos também produzir uma case completa e hermeticamente fechada em PVC.
+
+Não temos dimensões exatas ainda porque estamos testando a eficácia de dois, três ou quatro ímãs juntos, considerando fluxo de corrente, campo magnético resultante e peso. Assim que chegarmos a uma conclusão nesse sentido, poderemos determinar o tamanho da case com propriedade.
 
 ![image](https://github.com/2023M5T2-Inteli/tectonics/blob/main/media/Arquitetura%20Do%20Sistema/CroquiVisaoLateral.png?raw=true)
 
+
 **Visão Robô**
 
-![image](https://github.com/2023M5T2-Inteli/tectonics/blob/main/media/Arquitetura%20Do%20Sistema/CroquiRobo.png?raw=true)
+A figura abaixo apresenta as dimensões do braço robótico Magician Lite, conforme especificações do fabricante.
 
-**Visão Superior**
+![image](https://github.com/2023M5T2-Inteli/tectonics/blob/main/media/Arquitetura%20Do%20Sistema/CroquiRobo.png?raw=true)|
 
-![image](https://github.com/2023M5T2-Inteli/tectonics/blob/main/media/Arquitetura%20Do%20Sistema/Tabela1.png?raw=true)
-![image](https://github.com/2023M5T2-Inteli/tectonics/blob/main/media/Arquitetura%20Do%20Sistema/Tabela2.png?raw=true)
-![image](https://github.com/2023M5T2-Inteli/tectonics/blob/main/media/Arquitetura%20Do%20Sistema/Tabela3.png?raw=true)
+## Projeto eletrônico
+
+Como demonstrado na arquitetura da solução, o âmbito eletrônico do nosso projeto contempla, em visão geral, uma Raspberry Pi Pico W, eletroímãs e bombas d'água. A conexão entre esses componentes, por sua vez, é viabilizada através de reguladores de tensão e pontes H. Ressaltamos que, na esquemático e implementação do circuito da Sprint 3, utilizamos apenas quatro eletroímãs e duas bombas da água, conectados a duas pontes H, para prova de conceito. Futuramente, pretendemos agregar mais desses atuadores através de testes de eficácia e otimização.
+
+###  Esquemático do circuito
+[Esquemático](https://github.com/2023M5T2-Inteli/tectonics/tree/main/docs/Sprint_3)
+
+###  Implementação do circuito
+Utilizamos uma placa perfurada de dimensão 12x18 cm.
+Assim, apresentamos duas pontes H
+
+###  Esquemático do circuito
+[Esquemático](https://github.com/2023M5T2-Inteli/tectonics/tree/main/docs/Sprint_3)
 
 ## Componentes Utilizados
 | Unidades | Nome | Link |
@@ -219,17 +241,7 @@ O projeto mecânico para nossa solução envolve dois módulos: um invólucro re
 | 1x| Regulador de Tensão Ajustável MT3608    | [ datasheet ](https://www.olimex.com/Products/Breadboarding/BB-PWR-3608/resources/MT3608.pdf)    |
 | 1x| Raspberry Pi Pico W    | [ datasheet ](https://datasheets.raspberrypi.com/picow/pico-w-datasheet.pdf)    |
 | 4x| Eletroímã 12v    | [ compra ](https://produto.mercadolivre.com.br/MLB-1756894287-eletroim-12vdc-12v-5kg-forca-de-033a-_JM#position=12&search_layout=stack&type=item&tracking_id=f99d5a87-91f9-4bc5-bf67-01991f1188e0)    |
-| 2x| Submersível Dc 3-5V 100l / H    | [ compra ](https://shopee.com.br/Bomba-D-'%C3%81gua-Submers%C3%ADvel-Pet-Mini-Dc3-5V-100l-H-Acess%C3%B3rios-Tanque-De-Peixes-Silenciosa-Para-Aqu%C3%A1rio-i.298167688.4751307098)    |
-
-## Projeto eletrônico
-
-## PCB
-Utilizamos uma placa perfurada de dimensão 12x18 cm.
-
-###  Esquemático da placa
-[Esquemático](https://github.com/2023M5T2-Inteli/tectonics/tree/main/docs/Sprint_3)
-
-
+| 2x| Submersível Dc 3-5V 100l / H    | [ compra ](https://shopee.com.br/Bomba-D-'%C3%81gua-Submers%C3%ADvel-Pet-Mini-Dc3-5V-100l-H-Acess%C3%B3rios-Tanque-De-Peixes-Silenciosa-Para-Aqu%C3%A1rio-i.298167688.4751307098)    
 
 ## Módulos do Sistema e Visão Geral (Big Picture)
 
