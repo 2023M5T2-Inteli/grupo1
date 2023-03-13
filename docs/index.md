@@ -199,7 +199,7 @@ O projeto mecânico para nossa solução envolve dois módulos: um invólucro re
 
 ![image](https://github.com/2023M5T2-Inteli/tectonics/blob/main/media/Arquitetura%20Do%20Sistema/CroquiVisaoSuperior.png?raw=true)
 
-O suporte para PCB será produzido em polímero resistente à água, como em acrílico (polimetilmetacrilato - PMMA) ou PVC (policloreto de vinila) através de corte a laser. Nossa preferência é por PVC, neste módulo, por ser mais acessível e oferecer níveis consideráveis de resistência e durabilidade. Ademais, por não ser transparente, cumpre a tarefa de ocultar o circuito de vista, otimizando a experiência do usuário.
+O suporte para PCB será produzido em polímero, como o plástico ABS, através de impressão 3D. Escolhemos esse material por sua durabilidade, facilidade de processamento e baixo custo. Essas características são importantes para oferecer uma solução robusta, capaz de suportar choques mecânicos simples a um reduzido investimento inicial. Ademais, por não ser transparente, cumpre a tarefa de ocultar o circuito de vista, otimizando a experiência do usuário. Por fim, como essa case não entrará em contato direto com a água, não é necessário total impermeabilidade, viabilizando o uso da impressão 3D.
 
 O case terá as dimensões 12 cm x 12 cm x 5 cm e será posicionado logo atrás do braço robótico. Caso a produção desse artefato não seja possível por falta de tempo ou acesso à infraestrutura necessária, pretendemos adquirir um case eletrônico IP65 online com dimensões semelhantes às desejadas.
 
@@ -207,11 +207,11 @@ O case terá as dimensões 12 cm x 12 cm x 5 cm e será posicionado logo atrás 
 
 O suporte para ímãs consiste em uma case octagonal, na qual serão fixados de dois a quatro ímãs. Por entrar em contato direto com a água, é essencial que o material de fabricação seja muito resistente a líquidos e, ao mesmo tempo, exerça interferência mínima no campo magnético. 
 
-Nesse sentido, nossa ideia principal é produzir uma placa em PVC através de corte a laser, sob a qual os ímãs serão posicionados, e, então, agregar uma capa de plástico flexível sob a base deles para assegurar a resistência à água. Caso isso não funcione e/ou não seja viável, consideramos também produzir uma case completa e hermeticamente fechada em PVC.
+Não temos dimensões exatas ainda porque estamos testando a eficácia de dois, três ou quatro ímãs juntos, considerando o fluxo de corrente, campo magnético resultante e peso. Assim que chegarmos a uma conclusão nesse sentido, poderemos determinar o tamanho da case com propriedade.
+
+Nesse sentido, nossa ideia principal é produzir a placa ortogonal em ABS através de impressão 3D, sob a qual os ímãs serão posicionados. Então, agregaremos uma capa de plástico flexível ou proteção rígida de acrílico sob a base dos eletroímãs para assegurar a resistência à água. Esse aspecto também permanece em aberto porque precisamos saber as dimensões finais para estimar o peso e, com isso, concluir qual opção afetará menos a performance do braço robótico.
 
 Para os testes da Sprint 3, construímos um protótipo desse suporte utilizando papelão e fita adesiva, tendo 
-
-Não temos dimensões exatas ainda porque estamos testando a eficácia de dois, três ou quatro ímãs juntos, considerando fluxo de corrente, campo magnético resultante e peso. Assim que chegarmos a uma conclusão nesse sentido, poderemos determinar o tamanho da case com propriedade.
 
 ![image](https://github.com/2023M5T2-Inteli/tectonics/blob/main/media/Arquitetura%20Do%20Sistema/CroquiVisaoLateral.png?raw=true)
 
