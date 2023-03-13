@@ -30,14 +30,12 @@ Magnetum | Concepção de sistema de automação industrial para separação mag
   - [Personas](#personas)
   - [Histórias dos usuários (user stories)](#histórias-dos-usuários-user-stories)
 - [Arquitetura do Sistema](#arquitetura-do-sistema)
-  - [Arquitetura da Solução](#arquitetura-da-solução)
-  - [Legenda do Diagrama](#legenda-do-diagrama)
-  - [Croqui Visão Superior](#croqui-visão-superior)
-  - [Croqui Visão Lateral](#croqui-visão-lateral)
-  - [Croqui Robô](#croqui-robô)
-  - [Tabela](#tabela)
+  - [Diagrama geral](#diagrama-geral)
+  - [Projeto mecânico](#projeto-mecânico)
   - [Componentes Utilizados](#componentes-utilizados)
+  - [Projeto eletrônico](#projeto-eletrônico)
   - [PCB](#pcb)
+    - [Esquemático da placa](#esquemático-da-placa)
   - [Módulos do Sistema e Visão Geral (Big Picture)](#módulos-do-sistema-e-visão-geral-big-picture)
   - [Descrição dos Subsistemas](#descrição-dos-subsistemas)
     - [Descrição dos componentes](#descrição-dos-componentes)
@@ -186,22 +184,30 @@ Considerando que uso do tradicional custe e demore mais que do Magnetum e que a 
 
 # Arquitetura do Sistema
 
-## Arquitetura da Solução
+## Diagrama geral
 ![image](https://github.com/2023M5T2-Inteli/tectonics/blob/main/media/Arquitetura%20Do%20Sistema/DiagramaDaSolucao.png?raw=true)
 
-## Legenda do Diagrama
+**Legenda do Diagrama**
+
 ![image](https://github.com/2023M5T2-Inteli/tectonics/blob/main/media/Arquitetura%20Do%20Sistema/LegendaDoDiagrama.png?raw=true)
 
-## Croqui Visão Superior
+## Projeto mecânico
+O projeto mecânico para nossa solução envolve dois módulos: um invólucro resistente à água na ponta do braço robótico, protegendo os imãs, e uma case simples para o circuito principal, incluindo Raspberry, placa e pontes H, a ser posicionada na traseira do robô. As conexões por fio serão organizadas ao longo do corpo do robô utilizando fixadores como fita adesiva, a fim de diminuir o risco de nós, curto-circuito ou qualquer outro dano à integridade eletrônica do projeto.
+
+**Visão Superior**
+
 ![image](https://github.com/2023M5T2-Inteli/tectonics/blob/main/media/Arquitetura%20Do%20Sistema/CroquiVisaoSuperior.png?raw=true)
 
-## Croqui Visão Lateral
+**Visão Lateral**
+
 ![image](https://github.com/2023M5T2-Inteli/tectonics/blob/main/media/Arquitetura%20Do%20Sistema/CroquiVisaoLateral.png?raw=true)
 
-## Croqui Robô
+**Visão Robô**
+
 ![image](https://github.com/2023M5T2-Inteli/tectonics/blob/main/media/Arquitetura%20Do%20Sistema/CroquiRobo.png?raw=true)
 
-## Tabela
+**Visão Superior**
+
 ![image](https://github.com/2023M5T2-Inteli/tectonics/blob/main/media/Arquitetura%20Do%20Sistema/Tabela1.png?raw=true)
 ![image](https://github.com/2023M5T2-Inteli/tectonics/blob/main/media/Arquitetura%20Do%20Sistema/Tabela2.png?raw=true)
 ![image](https://github.com/2023M5T2-Inteli/tectonics/blob/main/media/Arquitetura%20Do%20Sistema/Tabela3.png?raw=true)
@@ -214,6 +220,8 @@ Considerando que uso do tradicional custe e demore mais que do Magnetum e que a 
 | 1x| Raspberry Pi Pico W    | [ datasheet ](https://datasheets.raspberrypi.com/picow/pico-w-datasheet.pdf)    |
 | 4x| Eletroímã 12v    | [ compra ](https://produto.mercadolivre.com.br/MLB-1756894287-eletroim-12vdc-12v-5kg-forca-de-033a-_JM#position=12&search_layout=stack&type=item&tracking_id=f99d5a87-91f9-4bc5-bf67-01991f1188e0)    |
 | 2x| Submersível Dc 3-5V 100l / H    | [ compra ](https://shopee.com.br/Bomba-D-'%C3%81gua-Submers%C3%ADvel-Pet-Mini-Dc3-5V-100l-H-Acess%C3%B3rios-Tanque-De-Peixes-Silenciosa-Para-Aqu%C3%A1rio-i.298167688.4751307098)    |
+
+## Projeto eletrônico
 
 ## PCB
 Utilizamos uma placa perfurada de dimensão 12x18 cm.
