@@ -1,28 +1,29 @@
-import { useState, useEffect } from "react"; // Hook para controlar estado dos componentes
+// Página de demonstração para testes
+
+import { useState, useEffect } from "react"; 
+import { useNavigate } from "react-router-dom"; // Biblioteca para navegação entre páginas
+import backDemo from '../assets/backDemo.png' // Botão de voltar
+
 import Axios from "axios"; // Biblioteca para fazer requisições HTTP
 import bgWaves from "../assets/bg-waves.png"; // Vetor de decoração na base da página
+
 import Button from "../components/Button";
-import { useNavigate } from "react-router-dom";
-import backDemo from '../assets/backDemo.png'
 
 function Demo() {
 
-    // Declaração dos hooks de estado
-    const [cycleCount, setCycleCount] = useState(0); // Contagem de ciclos atual
-    const [magnetState, setMagnetState] = useState(false); // Estado do ímã
-    const [pumpState, setPumpState] = useState(0); // Estado da bomba d'água
+    // Declaração dos hooks
+    const [cycleCount, setCycleCount] = useState(0); 
+    const [magnetState, setMagnetState] = useState(false); 
+    const [pumpState, setPumpState] = useState(0);
     const navigate = useNavigate()
     
 
     // Declaração do endereço do servidor atual
     const serverHost = "http://10.128.20.240:5000";
 
-
-    // Função para trocar estado do ímã. Como ainda não fizemos rotas de POST, essa mudança
-    // no servidor é feita através de diferentes rotas de GET
+    // Faz requisição ao servidor para trocar estado e atualiza estado local
     const toggleMagnet = () => {
         fetch(serverHost + "/toggle_magnet", {
-
             method: "POST",
             body: JSON.stringify({
                 magnet_state: !magnetState
@@ -35,7 +36,7 @@ function Demo() {
         setMagnetState(!magnetState)
     };
 
-    // Função para trocar estado da bomba. Segue a mesma lógica do ímã.
+    // Faz requisição ao servidor para trocar estado e atualiza estado local
     const togglePump = () => {
         fetch(serverHost + "/toggle_pump", {
             method: "POST",
@@ -50,20 +51,19 @@ function Demo() {
         setPumpState(!pumpState)
     };
 
-    // Função que faz requisição ao servidor para começar o ensaio com o robô
+    // Faz requisição ao servidor para iniciar ensaio
     const startTrial = () => {
         fetch(serverHost + "/start_trial").then((res) => { });
     };
 
-    // Função que faz requisição ao servidor para ler o número de ciclos atual
+    // Faz requisição ao servidor para ler valor e atualiza estado local
     const getCycleCount = () => {
         Axios.get(serverHost + "/cycleCount").then((res) => {
             setCycleCount(res.data);
         }); // Atualiza estado com o valor lido
     };
 
-    // Função que faz requisição ao servidor para ler o estado do ímã e da bomba atualmente.
-    // O objetivo é eventualmente utilizar essa função para receber erros do servidor.
+    // Faz requisição ao servidor para ler estados dos componentes e atualiza estados locais
     const getStates = () => {
         fetch(serverHost + '/states')
             .then(res => res.json())
@@ -72,13 +72,14 @@ function Demo() {
                 setPumpState(Number.parseInt(data.pump))
             })
     }
+
     // Executa funções para atualizar estados
     const updateData = () => {
         getCycleCount();
         getStates();
     };
 
-    // Hook atualizar dados regularmente (a cada 1 segundo)
+    // Hook para atualizar dados regularmente (a cada 1 segundo)
     useEffect(() => {
         const myInterval = setInterval(updateData, 1000); // Cria intervalo e chama função desejada
         return () => {
