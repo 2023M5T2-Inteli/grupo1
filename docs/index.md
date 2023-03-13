@@ -583,15 +583,17 @@ Como linha geral, priorizamos elementos minimalistas, intuitivos e de fácil ent
 
 A interface oficial apresenta uma sidebar simples, com tela inicial, histórico de relatórios, perfil e link temporário à página de demo. A tela principal, por sua vez, traz um botão de destaque para iniciar um ciclo, assim como campos de preenchimento de mais informações para cada execução. Clicando na seta na base da página, pode-se visualizar um card na qual serão disponibilizadas mais detalhes sobre o ensaio. O template dessas informações será implementado na Sprint 4.
 
+![image](https://github.com/2023M5T2-Inteli/tectonics/blob/dev/media/interface_grafica/home1.png?raw=true)
+
+![image](https://github.com/2023M5T2-Inteli/tectonics/blob/dev/media/interface_grafica/home2.png?raw=true)
+
 Já na aba de histórico, tem-se ensaios antigos com diversas funcionalidades de filtragem. Futuramente, objetivamos adicionar opções de compilação, exportação e compartilhamento também.
+
+![image](https://raw.githubusercontent.com/2023M5T2-Inteli/tectonics/main/media/testes_de_componentes/celula_de_carga/c%C3%A9lula_de_carga_entre_placas.png)
 
 Por fim, a página de perfil permanece em construção.
 
-Agregamos abaixo algumas imagens da implementação e um link para o design inicial no Figma, o qual modificamos um pouco durante o desenvolvimento.
-
-![image](https://github.com/2023M5T2-Inteli/tectonics/blob/main/media/interface_grafica/figma.png)
-
-Para a interface de testes, utilizamos um design simples, com um único vetor em tons de verde para decoração na base da página.
+O design inicial do Figma pode ser conferido aqui. Para a interface de testes, utilizamos um design simples, com um único vetor em tons de verde para decoração na base da página.
 
 ![image](https://github.com/2023M5T2-Inteli/tectonics/blob/main/media/interface_grafica/interface_demo.png)
 
