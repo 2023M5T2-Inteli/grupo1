@@ -2,13 +2,17 @@ import { useState, useEffect } from "react"; // Hook para controlar estado dos c
 import Axios from "axios"; // Biblioteca para fazer requisições HTTP
 import bgWaves from "../assets/bg-waves.png"; // Vetor de decoração na base da página
 import Button from "../components/Button";
+import { useNavigate } from "react-router-dom";
+import backDemo from '../assets/backDemo.png'
 
-function Demo(){
-    
+function Demo() {
+
     // Declaração dos hooks de estado
     const [cycleCount, setCycleCount] = useState(0); // Contagem de ciclos atual
     const [magnetState, setMagnetState] = useState(false); // Estado do ímã
     const [pumpState, setPumpState] = useState(0); // Estado da bomba d'água
+    const navigate = useNavigate()
+    
 
     // Declaração do endereço do servidor atual
     const serverHost = "http://10.128.20.240:5000";
@@ -19,14 +23,14 @@ function Demo(){
     const toggleMagnet = () => {
         fetch(serverHost + "/toggle_magnet", {
 
-        method: "POST",
-        body: JSON.stringify({
-            magnet_state: !magnetState
-        }),
-        headers: { "Content-type": "application/json;charset=UTF-8" },
+            method: "POST",
+            body: JSON.stringify({
+                magnet_state: !magnetState
+            }),
+            headers: { "Content-type": "application/json;charset=UTF-8" },
         })
-        .then((response) => response.json())
-        .then((data) => console.log(data));
+            .then((response) => response.json())
+            .then((data) => console.log(data));
 
         setMagnetState(!magnetState)
     };
@@ -34,27 +38,27 @@ function Demo(){
     // Função para trocar estado da bomba. Segue a mesma lógica do ímã.
     const togglePump = () => {
         fetch(serverHost + "/toggle_pump", {
-        method: "POST",
-        body: JSON.stringify({
-            pump_state: !pumpState
-        }),
-        headers: { "Content-type": "application/json;charset=UTF-8" },
+            method: "POST",
+            body: JSON.stringify({
+                pump_state: !pumpState
+            }),
+            headers: { "Content-type": "application/json;charset=UTF-8" },
         })
-        .then((response) => response.json())
-        .then((data) => console.log(data));
+            .then((response) => response.json())
+            .then((data) => console.log(data));
 
         setPumpState(!pumpState)
     };
 
     // Função que faz requisição ao servidor para começar o ensaio com o robô
     const startTrial = () => {
-        fetch(serverHost + "/start_trial").then((res) => {});
+        fetch(serverHost + "/start_trial").then((res) => { });
     };
 
     // Função que faz requisição ao servidor para ler o número de ciclos atual
     const getCycleCount = () => {
         Axios.get(serverHost + "/cycleCount").then((res) => {
-        setCycleCount(res.data);
+            setCycleCount(res.data);
         }); // Atualiza estado com o valor lido
     };
 
@@ -62,11 +66,11 @@ function Demo(){
     // O objetivo é eventualmente utilizar essa função para receber erros do servidor.
     const getStates = () => {
         fetch(serverHost + '/states')
-        .then(res => res.json())
-        .then(data => {
-            setMagnetState(Number.parseInt(data.magnet))
-            setPumpState(Number.parseInt(data.pump))
-        })
+            .then(res => res.json())
+            .then(data => {
+                setMagnetState(Number.parseInt(data.magnet))
+                setPumpState(Number.parseInt(data.pump))
+            })
     }
     // Executa funções para atualizar estados
     const updateData = () => {
@@ -78,13 +82,17 @@ function Demo(){
     useEffect(() => {
         const myInterval = setInterval(updateData, 1000); // Cria intervalo e chama função desejada
         return () => {
-        clearInterval(myInterval); // Reinicia o intervalo
+            clearInterval(myInterval); // Reinicia o intervalo
         };
     }, []);
-    return(
+
+    return (
         <div className="bg-background h-screen w-screen flex flex-col justify-center items-center">
+            <button className="fixed left-3 top-3" onClick={() => navigate('/')}>
+                <img src={backDemo} className="w-7"></img>
+            </button>
             <Button onClick={startTrial} content="Iniciar ensaio" />
-            <Button 
+            <Button
                 onClick={toggleMagnet}
                 content={magnetState ? "Desligar imã" : "Ligar imã"}
             />
@@ -96,6 +104,6 @@ function Demo(){
             <img className="fixed bottom-0 w-screen" src={bgWaves} />
         </div>
     );
-} 
+}
 
 export default Demo;
