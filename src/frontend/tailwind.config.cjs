@@ -6,10 +6,16 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily : {
+        'montserrat' : ['Montserrat']
+      },
       colors: {
-        primary: '#224957',
+        purple: '#2B1B53',
         action: '#20DF7F',
         background: '#E5E5E5',
+      },
+      gridTemplateColumns: {
+        'sidebar-main-grid': 'auto 1fr'
       }
     },
   },

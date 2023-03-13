@@ -12,16 +12,19 @@
 # 5. Definir se rotas serão em inglês ou português
 
 # Importação dos módulos necessários
-from flask import Flask  # módulo de servidor
+from flask import Flask, request, jsonify  # módulo de servidor
 import robot  # módulo personalizado para controlar o robô
 from flask_cors import CORS  # módulo para evitar erros de CORS
+
+import logging
+#log = logging.getLogger('werkzeug')
+#log.setLevel(logging.ERROR)
 
 # Declaração de variáveis globais
 # Contagem de ciclo atual do robô (quantas passadas ele já fez no ensaio atual)
 cycle_count = 0
 magnet_state = 0  # Estado do ímã (ligado/desligado)
 pump_state = 0  # Estado da bomba d'água (ligada/desligada)
-sensor_state = 0  # Estado do sensor magnético (ligada/desligada)
 
 # Número de passadas em cada ciclo. A ser dinamizado através das rotas nas próximas sprints.
 cycles_per_trial = 5
@@ -30,11 +33,11 @@ app = Flask(__name__)  # Cria servidor
 CORS(app)  # Adiciona proteção contra erros CORS
 
 # CÓDIGO REFERENTE AO ROBÔ
-
-
 @app.route('/start_trial')  # Rota para iniciar ensaio com o robô
 def start_trial():
+    print('START')
     execute_trial()  # Chama função do servidor que organiza o ensaio
+    robot.rehome()
     return 'Trial started'
 
 
@@ -88,30 +91,27 @@ def get_pump_state():
     return str(pump_state)
 
 
-# Rota que devolve apenas valor do estado do sensor para o Raspberry
-@app.route('/sensor_state')
-def get_sensor_state():
-    global sensor_state
-    return str(sensor_state)
-
-
 # CÓDIGO PARA MODIFICAR ESTADO DO ÍMÃ
 # Nesse caso, foi preciso separar as rotas das funções que modificam os valores, por serem variáveis
 # globais. Quando tentamos deixar tudo na mesma função da rota, o programa apresentava erros.
 
+@app.route('/toggle_magnet', methods=['POST'])
+def magnet():
+    try:
+        magnet_state = bool(request.json['magnet_state'])
 
-@app.route('/enable_magnet')  # Rota para ligar ímã
-def enable_magnet_route():
-    enable_magnet()
-    print(magnet_state)
-    return 'magnet on'
-
-
-@app.route('/disable_magnet')  # Rota para desligar o ímã
-def disable_magnet_route():
-    disable_magnet()
-    return 'magnet off'
-
+        print('dentro do toggle')
+        if magnet_state:
+            enable_magnet()
+            response = {'status': 'success', 'message': 'magnet enabled'}
+        elif magnet_state == False:
+            disable_magnet()
+            response = {'status': 'success', 'message': 'magnet disabled'}
+        else:
+            response = {'status': 'error', 'message': 'invalid value for enable parameter'}
+    except Exception as e:
+        response = {'status': 'error', 'message': str(e)}
+    return response
 
 def disable_magnet():  # Modifica estado do ímã para 0
     global magnet_state
@@ -127,16 +127,21 @@ def enable_magnet():  # Modifica estado do ímã para 1
 # globais. Quando tentamos deixar tudo na mesma função da rota, o programa apresentava erros.
 
 
-@app.route('/enable_pump')  # Rota para ligar bomba
-def enable_pump_route():
-    enable_pump()
-    return 'pump on'
-
-
-@app.route('/disable_pump')  # Rota para desligar bomba
-def disable_pump_route():
-    disable_pump()
-    return 'pump off'
+@app.route('/toggle_pump', methods=['POST'])
+def pump():
+    try:
+        pump_state = bool(request.json['pump_state'])
+        if pump_state == True:
+            enable_pump()
+            response = {'status': 'success', 'message': 'pump on'}
+        elif pump_state == False:
+            disable_pump()
+            response = {'status': 'success', 'message': 'pump off'}
+        else:
+            response = {'status': 'error', 'message': 'invalid value'}
+    except Exception as e:
+        response = {'status': 'error', 'message': str(e)}
+    return response
 
 
 def disable_pump():  # Modifica estado da bomba para 0
