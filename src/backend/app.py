@@ -3,28 +3,20 @@
 # rotas de leitura e mudança de estados, que alteram variáveis globais e executam funções específicas
 # em cada subsistema.
 
-# PRÓXIMAS PASSOS PARA ESTE CÓDIGO:
-# 1. Modularizar em pasta de rotas, controladores e serviços
-# 2. Transformar rotas de mudança de estados em POST em vez de GET
-# 3. Aumentar dinamicidade dos serviços, com passagem de argumentos em POST
-# 4. Resolver integração das rotas de estados com o front e raspberry (atualmente, temos rotas
-# que retornam a mesma coisa de maneiras diferentes para cada subsistema)
-# 5. Definir se rotas serão em inglês ou português
-
-# Importação dos módulos necessários
-from flask import Flask, request, jsonify  # módulo de servidor
+from flask import Flask, request
 import robot  # módulo personalizado para controlar o robô
 from flask_cors import CORS  # módulo para evitar erros de CORS
+from enum import Enum
 
-import logging
-#log = logging.getLogger('werkzeug')
-#log.setLevel(logging.ERROR)
+# Enum para representar estados dos componentes
+class State(Enum):
+    ON = 1
+    OFF = 0
 
 # Declaração de variáveis globais
-# Contagem de ciclo atual do robô (quantas passadas ele já fez no ensaio atual)
-cycle_count = 0
-magnet_state = 0  # Estado do ímã (ligado/desligado)
-pump_state = 0  # Estado da bomba d'água (ligada/desligada)
+cycle_count = 0 # Contagem de ciclo atual do robô (quantas passadas ele já fez no ensaio atual)
+magnet_state = State.OFF  
+pump_state = State.OFF 
 
 # Número de passadas em cada ciclo. A ser dinamizado através das rotas nas próximas sprints.
 cycles_per_trial = 5
@@ -33,49 +25,41 @@ app = Flask(__name__)  # Cria servidor
 CORS(app)  # Adiciona proteção contra erros CORS
 
 # CÓDIGO REFERENTE AO ROBÔ
-@app.route('/start_trial')  # Rota para iniciar ensaio com o robô
+@app.route('/start_trial') 
 def start_trial():
-    print('START')
-    execute_trial()  # Chama função do servidor que organiza o ensaio
-    robot.rehome()
-    return 'Trial started'
+    execute_trial()  
+    return "Success", 200
 
 
 def execute_trial():
-    restartCycleCount()  # Reinicia contagem de dobo
+    restartCycleCount()  
     robot.rehome()  # Função do módulo do robô para levá-lo ao ponto neutro
     # Loop para realizar um número arbitrário de passadas.
     for i in range(cycles_per_trial):
-        robot.execute_cycle()  # Executa o ciclo segundo função do módulo do robô
-        incrementCycle()  # Incrementa variável de contagem dos ciclos atuais
-
+        robot.execute_cycle()  
+        incrementCycle()  
 
 @app.route('/cycleCount')  # Rota para ler número de ciclos (passadas) atual
 def getCycleCount():
     global cycle_count
-    return str(cycle_count)
-
+    return ({"cycleCount": cycle_count})
 
 def restartCycleCount():
     global cycle_count
     cycle_count = 0
 
-
 def incrementCycle():
-    global cycle_count  # Chama variável global de contagem
-    cycle_count = cycle_count + 1  # Incrementa variável
+    global cycle_count  
+    cycle_count = cycle_count + 1  
 
 # CÓDIGO PARA LER ESTADOS DO ÍMÃ E DA BOMBA
-
-
 # Rota para devolver estado do ímã e da bomba em JSON. Atualmente integrado
+# Rota para devolver estado do ímã e da bomba em JSON. Atualmente integrado apenas com o front, porque não descobrimos como processar JSON no Raspberry ainda
 @app.route('/states')
-# apenas com o front, porque não descobrimos como processar JSON no Raspberry ainda
 def get_states():
     global magnet_state
     global pump_state
     return {"magnet": magnet_state, "pump": pump_state}
-
 
 # Rota que devolve apenas valor do estado do ímã para o Raspberry
 @app.route('/magnet_state')
@@ -83,25 +67,22 @@ def get_magnet_state():
     global magnet_state
     return str(magnet_state)
 
-
 # Rota que devolve apenas valor do estado da bomba para o Raspberry
 @app.route('/pump_state')
 def get_pump_state():
     global pump_state
     return str(pump_state)
 
-
 # CÓDIGO PARA MODIFICAR ESTADO DO ÍMÃ
 # Nesse caso, foi preciso separar as rotas das funções que modificam os valores, por serem variáveis
 # globais. Quando tentamos deixar tudo na mesma função da rota, o programa apresentava erros.
 
+# Esta rota recebe um JSON no body com chave "magnet_state" e valor booleano.
 @app.route('/toggle_magnet', methods=['POST'])
 def magnet():
     try:
-        magnet_state = bool(request.json['magnet_state'])
-
-        print('dentro do toggle')
-        if magnet_state:
+        magnet_state = bool(request.json['magnet_state']) # Pega valor booleano do JSON
+        if magnet_state == True: 
             enable_magnet()
             response = {'status': 'success', 'message': 'magnet enabled'}
         elif magnet_state == False:
@@ -113,24 +94,24 @@ def magnet():
         response = {'status': 'error', 'message': str(e)}
     return response
 
-def disable_magnet():  # Modifica estado do ímã para 0
+def disable_magnet():  
     global magnet_state
-    magnet_state = 0
+    magnet_state = State.OFF
 
 
-def enable_magnet():  # Modifica estado do ímã para 1
+def enable_magnet():  
     global magnet_state
-    magnet_state = 1
+    magnet_state = State.ON
 
 # CÓDIGO PARA MODIFICAR ESTADO DA BOMBA
 # Nesse caso, foi preciso separar as rotas das funções que modificam os valores, por serem variáveis
 # globais. Quando tentamos deixar tudo na mesma função da rota, o programa apresentava erros.
 
-
+# Esta rota recebe um JSON no body com chave "pump_state" e valor booleano.
 @app.route('/toggle_pump', methods=['POST'])
 def pump():
     try:
-        pump_state = bool(request.json['pump_state'])
+        pump_state = bool(request.json['pump_state']) # Pega valor booleano do JSON
         if pump_state == True:
             enable_pump()
             response = {'status': 'success', 'message': 'pump on'}
@@ -143,12 +124,11 @@ def pump():
         response = {'status': 'error', 'message': str(e)}
     return response
 
-
-def disable_pump():  # Modifica estado da bomba para 0
+def disable_pump():  
     global pump_state
-    pump_state = 0
+    pump_state = State.OFF
 
 
-def enable_pump():  # Modifica estado da bomba para 1
+def enable_pump():  
     global pump_state
-    pump_state = 1
+    pump_state = State.OFF
