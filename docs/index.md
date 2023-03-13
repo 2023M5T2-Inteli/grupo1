@@ -231,7 +231,8 @@ Utilizamos uma placa perfurada de dimensão 12x18 cm.
 
 ### Descrição dos componentes
 
-![image](https://user-images.githubusercontent.com/99221221/221013920-fce75aeb-2683-48bb-841a-5461bb479c9a.png)
+![image](https://raw.githubusercontent.com/2023M5T2-Inteli/tectonics/main/media/Arquitetura%20Do%20Sistema/TabelaDeFun%C3%A7%C3%B5es.png)
+
 
 
 ## Tecnologias Utilizadas
