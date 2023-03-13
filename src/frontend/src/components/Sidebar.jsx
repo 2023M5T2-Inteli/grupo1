@@ -1,37 +1,19 @@
-import magnet from '../assets/magnet.png'
+import magnet from '../assets/sidebarMagnet.png'
+import reports from '../assets/reportsIcon.png'
+import profile from '../assets/profileIcon.png'
+import demo from '../assets/demoIcon.png'
+import SidebarIcon from './SidebarIcon'
 
-function Sidebar(props) {
+function Sidebar() {
     return (
-    <>
-        <div className="sidebar flex-1 min-height-screen p-2 col-span-2 overflow-y-auto text-center bg-gray-900">
-            <div className="text-gray-100 text-xl">
-                <div className="p-2.5 mt-1 flex items-center">
-                    <img className="p-2 w-[40px] ml-2" src={magnet}/>
-                    <h1 className="font-bold text-gray-200 text-[18px] ml-2">Tectonics</h1>
-                    <i className="bi bi-x cursor-pointer ml-28 lg:hidden"></i>
-                </div>
-            <div className="my-2 bg-gray-600 h-[1px]"></div>
+        <div className="fixed h-screen bg-purple flex flex-col justify-between w-20 p-4">
+            <div className='flex flex-col gap-6'>
+                <SidebarIcon icon={magnet} title='Home' link='/'/>
+                <SidebarIcon icon={reports} title='Reports' link='/archive'/>
+                <SidebarIcon icon={demo} title='Demo' link='/demo'/>
             </div>
-
-            <div className="p-2.5 flex items-center rounded-md px-4 duration-300 cursor-pointer bg-gray-900 hover:bg-blue-600 text-white">
-                <i className="bi bi-house-door-fill"></i>
-                <span className='font-bold ml-2 bg-gray-900 text-[18px]'>Home</span>
-            </div>
-
-            <div className="p-2.5 flex items-center rounded-md px-4 duration-300 cursor-pointer bg-gray-900 hover:bg-blue-600 text-white">
-                <i className="bi bi-house-door-fill"></i>
-                <span className='font-bold ml-2 bg-gray-900 text-[18px]'>Histórico</span>
-            </div>
-
-            <div className="my-4 bg-gray-600 h-[1px]"></div>
-
-            <div className="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white">
-                <i className="bi bi-box-arrow-in-right"></i>
-                <span className="font-bold ml-2 bg-gray-900 text-[18px]">Logout</span>
-            </div>
-
-        </div>
-    </>
+            <SidebarIcon icon={profile} title='Profile' link='/profile'/>
+        </div >
     )
 }
 
