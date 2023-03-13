@@ -1,11 +1,10 @@
 // Importa recursos necessários 
 import Axios from 'axios' // Biblioteca para fazer requisições HTTP
-import bgWaves from './assets/bg-waves.png' // Vetor de decoração na base da página
-import Sidebar from './components/Sidebar'
-import StartButton from './assets/startButton.jpeg'
+import Sidebar from '../components/Sidebar'
+import startButton from '../assets/startButton.png'
 
 // Componente principal
-function App() {
+function Ancient() {
 
   // Declaração do endereço do servidor atual
   const serverHost = 'http://10.128.20.240:5000'
@@ -16,7 +15,7 @@ function App() {
     <div className="col-span-2"><Sidebar/></div>
     <div className="flex transform transition duration-300 shadow-2xl rounded-lg col-span-9 bg-white mt-3 p-5">
       <div className="justify-between">
-        <button><img className="hover:scale-105 p-2 w-[300px]" src={StartButton}></img></button>
+        <button><img className="hover:scale-105 p-2 w-[300px]" src={startButton}></img></button>
       </div>
       <div className='ml-7 flex-1'>
         <div className="mt-3 text-3xl font-bold leading-8 font-family-Montserrat">Amostra #0000</div>
@@ -41,10 +40,10 @@ function App() {
 
     <div className="flex transform transition duration-300 shadow-2xl rounded-lg col-start-3 col-end-12 bg-white mt-3 p-5">
       <div className="justify-between">
-        <button><img className="hover:scale-105 p-2 w-[150px]" src={StartButton}></img></button>
+        <button><img className="hover:scale-105 p-2 w-[150px]" src={startButton}></img></button>
       </div>
       <div className='ml-7 flex-1'>
-        <div className="mt-3 text-3xl font-bold leading-8 font-family-Montserrat">Amostra #0000</div>
+        <div className="mt-3 text-3xl font-bold leading-8 font-family-Montserrat">Novo ensaio</div>
         <div>
             <div>
               <div className='mt-4 font-family-Montserrat text-xl font-semibold text-left'>Data:</div>
@@ -61,5 +60,5 @@ function App() {
   )
 }
 
-export default App
+export default Ancient
 

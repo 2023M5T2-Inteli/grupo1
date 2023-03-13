@@ -6,6 +6,8 @@ outros scrips da pasta "components".
 import { Routes, Route, BrowserRouter as Router, BrowserRouter } from 'react-router-dom';
 import History from './pages/History';
 import Begin from './pages/Begin';
+import Home from './pages/Home';
+import Ancient from './pages/ancient';
 
 // Componente principal
 function App() {
@@ -15,7 +17,9 @@ function App() {
       <BrowserRouter>
       <Routes>
             <Route path='/' element={<Begin />} />
-            <Route path='/history' element={<History />}/>
+            <Route path='/home' element={<Home />}/>
+            <Route path='/archive' element={<History />}/>
+            <Route path='/ancient' element={< Ancient/>}/>
       </Routes>
       </BrowserRouter>
       
