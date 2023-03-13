@@ -7,7 +7,6 @@ import { Routes, Route, BrowserRouter as Router, BrowserRouter } from 'react-rou
 import History from './pages/History';
 import Demo from './pages/Demo';
 import Home from './pages/Home';
-import Ancient from './pages/ancient';
 import Sidebar from './components/Sidebar';
 
 // Componente principal
@@ -22,7 +21,6 @@ function App() {
           <Route path='/archive' element={<History />} />
           <Route path='/profile' element={<div>
             <Sidebar /><h1 className='ml-20'>Em construção</h1></div>} />
-          <Route path='/ancient' element={< Ancient />} />
         </Routes>
       </BrowserRouter>
 
