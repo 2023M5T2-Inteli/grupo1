@@ -35,8 +35,8 @@ Magnetum | Concepção de sistema de automação industrial para separação mag
   - [Projeto eletrônico](#projeto-eletrônico)
     - [Esquemático do circuito](#esquemático-do-circuito)
     - [Implementação do circuito](#implementação-do-circuito)
-    - [Esquemático do circuito](#esquemático-do-circuito-1)
-  - [Componentes Utilizados](#componentes-utilizados)
+      - [Componentes utilizados](#componentes-utilizados)
+      - [Validação dos dispositivos eletrônicos](#validação-dos-dispositivos-eletrônicos)
   - [Módulos do Sistema e Visão Geral (Big Picture)](#módulos-do-sistema-e-visão-geral-big-picture)
   - [Descrição dos Subsistemas](#descrição-dos-subsistemas)
     - [Descrição dos componentes](#descrição-dos-componentes)
@@ -209,6 +209,8 @@ O suporte para ímãs consiste em uma case octagonal, na qual serão fixados de 
 
 Nesse sentido, nossa ideia principal é produzir uma placa em PVC através de corte a laser, sob a qual os ímãs serão posicionados, e, então, agregar uma capa de plástico flexível sob a base deles para assegurar a resistência à água. Caso isso não funcione e/ou não seja viável, consideramos também produzir uma case completa e hermeticamente fechada em PVC.
 
+Para os testes da Sprint 3, construímos um protótipo desse suporte utilizando papelão e fita adesiva, tendo 
+
 Não temos dimensões exatas ainda porque estamos testando a eficácia de dois, três ou quatro ímãs juntos, considerando fluxo de corrente, campo magnético resultante e peso. Assim que chegarmos a uma conclusão nesse sentido, poderemos determinar o tamanho da case com propriedade.
 
 ![image](https://github.com/2023M5T2-Inteli/tectonics/blob/main/media/Arquitetura%20Do%20Sistema/CroquiVisaoLateral.png?raw=true)
@@ -218,7 +220,8 @@ Não temos dimensões exatas ainda porque estamos testando a eficácia de dois, 
 
 A figura abaixo apresenta as dimensões do braço robótico Magician Lite, conforme especificações do fabricante.
 
-![image](https://github.com/2023M5T2-Inteli/tectonics/blob/main/media/Arquitetura%20Do%20Sistema/CroquiRobo.png?raw=true)|
+![image](https://github.com/2023M5T2-Inteli/tectonics/blob/main/media/Arquitetura%20Do%20Sistema/CroquiRobo.png?raw=true)
+
 
 ## Projeto eletrônico
 
@@ -227,21 +230,39 @@ Como demonstrado na arquitetura da solução, o âmbito eletrônico do nosso pro
 ###  Esquemático do circuito
 [Esquemático](https://github.com/2023M5T2-Inteli/tectonics/tree/main/docs/Sprint_3)
 
+Conforme a figura, nosso circuito utiliza 10 pinos da Raspberry Pi Pico W, duas bombas d'água, quatro eletroímãs, duas pontes H e um regulador de tensão. Tudo isso é alimentado por uma fonte de 5V. 
+
+Nesse contexto, o regulador de tensão é empregado para amplificar essa voltagem aos 12V necessários para o correto funcionamento dos eletroímãs. Desse modo, o componente recebe os 5V nas portas VCC IN/GND e envia 12V nas portas VCC OUT/GND. Estas, por sua vez, conectam-se diretamente à ponte H responsável por controlar os quatro eletroímãs. 
+
+Nesta ponte H, conectamos dois ímãs de cada lado, em paralelo. Assim, pudemos controlar um par por vez através dos pinos de direção da ponte. Esses pinos foram ligados aos GPIOs 11, 12, 14 e 15 do microcontrolador, para que pudessem ser utilizados em PWM para variar a intensidade do campo magnético.
+
+Já a segunda ponte H é alimentada diretamente pelos 5V e controla as duas bombas d'água. Não foi necessário utilizar o regulador de tensão nesta parte porque a especificação de voltagem das bombas é exatamente de 5V. Assim, conectamos os pinos de direção delas também a quatro GPIOs do microcontrolador (8, 9, 10, 11).
+
 ###  Implementação do circuito
-Utilizamos uma placa perfurada de dimensão 12x18 cm.
-Assim, apresentamos duas pontes H
+A implementação do circuito se deu em uma placa perfurada de dimensão 12x18 cm, na qual foram soldados o microcontrolador e os fios de conexão entre componentes. Esses fios foram posicionados no lado inferior da placa por motivos estéticos. Ademais, por falta de suporte específico, ficaram apenas acoplados, através de jumpers soldados, as pontes H, o regulador de tensão, os eletroímãs e as bombas d'água. 
 
-###  Esquemático do circuito
-[Esquemático](https://github.com/2023M5T2-Inteli/tectonics/tree/main/docs/Sprint_3)
+Nesse sentido, durante os testes, para minimizar riscos de curto-circuito e/ou contato com água, utilizamos fita isolante para proteger as soldas expostas, ampliamos os fios de conexão dos atuadores e prendemos essas conexões ao corpo do robô com fita adesiva.
 
-## Componentes Utilizados
+#### Componentes utilizados
 | Unidades | Nome | Link |
 |------|-----------|-------|
 | 2x  | Ponte H L298N     | [ datasheet ](https://files.comunidades.net/mutcom/Driver_Motor_ponteH__L298N.pdf)  |
 | 1x| Regulador de Tensão Ajustável MT3608    | [ datasheet ](https://www.olimex.com/Products/Breadboarding/BB-PWR-3608/resources/MT3608.pdf)    |
 | 1x| Raspberry Pi Pico W    | [ datasheet ](https://datasheets.raspberrypi.com/picow/pico-w-datasheet.pdf)    |
 | 4x| Eletroímã 12v    | [ compra ](https://produto.mercadolivre.com.br/MLB-1756894287-eletroim-12vdc-12v-5kg-forca-de-033a-_JM#position=12&search_layout=stack&type=item&tracking_id=f99d5a87-91f9-4bc5-bf67-01991f1188e0)    |
-| 2x| Submersível Dc 3-5V 100l / H    | [ compra ](https://shopee.com.br/Bomba-D-'%C3%81gua-Submers%C3%ADvel-Pet-Mini-Dc3-5V-100l-H-Acess%C3%B3rios-Tanque-De-Peixes-Silenciosa-Para-Aqu%C3%A1rio-i.298167688.4751307098)    
+| 2x| Bomba d'água submersível Dc 3-5V 100l / H    | [ compra ](https://shopee.com.br/Bomba-D-'%C3%81gua-Submers%C3%ADvel-Pet-Mini-Dc3-5V-100l-H-Acess%C3%B3rios-Tanque-De-Peixes-Silenciosa-Para-Aqu%C3%A1rio-i.298167688.4751307098)    
+
+#### Validação dos dispositivos eletrônicos
+Todos os testes foram feitos utilizando os botões da página "/demo" da interface gráfica. Como esta seção trata dos dispositivos eletrônicos, relatamos apenas os testes referentes a essa parte do sistema (excluímos metas para braço robótico e feedback na interface gráfica).
+
+| Componente                             | Entrada                                                       | Saída esperada                                                                   | Resultado do teste                                                                                                                                                                                                                                 |
+| -------------------------------------- | ------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Eletroímã                              | Acionamento do botão de "ligar" na interface gráfica          | Emissão de campo eletromagnético no ímã, atraindo objetos magnéticos.            | Fracasso. Ao apertar o botão, o ímã atraiu uma moeda de dez centavos.                                                                                                                                                                               |
+| Eletroímã                              | Acionamento do botão de "desligar" na interface gráfica       | Cessão da emissão de campo eletromagnético, soltando quaisquer objetos captados. | Fracasso. Ao apertar o botão, o ímã soltou a moeda e parou de atrair materiais magnéticos.                                                                                                                                                          |
+| Bombas d'água                           | Conexão das bombas d'água, na ponte H, à fonte em 5V            | Ativação das bombas em um dos sentidos de rotação.                                 | Sucesso. As bombas ativaram-se corretamente.                                                                                                                                                                                                           |
+| Bombas d'água                           | Conexão das bombas d'água, na ponte H, à fonte em 5V            | Ativação das bombas em um dos sentidos de rotação.                                 | Sucesso. As bombas ativaram-se corretamente.                                                                                                                                                                                                           |
+                                                       
+
 
 ## Módulos do Sistema e Visão Geral (Big Picture)
 
