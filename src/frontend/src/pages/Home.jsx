@@ -23,7 +23,7 @@ function Home() {
 
     // Desliza tela para card de detalhes
     function showDetails() {
-        detailsRef.current.scrollIntoView();
+        detailsRef.current.scrollIntoView({ behavior: 'smooth'});
     }
 
     return (
@@ -62,7 +62,7 @@ function Home() {
 
                                 <p className="font-bold">Intensidade do ímã: </p>
 
-                                <span className="flex gap-2 items-center justify-center">
+                                <span id="sliderWrapper" className="flex gap-2 items-center justify-center">
                                     {/* Slider */}
                                     <RangeSlider min={0} max={12} thumbsDisabled={[true, false]} value={intensity} onInput={setIntensity} />
                                     <p>{intensity[1] + 'V'}</p>
@@ -72,7 +72,7 @@ function Home() {
                                     <p className="font-bold">Ciclo: </p>
                                     <p>Nº DE CICLOS</p>
                                 </span>
-                                
+
                                 <span className="flex gap-2">
                                     <p className="font-bold">Status: </p>
                                     <p>BANDEJA ATUAL</p>
