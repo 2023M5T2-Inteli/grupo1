@@ -11,6 +11,7 @@ function Sidebar() {
                 <SidebarIcon icon={magnet} title='Home' link='/'/>
                 <SidebarIcon icon={reports} title='Reports' link='/archive'/>
                 <SidebarIcon icon={demo} title='Demo' link='/demo'/>
+                <SidebarIcon icon={demo} title='Server' link='/server'/>
             </div>
             <SidebarIcon icon={profile} title='Profile' link='/profile'/>
         </div >

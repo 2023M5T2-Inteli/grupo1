@@ -1,11 +1,34 @@
-O frontend deste projeto está em React, utilizando Vite para o servidor de desenvolvimente e Tailwind como framework de CSS. Para visualizá-lo, utilize os seguintes comandos:
+# electron-app
 
+An Electron application with React
+
+## Recommended IDE Setup
+
+- [VSCode](https://code.visualstudio.com/) + [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) + [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+
+## Project Setup
+
+### Install
+
+```bash
+$ npm install
 ```
-npm install
-npm run dev
+
+### Development
+
+```bash
+$ npm run dev
 ```
 
-e acesse o endereço: http://127.0.0.1:5173/
+### Build
 
-Os arquivos de configuração de cada framework, assim como o index.html principal, se encontram na pasta raiz. Já os scrips em jsx para a página em si estão na subpasta /src. O app de react é referenciado no arquivo main.jsx, enquanto seus elementos são criados no App.jsx. Em suma, o projeto segue a estrutura comum de um projeto de React criado com Vite.
-  
+```bash
+# For windows
+$ npm run build:win
+
+# For macOS
+$ npm run build:mac
+
+# For Linux
+$ npm run build:linux
+```
