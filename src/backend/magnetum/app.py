@@ -7,10 +7,10 @@ from flask import Flask, request
 #->import robot  # módulo personalizado para controlar o robô
 from flask_cors import CORS  # módulo para evitar erros de CORS
 
-from magnetum.bluprints import views
+from magnetum.bluprints import routes
 
 def create_app():
     app = Flask(__name__)  # Cria servidor
     CORS(app)  # Adiciona proteção contra erros CORS
-    views.init_app(app)
+    routes.init_app(app)
     return app
