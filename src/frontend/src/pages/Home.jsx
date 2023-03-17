@@ -2,26 +2,26 @@
 
 import { useRef, useState, useEffect } from "react";
 import { useForm, FormProvider } from "react-hook-form";
-
 import Sidebar from "../components/Sidebar";
-import startButton from "../assets/startButton.png";
-import Input from "../components/Input";
 
+import Input from "../components/Input";
 import Axios from "axios"; // Biblioteca para fazer requisições HTTP
 import RangeSlider from "react-range-slider-input";
 import "react-range-slider-input/dist/style.css";
+
 import pumpIcon from "../assets/pumpIcon.png";
 import turnOnIcon from "../assets/turnOnIcon.png";
 import magnetIcon from "../assets/sidebarMagnet.png";
 import seeMore from "../assets/seeMoreArrow.png";
+import startButton from "../assets/startButton.png";
 
 function Home() {
   // Definição de hooks
-  const [intensity, setIntensity] = useState([0, 12]);
-  const [cycleCount, setCycleCount] = useState(0);
-  const [magnetState, setMagnetState] = useState(false);
-  const [pumpState, setPumpState] = useState(0);
-  const detailsRef = useRef();
+  // const [intensity, setIntensity] = useState([0, 12]);
+  // const [cycleCount, setCycleCount] = useState(0);
+  // const [magnetState, setMagnetState] = useState(false);
+  // const [pumpState, setPumpState] = useState(0);
+  //const detailsRef = useRef();
   const methods  = useForm();
   const watchAmostra = methods.watch("amostra")
 
@@ -34,65 +34,65 @@ function Home() {
     detailsRef.current.scrollIntoView({ behavior: "smooth" });
   }
 
-  // Faz requisição ao servidor para trocar estado e atualiza estado local
-  const toggleMagnet = () => {
-    fetch(serverHost + "/toggle_magnet", {
-      method: "POST",
-      body: JSON.stringify({
-        magnet_state: !magnetState,
-      }),
-      headers: { "Content-type": "application/json;charset=UTF-8" },
-    })
-      .then((response) => response.json())
-      .then((data) => console.log(data));
+  // // Faz requisição ao servidor para trocar estado e atualiza estado local
+  // const toggleMagnet = () => {
+  //   fetch(serverHost + "/toggle_magnet", {
+  //     method: "POST",
+  //     body: JSON.stringify({
+  //       magnet_state: !magnetState,
+  //     }),
+  //     headers: { "Content-type": "application/json;charset=UTF-8" },
+  //   })
+  //     .then((response) => response.json())
+  //     .then((data) => console.log(data));
 
-    setMagnetState(!magnetState);
-  };
+  //   setMagnetState(!magnetState);
+  // };
 
-  // Faz requisição ao servidor para trocar estado e atualiza estado local
-  const togglePump = () => {
-    fetch(serverHost + "/toggle_pump", {
-      method: "POST",
-      body: JSON.stringify({
-        pump_state: !pumpState,
-      }),
-      headers: { "Content-type": "application/json;charset=UTF-8" },
-    })
-      .then((response) => response.json())
-      .then((data) => console.log(data));
+  // // Faz requisição ao servidor para trocar estado e atualiza estado local
+  // const togglePump = () => {
+  //   fetch(serverHost + "/toggle_pump", {
+  //     method: "POST",
+  //     body: JSON.stringify({
+  //       pump_state: !pumpState,
+  //     }),
+  //     headers: { "Content-type": "application/json;charset=UTF-8" },
+  //   })
+  //     .then((response) => response.json())
+  //     .then((data) => console.log(data));
 
-    setPumpState(!pumpState);
-  };
+  //   setPumpState(!pumpState);
+  // };
 
-  // Faz requisição ao servidor para ler valor e atualiza estado local
-  const getCycleCount = () => {
-    Axios.get(serverHost + "/cycleCount").then((res) => {
-      setCycleCount(res.data);
-    }); // Atualiza estado com o valor lido
-  };
+  // // Faz requisição ao servidor para ler valor e atualiza estado local
+  // const getCycleCount = () => {
+  //   Axios.get(serverHost + "/cycleCount").then((res) => {
+  //     setCycleCount(res.data);
+  //   }); // Atualiza estado com o valor lido
+  // };
 
-  const getStates = () => {
-    fetch(serverHost + "/states")
-      .then((res) => res.json())
-      .then((data) => {
-        setMagnetState(Number.parseInt(data.magnet));
-        setPumpState(Number.parseInt(data.pump));
-      });
-  };
+  // const getStates = () => {
+  //   fetch(serverHost + "/states")
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setMagnetState(Number.parseInt(data.magnet));
+  //       setPumpState(Number.parseInt(data.pump));
+  //     });
+  // };
 
-  // Executa funções para atualizar estados
-  const updateData = () => {
-    getCycleCount();
-    getStates();
-  };
+  // // Executa funções para atualizar estados
+  // const updateData = () => {
+  //   getCycleCount();
+  //   getStates();
+  // };
 
-  // Hook para atualizar dados regularmente (a cada 1 segundo)
-  useEffect(() => {
-    const myInterval = setInterval(updateData, 1000); // Cria intervalo e chama função desejada
-    return () => {
-      clearInterval(myInterval); // Reinicia o intervalo
-    };
-  }, []);
+  // // Hook para atualizar dados regularmente (a cada 1 segundo)
+  // useEffect(() => {
+  //   const myInterval = setInterval(updateData, 1000); // Cria intervalo e chama função desejada
+  //   return () => {
+  //     clearInterval(myInterval); // Reinicia o intervalo
+  //   };
+  // }, []);
 
   //Função que muda o mouse ao passar pelo botão iniciar quando item amostra está preenchido
   function allowPointer(){
@@ -167,20 +167,20 @@ function Home() {
                         <img
                           className="w-9 hover:scale-105"
                           src={magnetIcon}
-                          onClick={toggleMagnet}
+                          // onClick={toggleMagnet}
                         ></img>
                       </button>
                       <button>
                         <img
                           className="w-9 hover:scale-105"
                           src={pumpIcon}
-                          onClick={togglePump}
+                          // onClick={togglePump}
                         ></img>
                       </button>
                     </span>
 
                     <p className="font-bold font-montserrat">
-                      Intensidade do ímã:{" "}
+                      Intensidade do ímã:
                     </p>
 
                     <span
@@ -193,14 +193,14 @@ function Home() {
                         max={12}
                         thumbsDisabled={[true, false]}
                         value={intensity}
-                        onInput={setIntensity}
+                        // onInput={setIntensity}
                       />
                       <p>{intensity[1] + "V"}</p>
                     </span>
 
                     <span className="flex gap-2">
                       <p className="font-bold font-montserrat">Ciclo: </p>
-                      <p className="font-montserrat">{cycleCount}</p>
+                      <p className="font-montserrat">cycleCount</p>
                     </span>
 
                     <span className="flex gap-2 font-montserrat">
