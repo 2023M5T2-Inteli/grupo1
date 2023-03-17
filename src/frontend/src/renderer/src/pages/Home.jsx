@@ -1,6 +1,6 @@
 // Página de início
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 
 import Sidebar from "../components/Sidebar"
