@@ -1,41 +1,40 @@
 // Página de início
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 
-import Sidebar from "../components/Sidebar"
-import startButton from '../assets/startButton.png'
+import Sidebar from "../components/Sidebar";
+import startButton from "../assets/startButton.png";
 import Input from "../components/Input";
 
-import RangeSlider from 'react-range-slider-input';
-import 'react-range-slider-input/dist/style.css';
-
-//Importando imagens 
-import pumpIcon from '../assets/pumpIcon.png'
-import turnOnIcon from '../assets/turnOnIcon.png'
-import magnetIcon from '../assets/sidebarMagnet.png'
-import seeMore from '../assets/seeMoreArrow.png'
+import Axios from "axios"; // Biblioteca para fazer requisições HTTP
+import RangeSlider from "react-range-slider-input";
+import "react-range-slider-input/dist/style.css";
+import pumpIcon from "../assets/pumpIcon.png";
+import turnOnIcon from "../assets/turnOnIcon.png";
+import magnetIcon from "../assets/sidebarMagnet.png";
+import seeMore from "../assets/seeMoreArrow.png";
 
 function Home() {
-    // Definição de hooks
-    const [intensity, setIntensity] = useState([0, 12])
-    const [cycleCount, setCycleCount] = useState(0);
-    const [magnetState, setMagnetState] = useState(false);
-    const [pumpState, setPumpState] = useState(0);
-    const detailsRef = useRef();
+  // Definição de hooks
+  const [intensity, setIntensity] = useState([0, 12]);
+  const [cycleCount, setCycleCount] = useState(0);
+  const [magnetState, setMagnetState] = useState(false);
+  const [pumpState, setPumpState] = useState(0);
+  const detailsRef = useRef();
+  const methods  = useForm();
+  const watchAmostra = methods.watch("amostra")
 
-    const methods  = useForm();
-    const watchAmostra = methods.watch("amostra")
+  // Declaração do endereço do servidor atual
+  const serverHost = "http://10.128.20.240:5000";
 
-    // Declaração do endereço do servidor atual
-    const serverHost = "http://10.128.20.240:5000";
 
-    // Desliza tela para card de detalhes
-    function showDetails() {
-        detailsRef.current.scrollIntoView({ behavior: 'smooth'});
-    }
+  // Desliza tela para card de detalhes
+  function showDetails() {
+    detailsRef.current.scrollIntoView({ behavior: "smooth" });
+  }
 
-    // Faz requisição ao servidor para trocar estado e atualiza estado local
+  // Faz requisição ao servidor para trocar estado e atualiza estado local
   const toggleMagnet = () => {
     fetch(serverHost + "/toggle_magnet", {
       method: "POST",
@@ -72,7 +71,6 @@ function Home() {
     }); // Atualiza estado com o valor lido
   };
 
-
   const getStates = () => {
     fetch(serverHost + "/states")
       .then((res) => res.json())
@@ -81,49 +79,51 @@ function Home() {
         setPumpState(Number.parseInt(data.pump));
       });
   };
-  // Executa funções para atualizar estados
-    const updateData = () => {
-        getCycleCount();
-        getStates();
-    };
 
-    // Hook para atualizar dados regularmente (a cada 1 segundo)
-    useEffect(() => {
+  // Executa funções para atualizar estados
+  const updateData = () => {
+    getCycleCount();
+    getStates();
+  };
+
+  // Hook para atualizar dados regularmente (a cada 1 segundo)
+  useEffect(() => {
     const myInterval = setInterval(updateData, 1000); // Cria intervalo e chama função desejada
     return () => {
       clearInterval(myInterval); // Reinicia o intervalo
     };
-    }, []);
+  }, []);
 
-    //Função que muda o mouse ao passar pelo botão iniciar quando item amostra está preenchido
-    function allowPointer(){
+  //Função que muda o mouse ao passar pelo botão iniciar quando item amostra está preenchido
+  function allowPointer(){
     if (watchAmostra){
       return "cursor-pointer"
     }
     else{
       return "cursor-not-allowed"
-    }}
+    }
+  }
 
-    //Função que coloca efeito visual quando item amostra está preenchido
-    function allowButton(){
+  //Função que coloca efeito visual quando item amostra está preenchido
+  function allowButton(){
     if (watchAmostra){
       return "hover:scale-105"
     }
     else{
       return ""
-    }}
+    }
+  }
 
-    // Função que envia dados para o servidor (No momento so printa)
-    function handleCreateNewCycle(data) {
+  // Função que envia dados para o servidor (No momento so printa)
+  function handleCreateNewCycle(data) {
     alert("informações salvas com sucesso!")
     console.log(data);
-    }
+  }
 
-
-    return (
-        <div className="w-full h-screen">
-            <Sidebar />
-           {/* Div de conteúdo principal (ao lado da sidebar) */}
+  return (
+    <div className="w-full h-screen">
+      <Sidebar />
+      {/* Div de conteúdo principal (ao lado da sidebar) */}
       <div className="ml-20 flex flex-col items-center justify-center">
         <FormProvider {...methods}>
           <form onSubmit={methods.handleSubmit(handleCreateNewCycle)}>
@@ -232,4 +232,4 @@ function Home() {
   );
 }
 
-export default Home
+export default Home;
