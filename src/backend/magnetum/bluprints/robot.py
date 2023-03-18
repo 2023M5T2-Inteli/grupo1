@@ -11,8 +11,8 @@ class State(Enum):
 
 # Especificação da porta em que o robô está conectado.
 # TO-DO: conexão sem especificar porta antes, já que ela muda de PC para PC (talvez um loop testando todas as possíveis, com try-catch?)
-robot_port = 'COM5'
-host = 'http://10.128.64.149:5000'
+robot_port = 'COM3'
+host = 'http://127.0.0.1:5000'
 
 # Coordenadas do ponto neutro do robô segundo especificação técnica
 home = (226, 0, 150, 0)
@@ -55,20 +55,20 @@ def execute_cycle():
     device.speed(velocity=75, acceleration=50)
     rehome()
 
-    requests.post(host + '/toggle_magnet', json = {"magnet_state": State.ON}) # Liga ímã
+    requests.post(host + '/toggle_magnet', json = {"magnet_state": State.ON.value}) # Liga ímã
 
     for coordinate in tray1:
         device.move_to(*coordinate, wait=True)
 
-    requests.post(host + '/toggle_pump', json = {"pump_state": State.ON}) # Liga bomba
+    requests.post(host + '/toggle_pump', json = {"pump_state": State.ON.value}) # Liga bomba
 
     for coordinate in tray2:
         device.move_to(*coordinate, wait=True)
-    requests.post(host + '/toggle_pump', json = {"pump_state": State.OFF}) # Desliga bomba
+    requests.post(host + '/toggle_pump', json = {"pump_state": State.OFF.value}) # Desliga bomba
 
     for coordinate in tray3:
         device.move_to(*coordinate, wait=True)
-        requests.post(host + '/toggle_magnet', json = {"magnet_state": State.OFF}) # Desliga ímã
+        requests.post(host + '/toggle_magnet', json = {"magnet_state": State.OFF.value}) # Desliga ímã
 
 def rehome():
     device.move_to(*home, wait=True)

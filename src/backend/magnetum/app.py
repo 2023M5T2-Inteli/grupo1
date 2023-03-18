@@ -4,7 +4,6 @@
 # em cada subsistema.
 
 from flask import Flask, request
-#->import robot  # módulo personalizado para controlar o robô
 from flask_cors import CORS  # módulo para evitar erros de CORS
 
 from magnetum.bluprints import routes

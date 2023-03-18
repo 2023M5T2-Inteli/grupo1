@@ -1,4 +1,4 @@
-#from magnetum.bluprints import robot
+from magnetum.bluprints import robot
 from enum import Enum
 
 # Enum para representar estados dos componentes
@@ -25,10 +25,10 @@ def init_app(app):
 
     def execute_trial():
         restartCycleCount()  
-        #-> robot.rehome()  # Função do módulo do robô para levá-lo ao ponto neutro
+        robot.rehome()  # Função do módulo do robô para levá-lo ao ponto neutro
         # Loop para realizar um número arbitrário de passadas.
         for i in range(cycles_per_trial):
-            #-> robot.execute_cycle()  
+            robot.execute_cycle()  
             incrementCycle()  
 
     @app.route('/cycleCount')  # Rota para ler número de ciclos (passadas) atual
