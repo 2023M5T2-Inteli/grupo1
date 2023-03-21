@@ -6,10 +6,12 @@
 from flask import Flask, request
 from flask_cors import CORS  # módulo para evitar erros de CORS
 
+from magnetum.extentions import db
 from magnetum.bluprints import routes
 
 def create_app():
     app = Flask(__name__)  # Cria servidor
     CORS(app)  # Adiciona proteção contra erros CORS
+    db
     routes.init_app(app)
     return app
