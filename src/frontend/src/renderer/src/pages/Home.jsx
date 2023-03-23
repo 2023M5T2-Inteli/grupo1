@@ -16,26 +16,37 @@ import turnOnIcon from '../assets/turnOnIcon.png'
 import magnetIcon from '../assets/sidebarMagnet.png'
 import seeMore from '../assets/seeMoreArrow.png'
 
+import Axios from 'axios'
+
+const Trays = {
+  0: "DESATIVADO",
+  1: "CAPTURA",
+  2: "LIMPEZA",
+  3: "DESPEJO",
+}
+
 function Home() {
-    // Definição de hooks
-    const [intensity, setIntensity] = useState([0, 12])
-    const [cycleCount, setCycleCount] = useState(0);
-    const [magnetState, setMagnetState] = useState(false);
-    const [pumpState, setPumpState] = useState(0);
-    const detailsRef = useRef();
+  // Definição de hooks
+  const [intensity, setIntensity] = useState([0, 12])
+  const [cycleCount, setCycleCount] = useState(0);
+  const [magnetState, setMagnetState] = useState(false);
+  const [pumpState, setPumpState] = useState(0);
+  const [currentTray, setCurrentTray] = useState(Trays[0]);
 
-    const methods  = useForm();
-    const watchAmostra = methods.watch("amostra")
+  const detailsRef = useRef();
 
-    // Declaração do endereço do servidor atual
-    const serverHost = "http://10.128.20.240:5000";
+  const methods = useForm();
+  const watchAmostra = methods.watch("amostra")
 
-    // Desliza tela para card de detalhes
-    function showDetails() {
-        detailsRef.current.scrollIntoView({ behavior: 'smooth'});
-    }
+  // Declaração do endereço do servidor atual
+  const serverHost = "http://10.128.0.159:5000";
 
-    // Faz requisição ao servidor para trocar estado e atualiza estado local
+  // Desliza tela para card de detalhes
+  function showDetails() {
+    detailsRef.current.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  // Faz requisição ao servidor para trocar estado e atualiza estado local
   const toggleMagnet = () => {
     fetch(serverHost + "/toggle_magnet", {
       method: "POST",
@@ -68,7 +79,7 @@ function Home() {
   // Faz requisição ao servidor para ler valor e atualiza estado local
   const getCycleCount = () => {
     Axios.get(serverHost + "/cycleCount").then((res) => {
-      setCycleCount(res.data);
+      setCycleCount(res.data.cycleCount);
     }); // Atualiza estado com o valor lido
   };
 
@@ -81,49 +92,77 @@ function Home() {
         setPumpState(Number.parseInt(data.pump));
       });
   };
-  // Executa funções para atualizar estados
-    const updateData = () => {
-        getCycleCount();
-        getStates();
-    };
 
-    // Hook para atualizar dados regularmente (a cada 1 segundo)
-    useEffect(() => {
+  const getCurrentTray = () => {
+    fetch(serverHost + "/current_tray")
+      .then((res) => res.json())
+      .then((data) => {
+        setCurrentTray(Trays[Number.parseInt(data.current_tray)]);
+        console.log(data.current_tray)
+      });
+  };
+
+  // Executa funções para atualizar estados
+  const updateData = () => {
+    getCycleCount();
+    getStates();
+    getCurrentTray();
+    changeIntensity();
+  };
+
+  // Hook para atualizar dados regularmente (a cada 1 segundo)
+  useEffect(() => {
     const myInterval = setInterval(updateData, 1000); // Cria intervalo e chama função desejada
     return () => {
       clearInterval(myInterval); // Reinicia o intervalo
     };
-    }, []);
+  }, []);
 
-    //Função que muda o mouse ao passar pelo botão iniciar quando item amostra está preenchido
-    function allowPointer(){
-    if (watchAmostra){
+  //Função que muda o mouse ao passar pelo botão iniciar quando item amostra está preenchido
+  function allowPointer() {
+    if (watchAmostra) {
       return "cursor-pointer"
     }
-    else{
+    else {
       return "cursor-not-allowed"
-    }}
+    }
+  }
 
-    //Função que coloca efeito visual quando item amostra está preenchido
-    function allowButton(){
-    if (watchAmostra){
+  //Função que coloca efeito visual quando item amostra está preenchido
+  function allowButton() {
+    if (watchAmostra) {
       return "hover:scale-105"
     }
-    else{
+    else {
       return ""
-    }}
-
-    // Função que envia dados para o servidor (No momento so printa)
-    function handleCreateNewCycle(data) {
-    alert("informações salvas com sucesso!")
-    console.log(data);
     }
+  }
+
+  // Função que envia dados para o servidor (No momento so printa)
+  function handleCreateNewCycle(data) {
+    Axios.get(serverHost + "/start_trial").then((res) => {
+      setCycleCount(res.data.cycleCount);
+    }); // Atualiza estado com o valor lido
+  }
+
+  function changeIntensity() {
+    fetch(serverHost + "/change_magnet_intensity", {
+      method: "POST",
+      body: JSON.stringify({
+        magnet_intensity: intensity[1],
+      }),
+      headers: { "Content-type": "application/json;charset=UTF-8" },
+    })
+      .then((response) => response.json())
+      .then((data) => console.log(data));
+
+  }
 
 
-    return (
-        <div className="w-full h-screen">
-            <Sidebar />
-           {/* Div de conteúdo principal (ao lado da sidebar) */}
+  return (
+    <div className="w-full h-screen">
+      <Sidebar />
+      {/* Div de conteúdo principal (ao lado da sidebar) */}
       <div className="ml-20 flex flex-col items-center justify-center">
         <FormProvider {...methods}>
           <form onSubmit={methods.handleSubmit(handleCreateNewCycle)}>
@@ -157,12 +196,13 @@ function Home() {
                     </p>
 
                     <span className="flex gap-5 justify-around">
-                      <button>
+                      {/* <button>
                         <img
                           className="w-9 hover:scale-105"
                           src={turnOnIcon}
+                          onClick={}
                         ></img>
-                      </button>
+                      </button> */}
                       <button>
                         <img
                           className="w-9 hover:scale-105"
@@ -205,7 +245,7 @@ function Home() {
 
                     <span className="flex gap-2 font-montserrat">
                       <p className="font-bold">Status: </p>
-                      <p>BANDEJA ATUAL</p>
+                      <p>{currentTray}</p>
                     </span>
                   </div>
                 </div>

@@ -1,15 +1,21 @@
 from magnetum.bluprints import robot
 from enum import Enum
+from flask import request 
 
 # Enum para representar estados dos componentes
 class State(Enum):
     ON = 1
     OFF = 0
 
+    
 # Declaração de variáveis globais
 cycle_count = 0 # Contagem de ciclo atual do robô (quantas passadas ele já fez no ensaio atual)
 magnet_state = State.OFF  
 pump_state = State.OFF 
+
+magnet_intensity = 12
+
+current_tray = 0 # Bandeja atual do robô. Inicialmente, ele começa na bandeja 1.
 
 # Número de passadas em cada ciclo. A ser dinamizado através das rotas nas próximas sprints.
 cycles_per_trial = 5
@@ -22,7 +28,6 @@ def init_app(app):
         execute_trial()  
         return "Success", 200
 
-
     def execute_trial():
         restartCycleCount()  
         robot.rehome()  # Função do módulo do robô para levá-lo ao ponto neutro
@@ -30,6 +35,8 @@ def init_app(app):
         for i in range(cycles_per_trial):
             robot.execute_cycle()  
             incrementCycle()  
+        global current_tray
+        current_tray = 0
 
     @app.route('/cycleCount')  # Rota para ler número de ciclos (passadas) atual
     def getCycleCount():
@@ -51,19 +58,31 @@ def init_app(app):
     def get_states():
         global magnet_state
         global pump_state
-        return {"magnet": magnet_state, "pump": pump_state}
+        return {"magnet": magnet_state.value, "pump": pump_state.value}
 
     # Rota que devolve apenas valor do estado do ímã para o Raspberry
     @app.route('/magnet_state')
     def get_magnet_state():
         global magnet_state
-        return str(magnet_state)
+        return str(magnet_state.value)
 
     # Rota que devolve apenas valor do estado da bomba para o Raspberry
     @app.route('/pump_state')
     def get_pump_state():
         global pump_state
-        return str(pump_state)
+        return str(pump_state.value)
+    
+    # Rota que devolve apenas valor do estado da bomba para o Raspberry
+    @app.route('/current_tray')
+    def get_current_tray():
+        global current_tray
+        return {'current_tray': current_tray}
+
+    # Rota que devolve apenas valor do estado da bomba para o Raspberry
+    @app.route('/magnet_intensity')
+    def get_magnet_intensity():
+        global magnet_intensity
+        return str(magnet_intensity)
 
     # CÓDIGO PARA MODIFICAR ESTADO DO ÍMÃ
     # Nesse caso, foi preciso separar as rotas das funções que modificam os valores, por serem variáveis
@@ -124,3 +143,33 @@ def init_app(app):
     def enable_pump():  
         global pump_state
         pump_state = State.OFF
+
+    @app.route('/change_tray', methods=['POST'])
+    def tray():
+        try:
+            global current_tray
+            json_input = int(request.json['current_tray']) # Pega valor booleano do JSON
+            if json_input in [0, 1, 2, 3]:
+                current_tray = json_input
+                response = {'status': 'success', 'message': 'tray changed'}
+            else:
+                response = {'status': 'error', 'message': 'invalid value for tray parameter'}
+        except Exception as e:
+            response = {'status': 'error', 'message': str(e)}
+        return response
+
+
+    @app.route('/change_magnet_intensity', methods=['POST'])
+    def magnet_intensity():
+        try:
+            global magnet_intensity
+            json_input = int(request.json['magnet_intensity']) # Pega valor booleano do JSON
+            if json_input in range(0, 13):
+                magnet_intensity = json_input
+                print(magnet_intensity)
+                response = {'status': 'success', 'message': 'intensity changed'}
+            else:
+                response = {'status': 'error', 'message': 'invalid value for tray parameter'}
+        except Exception as e:
+            response = {'status': 'error', 'message': str(e)}
+        return response
