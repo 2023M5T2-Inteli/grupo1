@@ -1,7 +1,7 @@
 #from magnetum.bluprints import routes
 #from magnetum.bluprints import robot
 from enum import Enum
-
+from magnetum.bluprints import services
 
 # Enum para representar estados dos componentes
 class State(Enum):
@@ -23,6 +23,7 @@ def init_app(app):
     # CÓDIGO REFERENTE AO ROBÔ
     @app.route('/start_trial') 
     def start_trial():
+        services.service()
         execute_trial()  
         return "Success", 200
 
