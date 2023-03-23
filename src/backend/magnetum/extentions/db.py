@@ -1,15 +1,10 @@
 # Configurações do nosso database
 import sqlite3
 
-
-def connect():
+try:
     banco = sqlite3.connect("teste.db") # Cria um banco de dados
     print("Banco de daos iniciado!")
-    return banco.cursor()
-
-try:
-
-    cursor = connect()
+    cursor = banco.cursor() # Permite as operações do banco
 
     # Operações do banco de dados
     # cursor.execute() -> Esse comando recebe instruções em squilite
