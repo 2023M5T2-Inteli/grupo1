@@ -42,6 +42,7 @@ try:
         # Ainda não descobrimos como processar um objeto json em micropython. Por isso,
         # por ora estamos utilizando rotas separadas para cada estado.
         magnet_state = urequests.get(host + '/magnet_state')
+        magnet_intensity = urequests.get(host + '/magnet_intensity')
         pump_state = urequests.get(host + '/pump_state')
         
         print('Magnet: ' + magnet_state.text)
@@ -49,7 +50,7 @@ try:
 
         # Liga ímãs se o valor lido no servidor for maior que 0
         if (int(magnet_state.text)):
-            map(lambda magnet: magnet.enable(), magnets)
+            map(lambda magnet: magnet.enable(int(magnet_intensity)), magnets)
         else: # Desliga se for 0
             map(lambda magnet: magnet.disable(), magnets)
 
