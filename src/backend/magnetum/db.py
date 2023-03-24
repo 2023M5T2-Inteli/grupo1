@@ -3,6 +3,8 @@ from sqlalchemy.orm import Session, sessionmaker
 from models.base import Base
 from models.cliente import Cliente
 from models.projetos import Projetos
+from models.ciclo import Ciclo
+from models.ensaio import Ensaio
 
 engine = create_engine('sqlite+pysqlite:///banco.db', echo=True)
 
@@ -14,7 +16,7 @@ session = Session()
 #Cria as tabelas se elas não existirem
 Base.metadata.create_all(engine) 
 
-projetos = Projetos(nome_projeto='Meu projeto', cliente_id=1)
-#print(cliente)
-session.add(projetos)
-session.commit()
+# projetos = Projetos(nome_projeto='Meu projeto', cliente_id=1)
+# #print(cliente)
+# session.add(projetos)
+# session.commit()

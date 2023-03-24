@@ -3,22 +3,23 @@
 # data text NOT NULL, hora REAL NOT NULL, operador text NOT NULL, duracao REAL NOT NULL, massa_solido REAL NOT NULL, massa_agua REAL NOT NULL, campo REAL NOT NULL, ciclo_id);")
 
 from models.base import Base
-from sqlalchemy import Column, Integer, Text, DateTime, String, Float
+from sqlalchemy import Column, Integer, Text, DateTime, String, Float, ForeignKey
+from sqlalchemy.orm import Mapped, mapped_column
 
 #from models.projetos import Projetos
 
-class Ciclo(Base): #Estrutura para criar uma tabela
-   __tablename__ = "ciclo"
+class Ensaio(Base): #Estrutura para criar uma tabela
+   __tablename__ = "ensaio"
 
    id= Column(Integer, primary_key=True, autoincrement=True)
-#    numero_ciclo= Column(Integer, nullable=False)
-#    data = Column(DateTime, nullable=True)
-#    hora = Column(DateTime, nullable=True)
-#    operador = Column(String, nullable=True)
-#    duracao = Column(String, nullable=True)
-#    massa_solida = Column(Float, nullable=True)
-#    massa_agua = Column(Float, nullable=True)
-    #campo = Column(String, nullable=True)
+   cliente_id: Mapped[int] = mapped_column(ForeignKey("cliente.id"))
+   ciclo_id: Mapped[int] = mapped_column(ForeignKey("ciclo.id"))
+   data= Column(String)
+   hora= Column(String)
+   operador= Column(String)
+   duracao= Column(String)
+   massa_solido= Column(Float)
+   massa_agua= Column(Float)
    
      
 #    def __repr__(self) -> str: #Serve para formatar o objeto que vai aparecer ao printar um objeto pessoa 

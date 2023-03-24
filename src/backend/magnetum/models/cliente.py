@@ -10,6 +10,7 @@ class Cliente(Base): #Estrutura para criar uma tabela
    id= Column(Integer, primary_key=True, autoincrement=True)
    nome= Column(String, nullable=False)
    projetos: Mapped[List["Projetos"]] = relationship()
+   ensaios: Mapped[List["Ensaio"]] = relationship()
      
    def __repr__(self) -> str: #Serve para formatar o objeto que vai aparecer ao printar um objeto pessoa 
       return f"Cliente(id={self.id},numero_ciclo={self.numero_ciclo})"
