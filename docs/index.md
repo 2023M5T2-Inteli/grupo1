@@ -197,19 +197,19 @@ O projeto mecânico para nossa solução envolve cinco módulos: um suporte para
 
 **Suporte**
 
-![image](https://github.com/2023M5T2-Inteli/tectonics/blob/main/media/projeto%20mecanico/suporte_ima.jpeg?raw=true)
+![image](https://github.com/2023M5T2-Inteli/tectonics/blob/dev/media/projeto%20mecanico/suporte_ima.jpeg?raw=true)
 
 **Case**
 
-![image](https://github.com/2023M5T2-Inteli/tectonics/blob/main/media/projeto%20mecanico/case.jpeg?raw=true)
+![image](https://github.com/2023M5T2-Inteli/tectonics/blob/dev/media/projeto%20mecanico/case.jpeg?raw=true)
 
 **Suporte superior da balança**
 
-![image](https://github.com/2023M5T2-Inteli/tectonics/blob/main/media/projeto%20mecanico/suporte_superior.jpeg?raw=true)
+![image](https://github.com/2023M5T2-Inteli/tectonics/blob/dev/media/projeto%20mecanico/suporte_superior.jpeg?raw=true)
 
 **Suporte inferior da balança**
 
-![image](https://github.com/2023M5T2-Inteli/tectonics/blob/main/media/projeto%20mecanico/suporte_inferior.jpeg?raw=true)
+![image](https://github.com/2023M5T2-Inteli/tectonics/blob/dev/media/projeto%20mecanico/suporte_inferior.jpeg?raw=true)
 
 **Visão Superior**
 
@@ -244,7 +244,7 @@ A figura abaixo apresenta as dimensões do braço robótico Magician Lite, confo
 Como demonstrado na arquitetura da solução, o âmbito eletrônico do nosso projeto contempla, em visão geral, uma Raspberry Pi Pico W, eletroímãs e bombas d'água. A conexão entre esses componentes, por sua vez, é viabilizada através de reguladores de tensão e pontes H. Ressaltamos que, na esquemático e implementação do circuito da Sprint 3, utilizamos apenas quatro eletroímãs e duas bombas da água, conectados a duas pontes H, para prova de conceito. Futuramente, pretendemos agregar mais desses atuadores através de testes de eficácia e otimização.
 
 ###  Esquemático do circuito
-![image](https://github.com/2023M5T2-Inteli/tectonics/blob/dev/media/Arquitetura%20Do%20Sistema/esquematicoDoCircuito.png?raw=true)
+![image](https://github.com/2023M5T2-Inteli/tectonics/blob/dev/media/Arquitetura%20Do%20Sistema/EsquematicoDoCircuito.png?raw=true)
 
 Conforme a figura, nosso circuito utiliza 10 pinos da Raspberry Pi Pico W, duas bombas d'água, quatro eletroímãs, duas pontes H e um regulador de tensão. Tudo isso é alimentado por uma fonte de 5V. 
 
