@@ -2,6 +2,10 @@ from magnetum.bluprints import robot
 from enum import Enum
 from flask import request 
 
+import logging
+log = logging.getLogger('werkzeug')
+log.setLevel(logging.ERROR)
+
 # Enum para representar estados dos componentes
 class State(Enum):
     ON = 1
@@ -70,6 +74,7 @@ def init_app(app):
     @app.route('/pump_state')
     def get_pump_state():
         global pump_state
+        print(pump_state)
         return str(pump_state.value)
     
     # Rota que devolve apenas valor do estado da bomba para o Raspberry
@@ -83,6 +88,12 @@ def init_app(app):
     def get_magnet_intensity():
         global magnet_intensity
         return str(magnet_intensity)
+    
+    # Rota que devolve apenas valor do estado da bomba para o Raspberry
+    @app.route('/json_magnet_intensity')
+    def get_json_magnet_intensity():
+        global magnet_intensity
+        return {"magnet_intensity": magnet_intensity}
 
     # CÓDIGO PARA MODIFICAR ESTADO DO ÍMÃ
     # Nesse caso, foi preciso separar as rotas das funções que modificam os valores, por serem variáveis
@@ -142,7 +153,7 @@ def init_app(app):
 
     def enable_pump():  
         global pump_state
-        pump_state = State.OFF
+        pump_state = State.ON
 
     @app.route('/change_tray', methods=['POST'])
     def tray():
