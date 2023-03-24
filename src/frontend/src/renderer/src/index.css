@@ -6,6 +6,9 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;500;700&display=swap');
 
+
+@import "rsuite/dist/rsuite.css";
+
 /* Classe especial para fazer small-caps */
 .small-caps {
     text-transform: uppercase;
