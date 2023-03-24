@@ -1,10 +1,22 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const serverHost = "http://10.128.0.159:5000";
 
+function getInitialIntensity() {
+    fetch('http://10.128.0.159:5000/json_magnet_intensity')
+        .then((response) => {
+            response.json()
+            console.log(response)
+        })
+        .then((data) => { console.log(data) });
+
+}
+
 
 function RangeSlider() {
-    const [value, setValue] = useState(0);
+    const [value, setValue] = useState(12);
+
+    useEffect(getInitialIntensity, [])
 
     function changeIntensity(event) {
         setValue(event.target.value)

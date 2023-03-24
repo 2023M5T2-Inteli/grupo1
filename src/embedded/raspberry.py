@@ -11,16 +11,16 @@ from actuators import * # Classes para atuadores
 # Definição da rede local a ser utilizada
 ssid = 'Inteli-COLLEGE'
 password = 'QazWsx@123' 
-host = 'http://10.128.64.149:5000/'
+host = 'http://10.128.0.159:5000'
 
 magnet_max_voltage = 12
 
 # Definição dos ímãs.
 # Cada objeto corresponde a dois ímãs ligados em paralelo a um lado da ponte H. Utilizamos PWM para variar a intesidade.
-magnets = [PWMActuator(10, 11, magnet_max_voltage), PWMActuator(9, 8, magnet_max_voltage)]
+magnets = [PWMActuator(12, 10, magnet_max_voltage)]
 
 # Definição das bombas d'água. Não precisamos utilizar PWM, pois não variaremos a intensidade.
-pumps = [Actuator(0, 1), Actuator(2, 3)]
+pumps = [Actuator(19, 21)]
 
 def connectToWiFi():
     wlan = network.WLAN(network.STA_IF)
@@ -42,15 +42,16 @@ try:
         # Ainda não descobrimos como processar um objeto json em micropython. Por isso,
         # por ora estamos utilizando rotas separadas para cada estado.
         magnet_state = urequests.get(host + '/magnet_state')
-        magnet_intensity = urequests.get(host + '/magnet_intensity')
         pump_state = urequests.get(host + '/pump_state')
+        intensity = urequests.get(host + '/magnet_intensity')
         
         print('Magnet: ' + magnet_state.text)
         print('Pump: ' + pump_state.text)
+        print('Magnet Intensity: ' + intensity.text)
 
         # Liga ímãs se o valor lido no servidor for maior que 0
         if (int(magnet_state.text)):
-            map(lambda magnet: magnet.enable(int(magnet_intensity)), magnets)
+            map(lambda magnet: magnet.enable(intensity), magnets)
         else: # Desliga se for 0
             map(lambda magnet: magnet.disable(), magnets)
 
