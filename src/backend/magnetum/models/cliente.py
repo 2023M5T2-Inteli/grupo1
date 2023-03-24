@@ -1,14 +1,17 @@
 from models.base import Base
-from sqlalchemy import Column, Integer
+from sqlalchemy import Column, Integer, String
+from sqlalchemy.orm import Mapped, relationship
+from typing import List
+#from models.projetos import Projetos
 
-
-class Ciclo(Base): #Estrutura para criar uma tabela
-   __tablename__ = "ciclo"
+class Cliente(Base): #Estrutura para criar uma tabela
+   __tablename__ = "cliente"
 
    id= Column(Integer, primary_key=True, autoincrement=True)
-   numero_ciclo= Column(Integer, nullable=False)
-   
+   nome= Column(String, nullable=False)
+   projetos: Mapped[List["Projetos"]] = relationship()
      
    def __repr__(self) -> str: #Serve para formatar o objeto que vai aparecer ao printar um objeto pessoa 
       return f"Cliente(id={self.id},numero_ciclo={self.numero_ciclo})"
       
+    

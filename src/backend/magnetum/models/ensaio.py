@@ -11,13 +11,13 @@ class Ciclo(Base): #Estrutura para criar uma tabela
    __tablename__ = "ciclo"
 
    id= Column(Integer, primary_key=True, autoincrement=True)
-   numero_ciclo= Column(Integer, nullable=False)
-   data = Column(DateTime, nullable=True)
-   hora = Column(DateTime, nullable=True)
-   operador = Column(String, nullable=True)
-   duracao = Column(String, nullable=True)
-   massa_solida = Column(Float, nullable=True)
-   massa_agua = Column(Float, nullable=True)
+#    numero_ciclo= Column(Integer, nullable=False)
+#    data = Column(DateTime, nullable=True)
+#    hora = Column(DateTime, nullable=True)
+#    operador = Column(String, nullable=True)
+#    duracao = Column(String, nullable=True)
+#    massa_solida = Column(Float, nullable=True)
+#    massa_agua = Column(Float, nullable=True)
     #campo = Column(String, nullable=True)
    
      
