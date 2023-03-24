@@ -193,7 +193,16 @@ Considerando que uso do tradicional custe e demore mais que do Magnetum e que a 
 ![image](https://github.com/2023M5T2-Inteli/tectonics/blob/main/media/Arquitetura%20Do%20Sistema/LegendaDoDiagrama.png?raw=true)
 
 ## Projeto mecânico
-O projeto mecânico para nossa solução envolve dois módulos: um invólucro resistente à água na ponta do braço robótico, protegendo os imãs, e uma case simples para o circuito principal, incluindo Raspberry, placa e pontes H, a ser posicionada na traseira do robô. As conexões por fio serão organizadas ao longo do corpo do robô utilizando fixadores como fita adesiva, a fim de diminuir o risco de nós, curto-circuito ou qualquer outro dano à integridade eletrônica do projeto.
+O projeto mecânico para nossa solução envolve três módulos: um suporte para o ímã que fica na ponta do braço, um invólucro resistente à água que portege o anterior, protegendo os imãs, e uma case simples para o circuito principal, incluindo Raspberry, placa e pontes H, a ser posicionada na traseira do robô. As conexões por fio serão organizadas ao longo do corpo do robô utilizando fixadores como fita adesiva, a fim de diminuir o risco de nós, curto-circuito ou qualquer outro dano à integridade eletrônica do projeto.
+
+**Suporte**
+
+![image](https://github.com/2023M5T2-Inteli/tectonics/blob/main/media/projeto20%mecanico/case.jpeg?raw=true)
+
+**Case**
+
+![image](https://github.com/2023M5T2-Inteli/tectonics/blob/main/media/projeto20%mecanico/case.jpeg?raw=true)
+
 
 **Visão Superior**
 
