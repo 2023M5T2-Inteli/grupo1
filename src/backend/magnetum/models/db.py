@@ -1,10 +1,10 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session, sessionmaker
-from models.base import Base
-from models.cliente import Cliente
-from models.projetos import Projetos
-from models.ciclo import Ciclo
-from models.ensaio import Ensaio
+from magnetum.models.base import Base
+from magnetum.models.cliente import Cliente
+from magnetum.models.projetos import Projetos
+from magnetum.models.ciclo import Ciclo
+from magnetum.models.ensaio import Ensaio
 
 engine = create_engine('sqlite+pysqlite:///banco.db', echo=True)
 

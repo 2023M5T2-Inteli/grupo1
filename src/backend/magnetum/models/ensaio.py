@@ -1,9 +1,5 @@
-# cursor.execute("CREATE TABLE ensaio (   ensaio_id integer PRIMARY KEY
-# , cliente_id,
-# data text NOT NULL, hora REAL NOT NULL, operador text NOT NULL, duracao REAL NOT NULL, massa_solido REAL NOT NULL, massa_agua REAL NOT NULL, campo REAL NOT NULL, ciclo_id);")
-
 from models.base import Base
-from sqlalchemy import Column, Integer, Text, DateTime, String, Float, ForeignKey
+from sqlalchemy import Column, Integer, String, Float, ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column
 
 #from models.projetos import Projetos

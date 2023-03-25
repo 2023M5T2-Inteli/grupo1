@@ -1,6 +1,6 @@
 # cursor.execute("CREATE TABLE ciclo (    ciclo_id integer PRIMARY KEY, numero_ciclo INTEGER, massa_ciclo REAL NOT NULL);")
 
-from models.base import Base
+from magnetum.models.base import Base
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import Mapped, relationship
 from typing import List
