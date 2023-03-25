@@ -1,6 +1,6 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session, sessionmaker
-from models.base import Base
+from magnetum.models.base import Base
 from models.cliente import Cliente
 from models.projetos import Projetos
 from models.ciclo import Ciclo
