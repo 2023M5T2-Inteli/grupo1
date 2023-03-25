@@ -1,10 +1,6 @@
-from magnetum.bluprints import robot
+from magnetum.blueprints import robot
 from enum import Enum
 from flask import request 
-
-import logging
-log = logging.getLogger('werkzeug')
-log.setLevel(logging.ERROR)
 
 # Enum para representar estados dos componentes
 class State(Enum):

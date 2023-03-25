@@ -48,7 +48,7 @@ intermediary_points = [
     (216, -248, high_height, rotation)  # Ponto alto inicial da bandeja 2
 ]
 
-device = pydobot.Dobot(port=robot_port, verbose=False)
+#device = pydobot.Dobot(port=robot_port, verbose=False)
 
 # Função para executar um ciclo completo do robô
 def execute_cycle():
