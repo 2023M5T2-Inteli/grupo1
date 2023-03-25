@@ -1,5 +1,4 @@
 from magnetum.utils import State
-
 pump_state = State.OFF 
  
 def disable_pump():  
