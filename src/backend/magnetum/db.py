@@ -16,7 +16,6 @@ session = Session()
 #Cria as tabelas se elas não existirem
 Base.metadata.create_all(engine) 
 
-# projetos = Projetos(nome_projeto='Meu projeto', cliente_id=1)
-# #print(cliente)
+# projetos = Cliente(nome='Manuu')
 # session.add(projetos)
 # session.commit()
