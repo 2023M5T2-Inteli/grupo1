@@ -11,6 +11,7 @@ from magnetum.routes import cliente
 
 def create_app():
     app = Flask(__name__)  # Cria servidor
+    db
     CORS(app)  # Adiciona proteção contra erros CORS
     routes.init_app(app)
     #routes1.init_app(app)

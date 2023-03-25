@@ -8,3 +8,7 @@ def disable_pump():
 def enable_pump():  
     global pump_state
     pump_state = State.ON
+
+def get_pump_state():
+    global pump_state
+    return pump_state
