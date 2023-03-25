@@ -15,6 +15,6 @@ session = Session()
 #Cria as tabelas se elas não existirem
 Base.metadata.create_all(engine) 
 
-# projetos = Cliente(nome='Manuu')
-# session.add(projetos)
-# session.commit()
+projetos = Cliente(nome='Manuu')
+session.add(projetos)
+session.commit()
