@@ -1,5 +1,5 @@
-from models.base import Base
-from models.cliente import Cliente
+from magnetum.models.base import Base
+from magnetum.models.cliente import Cliente
 from sqlalchemy import Column, Integer, String, Boolean, ForeignKey
 from sqlalchemy.orm import relationship, Mapped, mapped_column
 

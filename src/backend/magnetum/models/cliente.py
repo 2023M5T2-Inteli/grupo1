@@ -1,4 +1,4 @@
-from models.base import Base
+from magnetum.models.base import Base
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import Mapped, relationship
 from typing import List
