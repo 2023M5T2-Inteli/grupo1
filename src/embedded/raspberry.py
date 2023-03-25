@@ -17,10 +17,15 @@ magnet_max_voltage = 12
 
 # Definição dos ímãs.
 # Cada objeto corresponde a dois ímãs ligados em paralelo a um lado da ponte H. Utilizamos PWM para variar a intesidade.
-magnets = [PWMActuator(12, 10, magnet_max_voltage)]
+magnets = [PWMActuator(11, 13, magnet_max_voltage), PWMActuator(9, 8, magnet_max_voltage)]
+magnets1 = Pin(12, Pin.OUT)
+magnets2 =  Pin(10, Pin.OUT)
+pumps1 = Pin(18, Pin.OUT)
+pumps2 = Pin(20, Pin.OUT)
+
 
 # Definição das bombas d'água. Não precisamos utilizar PWM, pois não variaremos a intensidade.
-pumps = [Actuator(19, 21)]
+pumps = [Actuator(19, 21), Actuator(2, 3)]
 
 def connectToWiFi():
     wlan = network.WLAN(network.STA_IF)
@@ -51,16 +56,21 @@ try:
 
         # Liga ímãs se o valor lido no servidor for maior que 0
         if (int(magnet_state.text)):
-            map(lambda magnet: magnet.enable(intensity), magnets)
+            magnets1.value(1)
+            magnets2.value(1)
+            
         else: # Desliga se for 0
-            map(lambda magnet: magnet.disable(), magnets)
+            magnets1.value(0)
+            magnets2.value(0)
 
         # Liga bombas se o valor lido no servidor for maior que 0
         if (int(pump_state.text)):
             # Acessa cada elemento do array de bombas e executa a função de ligar
-            map(lambda pump: pump.enable(), pumps)
+            pumps1.value(1)
+            pumps2.value(1)
         else: # Desliga se for 0
-            map(lambda pump: pump.disable(), pumps)
+            pumps1.value(0)
+            pumps2.value(0)
 
         time.sleep(0.1)
         
