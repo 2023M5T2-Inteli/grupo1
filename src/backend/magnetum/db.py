@@ -8,7 +8,6 @@ from models.ensaio import Ensaio
 
 engine = create_engine('sqlite+pysqlite:///banco.db', echo=True)
 
-
 #Cria uma sessão para conversar com banco de dados (SQLite no caso)
 Session = sessionmaker(bind=engine)
 session = Session()
