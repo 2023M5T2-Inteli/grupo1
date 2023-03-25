@@ -7,8 +7,7 @@ import Sidebar from "../components/Sidebar"
 import startButton from '../assets/startButton.png'
 import Input from "../components/Input";
 
-import RangeSlider from 'react-range-slider-input';
-import 'react-range-slider-input/dist/style.css';
+import RangeSlider from "../components/Slider";
 
 //Importando imagens 
 import pumpIcon from '../assets/pumpIcon.png'
@@ -27,7 +26,7 @@ const Trays = {
 
 function Home() {
   // Definição de hooks
-  const [intensity, setIntensity] = useState([0, 12])
+  const [intensity, setIntensity] = useState([0, 11])
   const [cycleCount, setCycleCount] = useState(0);
   const [magnetState, setMagnetState] = useState(false);
   const [pumpState, setPumpState] = useState(0);
@@ -63,6 +62,7 @@ function Home() {
 
   // Faz requisição ao servidor para trocar estado e atualiza estado local
   const togglePump = () => {
+    console.log()
     fetch(serverHost + "/toggle_pump", {
       method: "POST",
       body: JSON.stringify({
@@ -98,7 +98,6 @@ function Home() {
       .then((res) => res.json())
       .then((data) => {
         setCurrentTray(Trays[Number.parseInt(data.current_tray)]);
-        console.log(data.current_tray)
       });
   };
 
@@ -107,7 +106,6 @@ function Home() {
     getCycleCount();
     getStates();
     getCurrentTray();
-    changeIntensity();
   };
 
   // Hook para atualizar dados regularmente (a cada 1 segundo)
@@ -143,19 +141,6 @@ function Home() {
     Axios.get(serverHost + "/start_trial").then((res) => {
       setCycleCount(res.data.cycleCount);
     }); // Atualiza estado com o valor lido
-  }
-
-  function changeIntensity() {
-    fetch(serverHost + "/change_magnet_intensity", {
-      method: "POST",
-      body: JSON.stringify({
-        magnet_intensity: intensity[1],
-      }),
-      headers: { "Content-type": "application/json;charset=UTF-8" },
-    })
-      .then((response) => response.json())
-      .then((data) => console.log(data));
-
   }
 
 
@@ -203,14 +188,14 @@ function Home() {
                           onClick={}
                         ></img>
                       </button> */}
-                      <button>
+                      <button type='button'>
                         <img
                           className="w-9 hover:scale-105"
                           src={magnetIcon}
                           onClick={toggleMagnet}
                         ></img>
                       </button>
-                      <button>
+                      <button type='button'>
                         <img
                           className="w-9 hover:scale-105"
                           src={pumpIcon}
@@ -219,31 +204,24 @@ function Home() {
                       </button>
                     </span>
 
-                    <p className="font-bold font-montserrat">
-                      Intensidade do ímã:{" "}
-                    </p>
+                    
 
                     <span
-                      id="sliderWrapper"
-                      className="flex gap-2 items-center justify-center font-montserrat"
+                      className="flex gap-2 items-center justify-between font-montserrat w-full "
                     >
-                      {/* Slider */}
-                      <RangeSlider
-                        min={0}
-                        max={12}
-                        thumbsDisabled={[true, false]}
-                        value={intensity}
-                        onInput={setIntensity}
-                      />
-                      <p>{intensity[1] + "V"}</p>
+                      <p className="font-bold font-montserrat">
+                      Intensidade do ímã:{" "}
+                    </p>
+                      <RangeSlider value={intensity} setValue={setIntensity} />
+
                     </span>
 
-                    <span className="flex gap-2">
+                    <span className="flex gap-2 items-baseline">
                       <p className="font-bold font-montserrat">Ciclo: </p>
                       <p className="font-montserrat">{cycleCount}</p>
                     </span>
 
-                    <span className="flex gap-2 font-montserrat">
+                    <span className="flex gap-2 font-montserrat items-baseline">
                       <p className="font-bold">Status: </p>
                       <p>{currentTray}</p>
                     </span>

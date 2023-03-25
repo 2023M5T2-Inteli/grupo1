@@ -27,7 +27,8 @@
     "react-router-dom": "^6.9.0",
     "react-scroll-button": "^2.0.0",
     "react-tooltip": "^5.10.0",
-    "reactjs-popup": "^2.0.5"
+    "reactjs-popup": "^2.0.5",
+    "rsuite": "^5.29.0"
   },
   "devDependencies": {
     "@electron/notarize": "^1.2.3",
