@@ -18,8 +18,8 @@ def init_app(app):
     def cliente():
         db
         clientes = db.session.query(Cliente).all()
-        
-        return "Sucess", 200
+        return [cliente.return_json() for cliente in clientes]
+    
     
     
    

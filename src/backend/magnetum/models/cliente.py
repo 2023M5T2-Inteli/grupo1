@@ -13,6 +13,9 @@ class Cliente(Base): #Estrutura para criar uma tabela
    ensaios: Mapped[List["Ensaio"]] = relationship()
      
    def __repr__(self) -> str: #Serve para formatar o objeto que vai aparecer ao printar um objeto pessoa 
-      return f"Cliente(id={self.id},numero_ciclo={self.numero_ciclo})"
+      return f"Cliente(id={self.id},numero_ciclo={self.nome})"
+   
+   def return_json(self):
+      return {"id":self.id,"nome":self.nome}
       
     
