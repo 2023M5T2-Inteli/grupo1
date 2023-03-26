@@ -40,9 +40,8 @@ try:
     while True:  # Loop principal do programa
         # Ainda não descobrimos como processar um objeto json em micropython. Por isso,
         # por ora estamos utilizando rotas separadas para cada estado.
-        states = urequests.get(host + '/states')
-        magnet_state = urequests.get(host + '/magnet_state')
-        pump_state = urequests.get(host + '/pump_state')
+        magnet_state = urequests.get(host + '/current/magnet')
+        pump_state = urequests.get(host + '/current/pump')
         magnet_intensity = urequests.get(host + '/magnet_intensity')
         
         print('Magnet: ' + magnet_state.text)
