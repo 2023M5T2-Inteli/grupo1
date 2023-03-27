@@ -12,15 +12,19 @@ def get_current():
     except Exception as e:
         response = {'status': 'error', 'message': str(e)}
         return response, 500
-
-def disable():  
-    return magnets.disable()
-
-def enable():  
-    return magnets.enable()
     
-def get_state(): 
-    return magnets.get_state()
-
-def get_intensity(): 
-    return magnets.get_intensity()
+def set_current(request):
+    try:
+        state = request.json['magnet_state']
+        intensity = request.json['magnet_intensity']
+        magnets.set_intensity(intensity)
+        if state == True:
+            magnets.enable()
+        elif state == False:
+            magnets.disable()
+        response = {'magnet_state': state, 'magnet_intensity': intensity}
+        return response, 204
+    
+    except Exception as e:
+        response = {'status': 'error', 'message': str(e)}
+        return response, 500

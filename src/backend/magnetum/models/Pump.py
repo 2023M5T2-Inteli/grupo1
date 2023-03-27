@@ -1,7 +1,5 @@
-from magnetum.models import Actuator
+from magnetum.models.Actuator import Actuator
     
 class Pump(Actuator):
     def __init__(self):
-        super().__init__(self)
-    
-pumps = Pump()
+        Actuator.__init__(self)
