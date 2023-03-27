@@ -1,4 +1,3 @@
-from flask import request 
 from magnetum.controllers import routine
 
 def init_app(app):
