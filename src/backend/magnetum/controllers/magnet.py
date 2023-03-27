@@ -17,11 +17,18 @@ def set_current(request):
     try:
         state = request.json['magnet_state']
         intensity = request.json['magnet_intensity'] or magnets.get_intensity()
-        magnets.set_intensity(intensity)
+        if intensity in range(0, 13):
+            magnets.set_intensity(intensity)
+        else:
+            response = {'status': 'error', 'message': 'intensity must be between 0 and 12'}
+            return response, 500
         if state == True:
             magnets.enable()
         elif state == False:
             magnets.disable()
+        else:
+            response = {'status': 'error', 'message': 'state must be True or False'}
+            return response, 500
         response = {'magnet_state': state, 'magnet_intensity': intensity}
         return response, 200
     

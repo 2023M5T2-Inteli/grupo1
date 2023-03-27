@@ -3,21 +3,21 @@ from flask import request
 
 def init_app(app):
     @app.route('/project')
-    def get_all():
+    def get_all_projects():
         return project.get_all()
 
     @app.route('/project/<int:id>')
-    def get_by_id(id):
+    def get_project_by_id(id):
         return project.get_by_id(id)
 
     @app.route('/project', methods=['POST'])
-    def create():
+    def create_project():
         return project.create(request)
 
     @app.route('/project/<int:id>', methods=['PUT'])
-    def update(id):
+    def update_project(id):
         return project.update(request, id)
 
     @app.route('/project/<int:id>', methods=['DELETE'])
-    def delete(id):
+    def delete_project(id):
         return project.delete(id)

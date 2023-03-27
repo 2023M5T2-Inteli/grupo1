@@ -3,21 +3,21 @@ from flask import request
 def init_app(app):
 
     @app.route('/cycle', methods=['GET'])
-    def get_all():
+    def get_all_cycles():
         return cycle.get_all()
 
     @app.route('/cycle/<int:id>', methods=['GET'])
-    def get_by_id(id):
+    def get_cycle_by_id(id):
         return cycle.get_by_id(id)
 
     @app.route('/cycle', methods=['POST'])
-    def create():
+    def create_cycle():
         return cycle.create(request)
 
     @app.route('/cycle/<int:id>', methods=['PUT'])
-    def update(id):
+    def update_cycle(id):
         return cycle.update(request, id)
 
     @app.route('/cycle/<int:id>', methods=['DELETE'])
-    def delete(id):
+    def delete_cycle(id):
         return cycle.delete(id)
