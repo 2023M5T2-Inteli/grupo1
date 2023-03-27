@@ -53,26 +53,26 @@ def execute_cycle():
     requests.post(host + '/current/magnet', json = {"magnet_state": State.ON.value}) 
     # Liga ímã
 
-    requests.post(host + '/change_tray', json = {"current_tray": 1}) # Liga ímã
+    requests.post(host + '/current/tray', json = {"current_tray": 1}) # Liga ímã
 
 
     for coordinate in tray1:
         device.move_to(*coordinate, wait=True)
 
-    requests.post(host + '/toggle_pump', json = {"pump_state": State.ON.value}) # Liga bomba
+    requests.post(host + '/current/pump', json = {"pump_state": State.ON.value}) # Liga bomba
 
-    requests.post(host + '/change_tray', json = {"current_tray": 2}) # Liga ímã
+    requests.post(host + '/current/tray', json = {"current_tray": 2}) # Liga ímã
 
 
     for coordinate in tray2:
         device.move_to(*coordinate, wait=True)
-    requests.post(host + '/toggle_pump', json = {"pump_state": State.OFF.value}) # Desliga bomba
+    requests.post(host + '/current/pump', json = {"pump_state": State.OFF.value}) # Desliga bomba
 
-    requests.post(host + '/change_tray', json = {"current_tray": 3}) # Liga ímã
+    requests.post(host + '/current/tray', json = {"current_tray": 3}) # Liga ímã
 
     for coordinate in tray3:
         device.move_to(*coordinate, wait=True)
-        requests.post(host + '/toggle_magnet', json = {"magnet_state": State.OFF.value}) # Desliga ímã
+        requests.post(host + '/current/magnet', json = {"magnet_state": State.OFF.value}) # Desliga ímã
 
 def rehome():
     device.move_to(*home, wait=True)

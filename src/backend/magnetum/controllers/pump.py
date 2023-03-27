@@ -21,7 +21,7 @@ def set_current(request):
         elif state == False:
             pumps.disable()
         response = {'pump_state': state}
-        return response, 204
+        return response, 200
     
     except Exception as e:
         response = {'status': 'error', 'message': str(e)}

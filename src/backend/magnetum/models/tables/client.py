@@ -11,5 +11,16 @@ class Client(Base): #Estrutura para criar uma tabela
    full_name= Column(String, nullable=False)
    cnpj=Column(Integer)
    projects = relationship('Project', backref='client')
+
+   def __repr__(self):
+      return f"Client {self.full_name}, CNPJ: {self.cnpj}, project: {self.projects}"
+
+   def return_json(self):
+      return {
+         "id": self.id,
+         "full_name": self.full_name,
+         "cnpj": self.cnpj,
+         "projects": [project.return_json() for project in self.projects]
+      }
       
     

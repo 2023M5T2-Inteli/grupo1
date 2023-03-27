@@ -17,7 +17,7 @@ def execute_routine():
         incrementCycle()
     global current_tray
     current_tray = 0
-    return 200, "Success"
+    return "Success", 200
 
 
 def restartCycleCount():
@@ -33,13 +33,13 @@ def incrementCycle():
 def get_current_cycle():
     global cycle_count
     response = {"cycleCount": str(cycle_count)}
-    return 200, response
+    return response, 200
 
 
 def get_current_tray():
     global current_tray
     response = {'current_tray': str(current_tray)}
-    return 200, response
+    return response, 200
 
 
 def set_current_tray(request):
@@ -52,7 +52,7 @@ def set_current_tray(request):
         else:
             response = {'status': 'error',
                         'message': 'invalid value for tray parameter'}
-        return 200, response
+        return response, 200
     except Exception as e:
         response = {'status': 'error', 'message': str(e)}
-        return 500, response
+        return response, 500
