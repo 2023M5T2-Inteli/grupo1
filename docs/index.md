@@ -186,7 +186,7 @@ Considerando que uso do tradicional custe e demore mais que do Magnetum e que a 
 # Arquitetura do Sistema
 
 ## Diagrama geral
-![image](https://raw.githubusercontent.com/2023M5T2-Inteli/tectonics/main/media/Arquitetura%20Do%20Sistema/esquematicoDoCircuito.png)
+![image](https://raw.githubusercontent.com/2023M5T2-Inteli/tectonics/main/media/Arquitetura%20Do%20Sistema/arquitetura.jpg)
 
 **Legenda do Diagrama**
 
@@ -259,7 +259,7 @@ A figura abaixo apresenta as dimensões do braço robótico Magician Lite, confo
 Como demonstrado na arquitetura da solução, o âmbito eletrônico do nosso projeto contempla, em visão geral, uma Raspberry Pi Pico W, eletroímãs e bombas d'água. A conexão entre esses componentes, por sua vez, é viabilizada através de reguladores de tensão e pontes H. Ressaltamos que, na esquemático e implementação do circuito da Sprint 3, utilizamos apenas quatro eletroímãs e duas bombas da água, conectados a duas pontes H, para prova de conceito. Futuramente, pretendemos agregar mais desses atuadores através de testes de eficácia e otimização.
 
 ###  Esquemático do circuito
-![image](https://github.com/2023M5T2-Inteli/tectonics/blob/dev/media/Arquitetura%20Do%20Sistema/EsquematicoDoCircuito.png?raw=true)
+![image](https://raw.githubusercontent.com/2023M5T2-Inteli/tectonics/main/media/Arquitetura%20Do%20Sistema/esquematicoDoCircuito.png)
 
 Conforme a figura, nosso circuito utiliza 10 pinos da Raspberry Pi Pico W, duas bombas d'água, quatro eletroímãs, duas pontes H e um regulador de tensão. Tudo isso é alimentado por uma fonte de 5V. 
 
