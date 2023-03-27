@@ -53,6 +53,7 @@ Magnetum | Concepção de sistema de automação industrial para separação mag
   - [Diagrama de banco de dados](#diagrama-de-banco-de-dados)
 - [Teste de Software](#teste-de-software)
   - [Movimentação do robô](#movimentação-do-robô-1)
+  - [Integração de hardware com frontend](#integração-de-hardware-com-frontend)
   - [Testes Unitários](#testes-unitários)
   - [Teste de Usabilidade](#teste-de-usabilidade)
 - [Manuais](#manuais)
@@ -657,8 +658,50 @@ Esse padrão de movimento mostrou-se bem-sucedido nos testes. Ao executá-lo, n�
 
 Em mais detalhes, as coordenadas utilizadas para cada ponto são as seguintes:
 
-'''
-'''
+```
+high_height = 77
+low_height = -40
+rotation = -86
+
+tray1 = [
+    (215, -155, high_height, rotation),  # Ponto alto inicial
+    (215, -155, low_height, rotation),  # Ponto baixo inicial
+    (315, -141, low_height, rotation),  # Ponto baixo final
+    (315, -141, high_height, rotation),  # Ponto alto final
+]
+
+tray2 = [
+    (326, 1, high_height, rotation),  # Ponto alto inicial
+    #(263, -112, low_height, rotation),  # Ponto baixo inicial
+    #(263, 68, low_height, rotation),  # Ponto baixo final
+    (184, 1, high_height, rotation),  # Ponto alto final
+]
+
+tray3 = [
+    (200, 157, high_height, rotation),  # Ponto alto inicial
+    (200, 157, low_height, rotation),  # Ponto baixo inicial
+    (311, 157, low_height, rotation),  # Ponto baixo final
+    (311, 157, high_height, rotation),  # Ponto alto final
+]
+
+intermediary_points = [
+    (222, 255, high_height, rotation),  # Ponto alto inicial da bandeja 3
+    (216, -248, high_height, rotation)  # Ponto alto inicial da bandeja 2
+]
+
+```
+
+## Integração de hardware com frontend
+
+Os testes de integração do hardware (movimentação do robô e acionamento dos atuadores conectados ao microcontrolador) com a interface gráfica foram bem-sucedidos. A integração se deu majoritariamente na página de "Home", tanto na versão online quanto na versão de executável do Magnetum. Os objetivos eram os seguintes:
+
+- Iniciar movimentação do robô ao clicar no botão "Iniciar"
+- Ligar/Desligar ímãs ao clicar no controle do ímã
+- Ligar/Desligar bombas ao clicar no controle das bombas
+- Atualizar número de ciclos durante a movimentação do robô
+- Atualizar bandeja atual durante a movimentação do robô
+
+Todos esses casos foram executados conforme o esperado, com as atualizações e modificações desejadas. Uma ressalva é que o comportamento dos ímãs foi relativamente inconsistente, com flutuações na intensidade. No entanto, após análise mais aprofundada, percebemos que isso se deu por problemas de conexão do próprio hardware, como a solda e a placa perfurada, e não da integração do código de frontend com o de backend e embarcado. Logo, consideramos os testes de integração um sucesso.
 
 ## Testes Unitários
 
