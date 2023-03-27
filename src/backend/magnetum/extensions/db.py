@@ -1,1 +1,0 @@
-# Configurações do nosso database

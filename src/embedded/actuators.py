@@ -11,14 +11,8 @@ class Actuator:
     ON = 1
     OFF = 0
 
-    def __init__(self, base, enabler):
-        self.base = Pin(base, Pin.OUT)
+    def __init__(self, enabler):
         self.enabler = Pin(enabler, Pin.OUT)
-        self.configureBase() 
-        
-    # Desliga a base
-    def configureBase(self):
-        self.base.value(Actuator.OFF)
 
     def enable(self):
         self.enabler.value(Actuator.ON)
@@ -33,18 +27,12 @@ class PWMActuator(Actuator):
     # Frequência de PWM a ser utilizada
     FREQUENCY = 1000
 
-    def __init__(self, base, enabler, max_intensity):
-        self.base = PWM(Pin(base, Pin.OUT))
+    def __init__(self, enabler, max_intensity):
         self.enabler = PWM(Pin(enabler, Pin.OUT))
         self.max_intensity = max_intensity # Intensidade máxima do PWM
-        self.configureBase()
         self.setFrequency()
     
-    def configureBase(self):
-        self.base.duty_u16(Actuator.OFF)
-    
     def setFrequency(self):
-        self.base.freq(PWMActuator.FREQUENCY)
         self.enabler.freq(PWMActuator.FREQUENCY)
 
     def enable(self, intensity):
