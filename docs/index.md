@@ -52,6 +52,7 @@ Magnetum | Concepção de sistema de automação industrial para separação mag
 - [Backend](#backend)
   - [Diagrama de banco de dados](#diagrama-de-banco-de-dados)
 - [Teste de Software](#teste-de-software)
+  - [Movimentação do robô](#movimentação-do-robô-1)
   - [Testes Unitários](#testes-unitários)
   - [Teste de Usabilidade](#teste-de-usabilidade)
 - [Manuais](#manuais)
@@ -647,6 +648,17 @@ Nosso banco de dados possui cinco tabelas relacionadas.
 - **Cycle**: ciclos de cada ensaio
 
 # Teste de Software
+
+## Movimentação do robô
+
+A movimentação do robô consiste em uma linha reta sobre cada bandeja. O movimento se inicia em um dos extremos do maior lado, posicionado no ponto médio do menor lado, e transpassa todo o comprimento da bandeja. Para isso, em cada recipiente, o robô primeiro posiciona-se sobre o ponto inicial a uma altura maior, abaixa-se até a altura desejada para contato com o material, transpassa a bandeja, assume a altura inicial neste novo ponto, e então passa para o ponto inicial da próxima bandeja.
+
+Esse padrão de movimento mostrou-se bem-sucedido nos testes. Ao executá-lo, não obtivemos erros de movimentação do robô nem travamentos. Ademais, captamos os objetos metálicos desejados.
+
+Em mais detalhes, as coordenadas utilizadas para cada ponto são as seguintes:
+
+'''
+'''
 
 ## Testes Unitários
 
