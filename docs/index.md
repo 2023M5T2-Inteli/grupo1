@@ -186,7 +186,7 @@ Considerando que uso do tradicional custe e demore mais que do Magnetum e que a 
 # Arquitetura do Sistema
 
 ## Diagrama geral
-![image](https://github.com/2023M5T2-Inteli/tectonics/blob/main/media/Arquitetura%20Do%20Sistema/DiagramaDaSolucao.png?raw=true)
+![image](https://raw.githubusercontent.com/2023M5T2-Inteli/tectonics/main/media/Arquitetura%20Do%20Sistema/esquematicoDoCircuito.png)
 
 **Legenda do Diagrama**
 
@@ -640,6 +640,8 @@ O backend do Magnetum foi feito em Flask utilizando um banco de dados em SQLite,
 Em vez disso, separamos subpastas de "models", para modelos de tabela e classes de atuadores, "controllers", que coordena as funções dos modelos e manipula requisições, e "routes", que delega as requisições para seus respectivos controladores. Ademais, criamos uma pasta de "utils" para guardar Enums utilizados em vários scripts e uma pasta de "config" que armazena o arquivo de configuração do banco de dados com SQLAlchemy.
 
 ## Diagrama de banco de dados
+
+![image](https://github.com/2023M5T2-Inteli/tectonics/blob/main/media/backend/database_Erd.png?raw=true)
 
 Nosso banco de dados possui cinco tabelas relacionadas. 
 - **Client**: clientes do IPT, que solicitam ensaios de suas amostras. Podem ter vários projetos.
