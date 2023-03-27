@@ -49,9 +49,8 @@ Magnetum | Concepção de sistema de automação industrial para separação mag
       - [Célula de carga e amplificador HX711](#célula-de-carga-e-amplificador-hx711)
     - [Relatório de entradas e saídas dos testes](#relatório-de-entradas-e-saídas-dos-testes)
 - [UX e UI Design](#ux-e-ui-design)
-- [Projeto de Banco de Dados](#projeto-de-banco-de-dados)
-  - [Modelo Conceitual](#modelo-conceitual)
-  - [Modelo Lógico](#modelo-lógico)
+- [Backend](#backend)
+  - [Diagrama de banco de dados](#diagrama-de-banco-de-dados)
 - [Teste de Software](#teste-de-software)
   - [Testes Unitários](#testes-unitários)
   - [Teste de Usabilidade](#teste-de-usabilidade)
@@ -641,11 +640,20 @@ O design inicial do Figma pode ser conferido [aqui](https://www.figma.com/file/6
 
 ![image](https://github.com/2023M5T2-Inteli/tectonics/blob/main/media/interface_grafica/interface_demo.png)
 
-# Projeto de Banco de Dados
+# Backend
 
-## Modelo Conceitual
+O backend do Magnetum foi feito em Flask utilizando um banco de dados em SQLite, construído com a ORM SQLAlchemy. O servidor foi estruturado com base na framework de MVC (Model-View-Controller); no entanto, como nosso frontend foi feito separadamente em React e Electron, não implementamos um módulo de views no backend. 
 
-## Modelo Lógico
+Em vez disso, separamos subpastas de "models", para modelos de tabela e classes de atuadores, "controllers", que coordena as funções dos modelos e manipula requisições, e "routes", que delega as requisições para seus respectivos controladores. Ademais, criamos uma pasta de "utils" para guardar Enums utilizados em vários scripts e uma pasta de "config" que armazena o arquivo de configuração do banco de dados com SQLAlchemy.
+
+## Diagrama de banco de dados
+
+Nosso banco de dados possui cinco tabelas relacionadas. 
+- **Client**: clientes do IPT, que solicitam ensaios de suas amostras. Podem ter vários projetos.
+- **User**: usuários do sistema, isto é, técnicos do IPT.
+- **Project**: projetos dos clientes, agregando vários ensaios de um mesmo contexto.
+- **Routine**: ensaios de cada projeto, contendo vários ciclos
+- **Cycle**: ciclos de cada ensaio
 
 # Teste de Software
 
