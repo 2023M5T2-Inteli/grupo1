@@ -11,12 +11,12 @@ import RangeSlider from "../components/Slider";
 
 //Importando imagens 
 import pumpIcon from '../assets/pumpIcon.png'
-import turnOnIcon from '../assets/turnOnIcon.png'
 import magnetIcon from '../assets/sidebarMagnet.png'
 import seeMore from '../assets/seeMoreArrow.png'
 
 import Axios from 'axios'
 
+// "Enum" para estado das bandejas
 const Trays = {
   0: "DESATIVADO",
   1: "CAPTURA",
@@ -47,7 +47,7 @@ function Home() {
 
   // Faz requisição ao servidor para trocar estado e atualiza estado local
   const toggleMagnet = () => {
-    fetch(serverHost + "/toggle_magnet", {
+    fetch(serverHost + "/current/magnet", {
       method: "POST",
       body: JSON.stringify({
         magnet_state: !magnetState,
@@ -62,7 +62,7 @@ function Home() {
 
   // Faz requisição ao servidor para trocar estado e atualiza estado local
   const togglePump = () => {
-    fetch(serverHost + "/toggle_pump", {
+    fetch(serverHost + "/current/pump", {
       method: "POST",
       body: JSON.stringify({
         pump_state: !pumpState,
@@ -77,14 +77,14 @@ function Home() {
 
   // Faz requisição ao servidor para ler valor e atualiza estado local
   const getCycleCount = () => {
-    Axios.get(serverHost + "/cycleCount").then((res) => {
+    Axios.get(serverHost + "/current/cycle").then((res) => {
       setCycleCount(res.data.cycleCount);
     }); // Atualiza estado com o valor lido
   };
 
-
+// Faz requisição para estados atuais do ímã e da bomba
   const getStates = () => {
-    fetch(serverHost + "/states")
+    fetch(serverHost + "/current/states")
       .then((res) => res.json())
       .then((data) => {
         setMagnetState(Number.parseInt(data.magnet));
@@ -92,8 +92,9 @@ function Home() {
       });
   };
 
+// Devolve o estado atual da bandeja
   const getCurrentTray = () => {
-    fetch(serverHost + "/current_tray")
+    fetch(serverHost + "/current/tray")
       .then((res) => res.json())
       .then((data) => {
         setCurrentTray(Trays[Number.parseInt(data.current_tray)]);
@@ -180,13 +181,6 @@ function Home() {
                     </p>
 
                     <span className="flex gap-5 justify-around">
-                      {/* <button>
-                        <img
-                          className="w-9 hover:scale-105"
-                          src={turnOnIcon}
-                          onClick={}
-                        ></img>
-                      </button> */}
                       <button>
                         <img
                           className="w-9 hover:scale-105"
@@ -202,8 +196,6 @@ function Home() {
                         ></img>
                       </button>
                     </span>
-
-                    
 
                     <span
                       className="flex gap-2 items-center justify-between font-montserrat w-full "
