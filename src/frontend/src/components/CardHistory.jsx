@@ -1,7 +1,7 @@
 import finalizado from '../assets/finalizado_icon.svg'
 import { useState } from 'react'
 
-function Card() {
+function Card(body) {
     const [showPopup, setShowPopup] = useState(false)
 
     const handleCardClick = () => {

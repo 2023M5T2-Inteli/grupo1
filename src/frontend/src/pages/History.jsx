@@ -3,7 +3,18 @@
 import Card from '../components/CardHistory'
 import Sidebar from '../components/Sidebar';
 
+
+var serverHost
+
 function History() {
+        // Faz requisição para pegar as informações do histórico 
+        const getInfo = async () => {
+        await fetch(serverHost + "/current/states")
+        .then((res) => res.json())
+        .then((data) => {
+            return data
+        });
+    };
     return (
         <div>
             <Sidebar />
@@ -21,10 +32,9 @@ function History() {
                     <button className="font-montserrat font-bold text-white bg-indigo-900 w-1/12 h-9 rounded-xl shadow-xl  hover:scale-105 hover:bg-indigo-800	">Filtrar</button>
                 </div>
                 <div className="justify-around flex flex-wrap">
-                    <Card />
-                    <Card />
-                    <Card />
-                    <Card />
+                    <Card {...Card("i")} />
+                    {print(getInfo)}
+
                 </div>
 
             </div>
