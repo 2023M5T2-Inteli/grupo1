@@ -6,7 +6,7 @@
 from flask import Flask, request
 from flask_cors import CORS  # módulo para evitar erros de CORS
 #from magnetum.blueprints import routes1
-from magnetum.routes import magnet, pump, routine, client
+from magnetum.routes import magnet, pump, routine, client, user, project
 from magnetum.config import db
 
 def create_app():
@@ -17,4 +17,6 @@ def create_app():
     pump.init_app(app)
     routine.init_app(app)
     client.init_app(app)
+    user.init_app(app)
+    project.init_app(app)
     return app

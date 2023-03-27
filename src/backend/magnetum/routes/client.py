@@ -1,4 +1,5 @@
 from magnetum.controllers import client
+from flask import request
 
 def init_app(app):
     @app.route('/client', methods=['GET'])
