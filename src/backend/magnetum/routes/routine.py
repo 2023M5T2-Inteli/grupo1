@@ -3,22 +3,23 @@ from magnetum.controllers import routine
 
 
 def init_app(app):
+    @app.route('/routine', methods=['GET'])
+    def get_all():
+        return routine.get_all()
 
-    # CÓDIGO REFERENTE AO ROBÔ
-    @app.route('/routine/start') 
-    def start_routine():
-        routine.execute_routine()  
+    @app.route('/routine/<int:id>', methods=['GET'])
+    def get_by_id(id):
+        return routine.get_by_id(id)
 
-    @app.route('/current/cycle')  # Rota para ler número de ciclos (passadas) atual
-    def get_current_cycle():
-        return routine.get_current_cycle()
-    
-    # Rota que devolve apenas valor do estado da bomba para o Raspberry
-    @app.route('/current/tray')
-    def get_current_tray():
-        return routine.get_current_tray()
-    
-    @app.route('/current/tray', methods=['POST'])
-    def set_current_tray():
-        return routine.set_current_tray(request)
+    @app.route('/routine/start', methods=['GET'])
+    def start():
+        return routine.execute_routine(request)
+
+    @app.route('/routine/<int:id>', methods=['PUT'])
+    def update(id):
+        return routine.update(request, id)
+
+    @app.route('/routine/<int:id>', methods=['DELETE'])
+    def delete(id):
+        return routine.delete(id)
    

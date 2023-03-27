@@ -20,10 +20,21 @@ class Routine(Base): #Estrutura para criar uma tabela
    cycles = relationship('Cycle', backref='routine')
    
      
-#    def __repr__(self) -> str: #Serve para formatar o objeto que vai aparecer ao printar um objeto pessoa 
-#       return f"Cliente(id={self.id},numero_ciclo={self.numero_ciclo})"
-      
+   def __repr__(self):
+      return f"Routine {self.id}, initiated_at: {self.initiated_at}, finished_at: {self.finished_at}, sample_name: {self.sample_name}, initial_sample_mass: {self.initial_sample_mass}, initial_water_mass: {self.initial_water_mass}, user_id: {self.user_id}, project_id: {self.project_id}, cycles: {self.cycles}"
 
+   def return_json(self):
+      return {
+         "id": self.id,
+         "initiated_at": self.initiated_at,
+         "finished_at": self.finished_at,
+         "sample_name": self.sample_name,
+         "initial_sample_mass": self.initial_sample_mass,
+         "initial_water_mass": self.initial_water_mass,
+         "user_id": self.user_id,
+         "project_id": self.project_id,
+         "cycles": [cycle.return_json() for cycle in self.cycles]
+      }
 
 
 
