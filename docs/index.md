@@ -49,13 +49,13 @@ Magnetum | Concepção de sistema de automação industrial para separação mag
       - [Célula de carga e amplificador HX711](#célula-de-carga-e-amplificador-hx711)
     - [Relatório de entradas e saídas dos testes](#relatório-de-entradas-e-saídas-dos-testes)
 - [UX e UI Design](#ux-e-ui-design)
-- [Projeto de Banco de Dados](#projeto-de-banco-de-dados)
-  - [Modelo Conceitual](#modelo-conceitual)
-  - [Modelo Lógico](#modelo-lógico)
+- [Backend](#backend)
+  - [Diagrama de banco de dados](#diagrama-de-banco-de-dados)
 - [Teste de Software](#teste-de-software)
+  - [Movimentação do robô](#movimentação-do-robô-1)
+  - [Integração de hardware com frontend](#integração-de-hardware-com-frontend)
   - [Testes Unitários](#testes-unitários)
   - [Teste de Usabilidade](#teste-de-usabilidade)
-- [Análise de Dados](#análise-de-dados)
 - [Manuais](#manuais)
   - [Manual de Implantação](#manual-de-implantação)
   - [Manual do Usuário](#manual-do-usuário)
@@ -190,31 +190,62 @@ Considerando que uso do tradicional custe e demore mais que do Magnetum e que a 
 
 **Legenda do Diagrama**
 
-![image](https://github.com/2023M5T2-Inteli/tectonics/blob/main/media/Arquitetura%20Do%20Sistema/LegendaDoDiagrama.png?raw=true)
+| Componente / Conexão                                      | Descrição da função                                                                                                                                                                                                                                                                                                                                                           | Tipo: entrada / saída / atuador |
+| --------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------- |
+| Raspberry Pi Pico W                                       | Microcontrolador responsável por gerenciar o eletroímã e as bombas d’água, segundo parâmetros passados pelo usuário no browser através de uma API com o servidor.                                                                                                                                                                                                             | Microcontrolador                |
+| Dobot Magician Lite                                       | Braço robótico responsável por movimentar o eletroímã sobre as bandejas. segundo sequência pré-programada e critério de parada.                                                                                                                                                                                                                                               | Robô                            |
+| Eletroímã                                                 | Gera campo magnético dinamicamente segundo instruções do Raspberry.                                                                                                                                                                                                                                                                                                           | Atuador                         |
+| Bomba d’água                                              | Responsável por agitar a água na bandeja de captura e na bandeja de limpeza.                                                                                                                                                                                                                                                                                                  | Atuador                         |
+| Rede local, servidor,  banco de dados e interface gráfica | Interface gráfica do sistema, pela qual o usuário se comunicará com o robô e com o microcontrolador. A interação do usuário final ocorre no browser e/ou executável, que envia as informações ao servidor. O servidor, por sua vez, comunica-se com o banco de dados para assegurar a persistência dos inputs e os redireciona ao hardware (Raspberry e Dobot Magician Lite). | Entrada e saída                 |
+| Fonte elétrica                                            | Fornece eletricidade ao Raspberri, que agira como regulador de tensão, distribuindo energia ao resto do circuito, e ao robô.                                                                                                                                                                                                                                                  | Entrada (alimentação elétrica)  |
+| Bandeja de captura                                        | Contém amostra inicial misturada em água, o qual é agitado pela bomba d’água a fim de elevar partículas à superfície do líquido.                                                                                                                                                                                                                                              | N/A                             |
+| Bandeja de limpeza                                        | Recipiente utilizado para remover impurezas do material atraído pelo ímã, com o auxílio do atrito causado por uma bomba d’água.                                                                                                                                                                                                                                               | N/A                             |
+| Bandeja de despejo                                        | Recebe o material magnético limpo.                                                                                                                                                                                                                                                                                                                                            | N/A                             |
+| Hotspot                                                   | A criação de um hotspot (soft access point) no Raspberry permite a conexão com uma interface gráfica intermediária, associada a um WiFi Manager, para que o usuário possa escolher a qual rede local conectar o Magnetum através do browser do celular.                                                                                                                       | Entrada e saída                 |
+| IR-SF (Interface gráfica e rede local - sem fio)          | As informações inseridas na interface gráfica são redirecionadas ao servidor através da rede local.                                                                                                                                                                                                                                                                           | Conexão                         |
+| RS-SF (Rede local e servidor - sem fio)                   | A rede local direciona dados da interface gráfica ao servidor.                                                                                                                                                                                                                                                                                                                | Conexão                         |
+| SBA-SF (Servidor e banco de dados - sem fio)              | Servidor acessa banco de dados para manipular dados persistentes.                                                                                                                                                                                                                                                                                                             | Conexão                         |
+| HR-SF (Hotspot e rede local - sem fio)                    | Hotspot detecta rede local e viabiliza conexão do Raspberry com ela através de uma interface gráfica de WiFi Manager, que recebe SSID e senha.                                                                                                                                                                                                                                | Conexão                         |
+| RH-SF (Raspberry e hotspot - sem fio)                     | Raspberry gera e conecta-se a uma AP para encontrar as redes locais e possibilitar conexão.                                                                                                                                                                                                                                                                                   | Conexão                         |
+| RR-SF (Raspberry e rede local - sem fio)                  | Raspberry se comunica com a rede local para receber dados do usuário e comunicar estado geral do sistema à interface gráfica.                                                                                                                                                                                                                                                 | Conexão                         |
+| MAS-CF (Magician Lite e Servidor - com fio)               | O robô é conectado com cabo ao servidor para receber instruções da interface gráfica.                                                                                                                                                                                                                                                                                         | Conexão                         |
+| RE-CF (Raspberry e eletroímã - com fio)                   | O Raspberry controla a intensidade magnética gerada pelo eletroímã, através do gerenciamento da voltagem, utilizando sinais de PWM.                                                                                                                                                                                                                                           | Conexão                         |
+| RBI-CF (Raspberry e bombas d’água iniciais - com fio)     | O Raspberry controla as bombas d’água na primeira bandeja para agitar a amostra.                                                                                                                                                                                                                                                                                              | Conexão                         |
+| RBL-CF (Raspberry e bombas d’água de limpeza - com fio)   | O Raspberry controla as bombas d’água na segunda bandeja para limpar o material coletado.                                                                                                                                                                                                                                                                                     | Conexão                         |
+| FMA-CF (Fonte elétrica e Magician Lite - com fio)         | A fonte elétrica alimenta o robô.                                                                                                                                                                                                                                                                                                                                             | Conexão                         |
+| FR-CF (Fonte elétrica e Raspberry - com fio)              | A fonte elétrica alimenta o Raspberry.                                                                                                                                                                                                                                                                                                                                        | Conexão                         |
 
 ## Projeto mecânico
-O projeto mecânico para nossa solução envolve dois módulos: um invólucro resistente à água na ponta do braço robótico, protegendo os imãs, e uma case simples para o circuito principal, incluindo Raspberry, placa e pontes H, a ser posicionada na traseira do robô. As conexões por fio serão organizadas ao longo do corpo do robô utilizando fixadores como fita adesiva, a fim de diminuir o risco de nós, curto-circuito ou qualquer outro dano à integridade eletrônica do projeto.
+O projeto mecânico para nossa solução envolve três módulos: 
+
+- um suporte para o ímã que fica na ponta do braço;
+- um invólucro resistente à água que protege os ímãs nesse suporte;
+- uma case simples para o circuito principal, incluindo Raspberry, placa e pontes H, a ser posicionada na traseira do robô.
+
+As conexões por fio serão organizadas ao longo do corpo do robô utilizando fixadores como fita adesiva, a fim de diminuir o risco de nós, curto-circuito ou qualquer outro dano à integridade eletrônica do projeto.
+
 
 **Visão Superior**
 
 ![image](https://github.com/2023M5T2-Inteli/tectonics/blob/main/media/Arquitetura%20Do%20Sistema/CroquiVisaoSuperior.png?raw=true)
 
-O suporte para PCB será produzido em polímero, como o plástico ABS, através de impressão 3D. Escolhemos esse material por sua durabilidade, facilidade de processamento e baixo custo. Essas características são importantes para oferecer uma solução robusta, capaz de suportar choques mecânicos simples a um reduzido investimento inicial. Ademais, por não ser transparente, cumpre a tarefa de ocultar o circuito de vista, otimizando a experiência do usuário. Por fim, como essa case não entrará em contato direto com a água, não é necessário total impermeabilidade, viabilizando o uso da impressão 3D.
+O suporte para PCB será produzido em plástico ABS, através de impressão 3D. Escolhemos esse material por sua durabilidade, facilidade de processamento e baixo custo. Essas características são importantes para oferecer uma solução robusta, capaz de suportar choques mecânicos simples a um reduzido investimento inicial. Ademais, por não ser transparente, cumpre a tarefa de ocultar o circuito de vista, otimizando a experiência do usuário. Por fim, como essa case não entrará em contato direto com a água, não é necessário total impermeabilidade, viabilizando o uso da impressão 3D.
+
+![image](https://github.com/2023M5T2-Inteli/tectonics/blob/dev/media/projeto%20mecanico/case.jpeg?raw=true)
 
 O case terá as dimensões 12 cm x 12 cm x 5 cm e será posicionado logo atrás do braço robótico. Caso a produção desse artefato não seja possível por falta de tempo ou acesso à infraestrutura necessária, pretendemos adquirir um case eletrônico IP65 online com dimensões semelhantes às desejadas.
 
 **Visão Lateral**
 
-O suporte para ímãs consiste em uma case octagonal, na qual serão fixados de dois a quatro ímãs. Por entrar em contato direto com a água, é essencial que o material de fabricação seja muito resistente a líquidos e, ao mesmo tempo, exerça interferência mínima no campo magnético. 
-
-Não temos dimensões exatas ainda porque estamos testando a eficácia de dois, três ou quatro ímãs juntos, considerando o fluxo de corrente, campo magnético resultante e peso. Assim que chegarmos a uma conclusão nesse sentido, poderemos determinar o tamanho da case com propriedade.
-
-Nesse sentido, nossa ideia principal é produzir a placa ortogonal em ABS através de impressão 3D, sob a qual os ímãs serão posicionados. Então, agregaremos uma capa de plástico flexível ou proteção rígida de acrílico sob a base dos eletroímãs para assegurar a resistência à água. Esse aspecto também permanece em aberto porque precisamos saber as dimensões finais para estimar o peso e, com isso, concluir qual opção afetará menos a performance do braço robótico.
-
-Para os testes da Sprint 3, construímos um protótipo desse suporte utilizando papelão e fita adesiva, tendo 
 
 ![image](https://github.com/2023M5T2-Inteli/tectonics/blob/main/media/Arquitetura%20Do%20Sistema/CroquiVisaoLateral.png?raw=true)
 
+
+O suporte para ímãs consiste em uma case octagonal, na qual serão fixados de dois a quatro ímãs. Por entrar em contato direto com a água, é essencial que o material de fabricação seja muito resistente a líquidos e, ao mesmo tempo, exerça interferência mínima no campo magnético. 
+
+![image](https://github.com/2023M5T2-Inteli/tectonics/blob/dev/media/projeto%20mecanico/suporte_ima.jpeg?raw=true)
+
+Nesse sentido, nossa objetivo é produzir a placa ortogonal em ABS através de impressão 3D, sob a qual os ímãs serão posicionados. Então, agregaremos uma capa de plástico flexível ou proteção rígida de acrílico sob a base dos eletroímãs para assegurar a resistência à água. 
 
 **Visão Robô**
 
@@ -228,7 +259,7 @@ A figura abaixo apresenta as dimensões do braço robótico Magician Lite, confo
 Como demonstrado na arquitetura da solução, o âmbito eletrônico do nosso projeto contempla, em visão geral, uma Raspberry Pi Pico W, eletroímãs e bombas d'água. A conexão entre esses componentes, por sua vez, é viabilizada através de reguladores de tensão e pontes H. Ressaltamos que, na esquemático e implementação do circuito da Sprint 3, utilizamos apenas quatro eletroímãs e duas bombas da água, conectados a duas pontes H, para prova de conceito. Futuramente, pretendemos agregar mais desses atuadores através de testes de eficácia e otimização.
 
 ###  Esquemático do circuito
-![image](https://github.com/2023M5T2-Inteli/tectonics/blob/dev/media/Arquitetura%20Do%20Sistema/esquematicoDoCircuito.png?raw=true)
+![image](https://github.com/2023M5T2-Inteli/tectonics/blob/dev/media/Arquitetura%20Do%20Sistema/EsquematicoDoCircuito.png?raw=true)
 
 Conforme a figura, nosso circuito utiliza 10 pinos da Raspberry Pi Pico W, duas bombas d'água, quatro eletroímãs, duas pontes H e um regulador de tensão. Tudo isso é alimentado por uma fonte de 5V. 
 
@@ -602,21 +633,80 @@ O design inicial do Figma pode ser conferido [aqui](https://www.figma.com/file/6
 
 ![image](https://github.com/2023M5T2-Inteli/tectonics/blob/main/media/interface_grafica/interface_demo.png)
 
-# Projeto de Banco de Dados
+# Backend
 
-## Modelo Conceitual
+O backend do Magnetum foi feito em Flask utilizando um banco de dados em SQLite, construído com a ORM SQLAlchemy. O servidor foi estruturado com base na framework de MVC (Model-View-Controller); no entanto, como nosso frontend foi feito separadamente em React e Electron, não implementamos um módulo de views no backend. 
 
-## Modelo Lógico
+Em vez disso, separamos subpastas de "models", para modelos de tabela e classes de atuadores, "controllers", que coordena as funções dos modelos e manipula requisições, e "routes", que delega as requisições para seus respectivos controladores. Ademais, criamos uma pasta de "utils" para guardar Enums utilizados em vários scripts e uma pasta de "config" que armazena o arquivo de configuração do banco de dados com SQLAlchemy.
+
+## Diagrama de banco de dados
+
+Nosso banco de dados possui cinco tabelas relacionadas. 
+- **Client**: clientes do IPT, que solicitam ensaios de suas amostras. Podem ter vários projetos.
+- **User**: usuários do sistema, isto é, técnicos do IPT.
+- **Project**: projetos dos clientes, agregando vários ensaios de um mesmo contexto.
+- **Routine**: ensaios de cada projeto, contendo vários ciclos
+- **Cycle**: ciclos de cada ensaio
 
 # Teste de Software
+
+## Movimentação do robô
+
+A movimentação do robô consiste em uma linha reta sobre cada bandeja. O movimento se inicia em um dos extremos do maior lado, posicionado no ponto médio do menor lado, e transpassa todo o comprimento da bandeja. Para isso, em cada recipiente, o robô primeiro posiciona-se sobre o ponto inicial a uma altura maior, abaixa-se até a altura desejada para contato com o material, transpassa a bandeja, assume a altura inicial neste novo ponto, e então passa para o ponto inicial da próxima bandeja.
+
+Esse padrão de movimento mostrou-se bem-sucedido nos testes. Ao executá-lo, não obtivemos erros de movimentação do robô nem travamentos. Ademais, captamos os objetos metálicos desejados.
+
+Em mais detalhes, as coordenadas utilizadas para cada ponto são as seguintes:
+
+```
+high_height = 77
+low_height = -40
+rotation = -86
+
+tray1 = [
+    (215, -155, high_height, rotation),  # Ponto alto inicial
+    (215, -155, low_height, rotation),  # Ponto baixo inicial
+    (315, -141, low_height, rotation),  # Ponto baixo final
+    (315, -141, high_height, rotation),  # Ponto alto final
+]
+
+tray2 = [
+    (326, 1, high_height, rotation),  # Ponto alto inicial
+    #(263, -112, low_height, rotation),  # Ponto baixo inicial
+    #(263, 68, low_height, rotation),  # Ponto baixo final
+    (184, 1, high_height, rotation),  # Ponto alto final
+]
+
+tray3 = [
+    (200, 157, high_height, rotation),  # Ponto alto inicial
+    (200, 157, low_height, rotation),  # Ponto baixo inicial
+    (311, 157, low_height, rotation),  # Ponto baixo final
+    (311, 157, high_height, rotation),  # Ponto alto final
+]
+
+intermediary_points = [
+    (222, 255, high_height, rotation),  # Ponto alto inicial da bandeja 3
+    (216, -248, high_height, rotation)  # Ponto alto inicial da bandeja 2
+]
+
+```
+
+## Integração de hardware com frontend
+
+Os testes de integração do hardware (movimentação do robô e acionamento dos atuadores conectados ao microcontrolador) com a interface gráfica foram bem-sucedidos. A integração se deu majoritariamente na página de "Home", tanto na versão online quanto na versão de executável do Magnetum. Os objetivos eram os seguintes:
+
+- Iniciar movimentação do robô ao clicar no botão "Iniciar"
+- Ligar/Desligar ímãs ao clicar no controle do ímã
+- Ligar/Desligar bombas ao clicar no controle das bombas
+- Atualizar número de ciclos durante a movimentação do robô
+- Atualizar bandeja atual durante a movimentação do robô
+
+Todos esses casos foram executados conforme o esperado, com as atualizações e modificações desejadas. Uma ressalva é que o comportamento dos ímãs foi relativamente inconsistente, com flutuações na intensidade. No entanto, após análise mais aprofundada, percebemos que isso se deu por problemas de conexão do próprio hardware, como a solda e a placa perfurada, e não da integração do código de frontend com o de backend e embarcado. Logo, consideramos os testes de integração um sucesso.
 
 ## Testes Unitários
 
 
 ## Teste de Usabilidade
-
-
-# Análise de Dados
 
 
 # Manuais
