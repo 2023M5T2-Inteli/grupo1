@@ -21,6 +21,7 @@ class Client(Base): #Estrutura para criar uma tabela
          "id": self.id,
          "full_name": self.full_name,
          "cnpj": self.cnpj,
+         "projects": [project.return_json() for project in self.projects]
       }
       
     

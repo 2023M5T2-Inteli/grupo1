@@ -21,4 +21,5 @@ class Project(Base):  # Estrutura para criar uma tabela
             "id": self.id,
             "name": self.name,
             "client": self.client.return_json(),
+            "routines": [routine.return_json() for routine in self.routines]
         }
