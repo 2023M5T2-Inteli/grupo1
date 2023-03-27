@@ -62,7 +62,6 @@ function Home() {
 
   // Faz requisição ao servidor para trocar estado e atualiza estado local
   const togglePump = () => {
-    console.log()
     fetch(serverHost + "/toggle_pump", {
       method: "POST",
       body: JSON.stringify({
@@ -188,14 +187,14 @@ function Home() {
                           onClick={}
                         ></img>
                       </button> */}
-                      <button type='button'>
+                      <button>
                         <img
                           className="w-9 hover:scale-105"
                           src={magnetIcon}
                           onClick={toggleMagnet}
                         ></img>
                       </button>
-                      <button type='button'>
+                      <button>
                         <img
                           className="w-9 hover:scale-105"
                           src={pumpIcon}
