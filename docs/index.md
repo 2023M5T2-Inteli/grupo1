@@ -54,7 +54,6 @@ Magnetum | Concepção de sistema de automação industrial para separação mag
 - [Teste de Software](#teste-de-software)
   - [Testes Unitários](#testes-unitários)
   - [Teste de Usabilidade](#teste-de-usabilidade)
-- [Análise de Dados](#análise-de-dados)
 - [Manuais](#manuais)
   - [Manual de Implantação](#manual-de-implantação)
   - [Manual do Usuário](#manual-do-usuário)
@@ -215,44 +214,36 @@ Considerando que uso do tradicional custe e demore mais que do Magnetum e que a 
 | FR-CF (Fonte elétrica e Raspberry - com fio)              | A fonte elétrica alimenta o Raspberry.                                                                                                                                                                                                                                                                                                                                        | Conexão                         |
 
 ## Projeto mecânico
-O projeto mecânico para nossa solução envolve cinco módulos: um suporte para o ímã que fica na ponta do braço, um invólucro resistente à água que portege o anterior, protegendo os imãs, uma case simples para o circuito principal, incluindo Raspberry, placa e pontes H, a ser posicionada na traseira do robô e um par de suportes, de plástico abs, feitos na impressora 3D, que compõem a balança. As conexões por fio serão organizadas ao longo do corpo do robô utilizando fixadores como fita adesiva, a fim de diminuir o risco de nós, curto-circuito ou qualquer outro dano à integridade eletrônica do projeto.
+O projeto mecânico para nossa solução envolve três módulos: 
 
-**Suporte**
+- um suporte para o ímã que fica na ponta do braço;
+- um invólucro resistente à água que protege os ímãs nesse suporte;
+- uma case simples para o circuito principal, incluindo Raspberry, placa e pontes H, a ser posicionada na traseira do robô.
 
-![image](https://github.com/2023M5T2-Inteli/tectonics/blob/dev/media/projeto%20mecanico/suporte_ima.jpeg?raw=true)
+As conexões por fio serão organizadas ao longo do corpo do robô utilizando fixadores como fita adesiva, a fim de diminuir o risco de nós, curto-circuito ou qualquer outro dano à integridade eletrônica do projeto.
 
-**Case**
-
-![image](https://github.com/2023M5T2-Inteli/tectonics/blob/dev/media/projeto%20mecanico/case.jpeg?raw=true)
-
-**Suporte superior da balança**
-
-![image](https://github.com/2023M5T2-Inteli/tectonics/blob/dev/media/projeto%20mecanico/suporte_superior.jpeg?raw=true)
-
-**Suporte inferior da balança**
-
-![image](https://github.com/2023M5T2-Inteli/tectonics/blob/dev/media/projeto%20mecanico/suporte_inferior.jpeg?raw=true)
 
 **Visão Superior**
 
 ![image](https://github.com/2023M5T2-Inteli/tectonics/blob/main/media/Arquitetura%20Do%20Sistema/CroquiVisaoSuperior.png?raw=true)
 
-O suporte para PCB será produzido em polímero, como o plástico ABS, através de impressão 3D. Escolhemos esse material por sua durabilidade, facilidade de processamento e baixo custo. Essas características são importantes para oferecer uma solução robusta, capaz de suportar choques mecânicos simples a um reduzido investimento inicial. Ademais, por não ser transparente, cumpre a tarefa de ocultar o circuito de vista, otimizando a experiência do usuário. Por fim, como essa case não entrará em contato direto com a água, não é necessário total impermeabilidade, viabilizando o uso da impressão 3D.
+O suporte para PCB será produzido em plástico ABS, através de impressão 3D. Escolhemos esse material por sua durabilidade, facilidade de processamento e baixo custo. Essas características são importantes para oferecer uma solução robusta, capaz de suportar choques mecânicos simples a um reduzido investimento inicial. Ademais, por não ser transparente, cumpre a tarefa de ocultar o circuito de vista, otimizando a experiência do usuário. Por fim, como essa case não entrará em contato direto com a água, não é necessário total impermeabilidade, viabilizando o uso da impressão 3D.
+
+![image](https://github.com/2023M5T2-Inteli/tectonics/blob/dev/media/projeto%20mecanico/case.jpeg?raw=true)
 
 O case terá as dimensões 12 cm x 12 cm x 5 cm e será posicionado logo atrás do braço robótico. Caso a produção desse artefato não seja possível por falta de tempo ou acesso à infraestrutura necessária, pretendemos adquirir um case eletrônico IP65 online com dimensões semelhantes às desejadas.
 
 **Visão Lateral**
 
-O suporte para ímãs consiste em uma case octagonal, na qual serão fixados de dois a quatro ímãs. Por entrar em contato direto com a água, é essencial que o material de fabricação seja muito resistente a líquidos e, ao mesmo tempo, exerça interferência mínima no campo magnético. 
-
-Não temos dimensões exatas ainda porque estamos testando a eficácia de dois, três ou quatro ímãs juntos, considerando o fluxo de corrente, campo magnético resultante e peso. Assim que chegarmos a uma conclusão nesse sentido, poderemos determinar o tamanho da case com propriedade.
-
-Nesse sentido, nossa ideia principal é produzir a placa ortogonal em ABS através de impressão 3D, sob a qual os ímãs serão posicionados. Então, agregaremos uma capa de plástico flexível ou proteção rígida de acrílico sob a base dos eletroímãs para assegurar a resistência à água. Esse aspecto também permanece em aberto porque precisamos saber as dimensões finais para estimar o peso e, com isso, concluir qual opção afetará menos a performance do braço robótico.
-
-Para os testes da Sprint 3, construímos um protótipo desse suporte utilizando papelão e fita adesiva, tendo 
 
 ![image](https://github.com/2023M5T2-Inteli/tectonics/blob/main/media/Arquitetura%20Do%20Sistema/CroquiVisaoLateral.png?raw=true)
 
+
+O suporte para ímãs consiste em uma case octagonal, na qual serão fixados de dois a quatro ímãs. Por entrar em contato direto com a água, é essencial que o material de fabricação seja muito resistente a líquidos e, ao mesmo tempo, exerça interferência mínima no campo magnético. 
+
+![image](https://github.com/2023M5T2-Inteli/tectonics/blob/dev/media/projeto%20mecanico/suporte_ima.jpeg?raw=true)
+
+Nesse sentido, nossa objetivo é produzir a placa ortogonal em ABS através de impressão 3D, sob a qual os ímãs serão posicionados. Então, agregaremos uma capa de plástico flexível ou proteção rígida de acrílico sob a base dos eletroímãs para assegurar a resistência à água. 
 
 **Visão Robô**
 
@@ -661,9 +652,6 @@ Nosso banco de dados possui cinco tabelas relacionadas.
 
 
 ## Teste de Usabilidade
-
-
-# Análise de Dados
 
 
 # Manuais
