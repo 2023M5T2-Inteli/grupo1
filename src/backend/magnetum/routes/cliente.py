@@ -1,5 +1,5 @@
 from flask import request 
-from magnetum.models.cliente import Cliente
+from magnetum.models.client import Client
 from magnetum.models import db
 
 
