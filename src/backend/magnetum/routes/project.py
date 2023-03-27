@@ -2,7 +2,7 @@ from magnetum.controllers import project
 from flask import request
 
 def init_app(app):
-    @app.route('/project')
+    @app.route('/project', methods=['GET'])
     def get_all_projects():
         return project.get_all()
 

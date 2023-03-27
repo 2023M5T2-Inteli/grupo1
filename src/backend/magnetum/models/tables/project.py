@@ -1,7 +1,6 @@
 from magnetum.models.tables.base import Base
-from magnetum.models.tables.client import Client
-from sqlalchemy import Column, Integer, String, Boolean, ForeignKey
-from sqlalchemy.orm import relationship, Mapped, mapped_column
+from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy.orm import relationship
 
 class Project(Base): #Estrutura para criar uma tabela
      __tablename__ = "project"
@@ -19,5 +18,4 @@ class Project(Base): #Estrutura para criar uma tabela
                "id": self.id,
                "name": self.name,
                "client": self.client.return_json(),
-               "routines": [routine.return_json() for routine in self.routines]
             }

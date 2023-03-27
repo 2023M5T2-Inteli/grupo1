@@ -1,7 +1,6 @@
 from magnetum.models.tables.base import Base
-from sqlalchemy import Column, Integer, String, Float, ForeignKey, DateTime
-from sqlalchemy.orm import Mapped, mapped_column, relationship
-from sqlalchemy.sql import func
+from sqlalchemy import Column, Integer, String
+from sqlalchemy.orm import relationship
 
 class User(Base): #Estrutura para criar uma tabela
    __tablename__ = "user"

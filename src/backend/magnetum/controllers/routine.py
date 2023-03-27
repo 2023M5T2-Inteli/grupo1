@@ -14,7 +14,7 @@ current_tray = Tray.CAPTURA
 
 def get_all():
     try:
-        routines = Routine.query.all()
+        routines = session.query(Routine).all()
         response = [routine.return_json() for routine in routines]
         return response, 200
 
@@ -22,9 +22,9 @@ def get_all():
         response = {'status': 'error', 'message': str(e)}
         return response, 500
 
-def get_by_id():
+def get_by_id(id):
     try:
-        routines = Routine.query.filter(Routine.id == id).first()
+        routines = session.query(Routine).filter(Routine.id == id).first()
         return routines.return_json(), 200
     except Exception as e:
         response = {'status': 'error', 'message': str(e)}
@@ -33,17 +33,15 @@ def get_by_id():
 def create(new_routine):
     try:
         routine = Routine(name=new_routine['name'], client_id=new_routine['client_id'], initiated_at=datetime.now().isoformat(), sample_name=new_routine['sample_name'], initial_sample_mass=new_routine['initial_sample_mass'], initial_water_mass=new_routine['initial_water_mass'], user_id=new_routine['user_id'], project_id=new_routine['project_id'])
-
         session.add(routine)
         session.commit()
-        return routine.return_json(), 201
     except Exception as e:
         response = {'status': 'error', 'message': str(e)}
         return response, 500
 
 def update(request, id):
     try:
-        routine = Routine.query.filter(Routine.id == id).first()
+        routine = session.query(Routine).filter(Routine.id == id).first()
         routine.name = request.json['name']
         routine.client_id = request.json['client_id']
         routine.sample_name = request.json['sample_name']
@@ -61,7 +59,7 @@ def update(request, id):
 
 def finish(id):
     try:
-        routine = Routine.query.filter(Routine.id == id).first()
+        routine = session.query(Routine).filter(Routine.id == id).first()
         routine.finished_at = datetime.now().isoformat()
         session.commit()
         return routine.return_json(), 201
@@ -71,7 +69,7 @@ def finish(id):
 
 def delete(id):
     try:
-        routine = Routine.query.filter(Routine.id == id).first()
+        routine = session.query(Routine).filter(Routine.id == id).first()
         session.delete(routine)
         session.commit()
         return {'status': 'success', 'message': 'routine deleted'}, 200
@@ -92,10 +90,10 @@ def execute_routine(request):
     }
     id = create(routine)
     restartCycleCount()
-    robot.rehome()  # Função do módulo do robô para levá-lo ao ponto neutro
+    #robot.rehome()  # Função do módulo do robô para levá-lo ao ponto neutro
     # Loop para realizar um número arbitrário de passadas.
     for i in range(cycles_per_trial):
-        robot.execute_cycle()
+        #robot.execute_cycle()
         incrementCycle()
     finish(id)
     global current_tray

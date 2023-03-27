@@ -11,7 +11,7 @@ def init_app(app):
     def get_routine_by_id(id):
         return routine.get_by_id(id)
 
-    @app.route('/routine/start', methods=['GET'])
+    @app.route('/routine', methods=['POST'])
     def start_routine():
         return routine.execute_routine(request)
 

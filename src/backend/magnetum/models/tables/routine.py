@@ -1,10 +1,7 @@
 from magnetum.models.tables.base import Base
 from sqlalchemy import Column, Integer, String, Float, ForeignKey, DateTime
-from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
-from magnetum.models.tables.user import User
-
-#from models.projetos import Projetos
 
 class Routine(Base): #Estrutura para criar uma tabela
    __tablename__ = "routine"

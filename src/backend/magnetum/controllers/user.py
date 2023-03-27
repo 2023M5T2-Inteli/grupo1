@@ -1,10 +1,10 @@
-from magnetum.models.tables.client import Client
+from magnetum.models.tables.user import User
 from magnetum.config.db import session
 from flask import request
 
 def get_all():
     try:
-        clients = session.query(Client).all()
+        clients = session.query(User).all()
         return [client.return_json() for client in clients], 200
     except Exception as e:
         response = {'status': 'error', 'message': str(e)}
@@ -12,7 +12,7 @@ def get_all():
 
 def get_by_id(id):
     try:
-        client = session.query(Client).filter(Client.id == id).first()
+        client = session.query(User).filter(User.id == id).first()
         return client.return_json(), 200
     except Exception as e:
         response = {'status': 'error', 'message': str(e)}
@@ -20,7 +20,7 @@ def get_by_id(id):
     
 def create(request):
     try:
-        client = Client(full_name=request.json['full_name'], cnpj=request.json['cnpj'])
+        client = User(full_name=request.json['full_name'], cpf=request.json['cpf'])
         session.add(client)
         session.commit()
         return client.return_json(), 201
@@ -30,9 +30,9 @@ def create(request):
 
 def update(request, id):
     try:
-        client = session.query(Client).filter(Client.id == id).first()
+        client = session.query(User).filter(User.id == id).first()
         client.full_name = request.json['full_name']
-        client.cnpj = request.json['cnpj']
+        client.cpf = request.json['cpf']
         session.commit()
         return client.return_json(), 201
     except Exception as e:
@@ -41,7 +41,7 @@ def update(request, id):
 
 def delete(id):
     try:
-        client = session.query(Client).filter(Client.id == id).first()
+        client = session.query(User).filter(User.id == id).first()
         session.delete(client)
         session.commit()
         return {'status': 'success', 'message': 'client deleted'}, 204
