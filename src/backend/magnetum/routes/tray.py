@@ -1,3 +1,4 @@
+# Rotas para acessar estado de bandeja atual
 from flask import request 
 from magnetum.controllers import routine
 

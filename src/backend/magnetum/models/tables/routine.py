@@ -1,3 +1,5 @@
+# Definição da tabela routine
+
 from magnetum.models.tables.base import Base
 from sqlalchemy import Column, Integer, String, Float, ForeignKey, DateTime
 from sqlalchemy.orm import relationship
@@ -12,8 +14,10 @@ class Routine(Base): #Estrutura para criar uma tabela
    sample_name=Column(String)
    initial_sample_mass=Column(Float)
    initial_water_mass=Column(Float)
+   # Relacionamentos com as tabelas user e project (many to one)
    user_id = Column(Integer, ForeignKey('user.id'))
    project_id = Column(Integer, ForeignKey('project.id'))
+   # Relacionamento com a tabela cycle (one to many)
    cycles = relationship('Cycle', backref='routine')
    
      

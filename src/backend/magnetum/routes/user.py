@@ -1,3 +1,5 @@
+# Rotas para o caminho '/user'
+
 from magnetum.controllers import user
 from flask import request
 

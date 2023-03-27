@@ -1,6 +1,9 @@
+# CRUD para tabela de projetos
+
 from magnetum.config.db import session
 from magnetum.models.tables.project import Project
 
+# Pegar todos os projetos
 def get_all():
     try:
         projects = session.query(Project).all()
@@ -9,6 +12,7 @@ def get_all():
         response = {'status': 'error', 'message': str(e)}
         return response, 500
 
+# Pegar projeto por id
 def get_by_id(id):
     try:
         project = session.query(Project).filter(Project.id == id).first()
@@ -17,6 +21,7 @@ def get_by_id(id):
         response = {'status': 'error', 'message': str(e)}
         return response, 500
 
+# Criar projeto com dados de request, em JSON
 def create(request):
     try:
         project = Project(name=request.json['name'], client_id=request.json['client_id'])
@@ -27,6 +32,7 @@ def create(request):
         response = {'status': 'error', 'message': str(e)}
         return response, 500
 
+# Atualizar projeto com dados de request, em JSON
 def update(request, id):
     try:
         project = session.query(Project).filter(Project.id == id).first()
@@ -38,6 +44,7 @@ def update(request, id):
         response = {'status': 'error', 'message': str(e)}
         return response, 500
 
+# Deletar projeto por id
 def delete(id):
     try:
         project = session.query(Project).filter(Project.id == id).first()

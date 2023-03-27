@@ -3,16 +3,17 @@
 # rotas de leitura e mudança de estados, que alteram variáveis globais e executam funções específicas
 # em cada subsistema.
 
-from flask import Flask, request
+from flask import Flask
 from flask_cors import CORS  # módulo para evitar erros de CORS
-#from magnetum.blueprints import routes1
-from magnetum.routes import magnet, pump, routine, client, user, project, cycle, tray, current_cycle
-from magnetum.config import db
+from magnetum.routes import magnet, pump, routine, client, user, project, cycle, tray # Rotas
+from magnetum.config import db # Configurações do banco de dados
 
 def create_app():
     app = Flask(__name__)  # Cria servidor
     CORS(app)  # Adiciona proteção contra erros CORS
-    db
+    db # Inicializa banco de dados
+
+    # Inicializa rotas
     magnet.init_app(app)
     pump.init_app(app)
     routine.init_app(app)
@@ -21,4 +22,5 @@ def create_app():
     project.init_app(app)
     cycle.init_app(app)
     tray.init_app(app)
+    
     return app

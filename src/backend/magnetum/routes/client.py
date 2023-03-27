@@ -1,3 +1,5 @@
+# Rotas para o caminho '/client'
+
 from magnetum.controllers import client
 from flask import request
 

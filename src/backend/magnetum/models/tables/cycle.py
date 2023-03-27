@@ -1,4 +1,4 @@
-# cursor.execute("CREATE TABLE ciclo (    ciclo_id integer PRIMARY KEY, numero_ciclo INTEGER, massa_ciclo REAL NOT NULL);")
+# Definição da tabela ciclo
 
 from magnetum.models.tables.base import Base
 from sqlalchemy import Column, Integer, DateTime, ForeignKey
@@ -11,6 +11,7 @@ class Cycle(Base): #Estrutura para criar uma tabela
    initiated_at=Column(DateTime, server_default=func.now())
    finished_at=Column(DateTime, server_default=func.now())
    magnet_intensity=Column(Integer)
+   # Relacionamento com a tabela routine (many to one)
    routine_id = Column(Integer, ForeignKey('routine.id'))
 
    def __repr__(self):

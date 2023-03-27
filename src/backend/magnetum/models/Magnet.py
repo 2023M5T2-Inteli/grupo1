@@ -1,3 +1,5 @@
+# Especificação da classe de ímãs com intensidade
+
 from magnetum.models.Actuator import Actuator
 
 class Magnet(Actuator):

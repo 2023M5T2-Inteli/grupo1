@@ -1,8 +1,10 @@
+# Funções para manipulação dos estados das bombas d'água
+
 from magnetum.models.Pump import Pump
 
 pumps = Pump()
  
-
+# Devolve estado atual das bombas
 def get_current():
     try:
         state = pumps.get_state()
@@ -13,6 +15,7 @@ def get_current():
         response = {'status': 'error', 'message': str(e)}
         return response, 500
     
+# Define estado atual das bombas
 def set_current(request):
     try:
         state = request.json['pump_state']

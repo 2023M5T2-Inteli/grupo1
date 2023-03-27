@@ -1,3 +1,5 @@
+# Enums para os estados dos atuadores
+
 from enum import Enum
 
 class State(Enum):

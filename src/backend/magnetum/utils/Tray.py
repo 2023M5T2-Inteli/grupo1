@@ -1,3 +1,5 @@
+# Enum para as bandejas do equipamento
+
 from enum import Enum
 
 class Tray(Enum):

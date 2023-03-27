@@ -1,3 +1,5 @@
+# Definição da dlasse geral para atuadores com manipulação de estado
+
 from magnetum.utils.State import State
 
 class Actuator():

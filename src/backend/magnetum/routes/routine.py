@@ -1,3 +1,6 @@
+
+# Rotas para ensaios (tabela)
+
 from flask import request 
 from magnetum.controllers import routine
 
@@ -10,7 +13,8 @@ def init_app(app):
     @app.route('/routine/<int:id>', methods=['GET'])
     def get_routine_by_id(id):
         return routine.get_by_id(id)
-
+    
+    # Inicia ensaio e salva no banco de dados
     @app.route('/routine', methods=['POST'])
     def start_routine():
         return routine.execute_routine(request)

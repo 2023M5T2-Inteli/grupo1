@@ -1,3 +1,5 @@
+# Especialização da classe de atuadores para bombas
+
 from magnetum.models.Actuator import Actuator
     
 class Pump(Actuator):

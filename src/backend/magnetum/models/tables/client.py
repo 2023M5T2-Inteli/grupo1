@@ -1,3 +1,5 @@
+# Definição da tabela cliente
+
 from magnetum.models.tables.base import Base
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import relationship
@@ -8,6 +10,7 @@ class Client(Base): #Estrutura para criar uma tabela
    id= Column(Integer, primary_key=True, autoincrement=True)
    full_name= Column(String, nullable=False)
    cnpj=Column(Integer)
+   # Relacionamento com a tabela project (one to many)
    projects = relationship('Project', backref='client')
 
    def __repr__(self):

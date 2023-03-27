@@ -1,3 +1,5 @@
+# Rotas para ciclos (tabela)
+
 from magnetum.controllers import cycle
 from flask import request
 def init_app(app):

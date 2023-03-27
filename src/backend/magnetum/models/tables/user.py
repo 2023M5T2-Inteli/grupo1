@@ -1,3 +1,5 @@
+# Definição da tabela user
+
 from magnetum.models.tables.base import Base
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import relationship
@@ -8,6 +10,7 @@ class User(Base): #Estrutura para criar uma tabela
    id= Column(Integer, primary_key=True, autoincrement=True)
    cpf=Column(Integer)
    full_name=Column(String)
+   # Relacionamento com a tabela routine (one to many)
    routines= relationship('Routine', backref='user')
 
    def __repr__(self):

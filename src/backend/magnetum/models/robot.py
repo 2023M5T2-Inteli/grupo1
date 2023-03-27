@@ -43,17 +43,15 @@ intermediary_points = [
     (216, -248, high_height, rotation)  # Ponto alto inicial da bandeja 2
 ]
 
-#device = pydobot.Dobot(port=robot_port, verbose=False)
+device = pydobot.Dobot(port=robot_port, verbose=False)
 
 # Função para executar um ciclo completo do robô
 def execute_cycle():
-    #device.speed(velocity=85, acceleration=50)
+    device.speed(velocity=85, acceleration=50)
     rehome()
 
-    requests.post(host + '/current/magnet', json = {"magnet_state": State.ON.value}) 
-    # Liga ímã
-
-    requests.post(host + '/current/tray', json = {"current_tray": 1}) # Liga ímã
+    requests.post(host + '/current/magnet', json = {"magnet_state": State.ON.value}) # Liga ímã
+    requests.post(host + '/current/tray', json = {"current_tray": 1}) # Troca estado da bandeja
 
 
     for coordinate in tray1:
@@ -61,14 +59,14 @@ def execute_cycle():
 
     requests.post(host + '/current/pump', json = {"pump_state": State.ON.value}) # Liga bomba
 
-    requests.post(host + '/current/tray', json = {"current_tray": 2}) # Liga ímã
+    requests.post(host + '/current/tray', json = {"current_tray": 2}) # Troca estado da bandeja
 
 
     for coordinate in tray2:
         device.move_to(*coordinate, wait=True)
     requests.post(host + '/current/pump', json = {"pump_state": State.OFF.value}) # Desliga bomba
 
-    requests.post(host + '/current/tray', json = {"current_tray": 3}) # Liga ímã
+    requests.post(host + '/current/tray', json = {"current_tray": 3}) # Troca estado da bandeja
 
     for coordinate in tray3:
         device.move_to(*coordinate, wait=True)
