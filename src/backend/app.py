@@ -145,7 +145,7 @@ def enable_pump():
 # Nesse caso, foi preciso separar as rotas das funções que modificam os valores, por serem variáveis
 # globais. Quando tentamos deixar tudo na mesma função da rota, o programa apresentava erros.
 
-# Esta rota recebe um JSON no body com chave "pump_state" e valor booleano.
+# Esta rota recebe um JSON no body com chave "weight_state" e valor booleano.
 @app.route('/toggle_weight', methods=['POST'])
 def weight():
     try:

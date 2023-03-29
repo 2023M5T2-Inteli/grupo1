@@ -23,6 +23,7 @@ magnets = [PWMActuator(10, 11, magnet_max_voltage), PWMActuator(9, 8, magnet_max
 # Definição das bombas d'água. Não precisamos utilizar PWM, pois não variaremos a intensidade.
 pumps = [Actuator(0, 1), Actuator(2, 3)]
 
+# Chama a classe do arquivo da celula de carga
 weights = [Cargona(0,1)]
 
 def connectToWiFi():
@@ -68,7 +69,7 @@ try:
         if (int(weight_state.text)):
             
             map(lambda weight: weight.enable(), weights)
-        else: 
+        else: #Desliga se for 0
             map(lambda weight: weight.disable(), weights)
         time.sleep(0.1)
         
