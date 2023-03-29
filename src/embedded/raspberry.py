@@ -7,7 +7,7 @@ import time
 import network  # Permite conexão
 import urequests  # Permite envio de requisições
 from actuators import * # Classes para atuadores
-from weight_cell.carga import * 
+from weight_cell.carga import * # Classes da celula de carga
 
 # Definição da rede local a ser utilizada
 ssid = 'Inteli-COLLEGE'
