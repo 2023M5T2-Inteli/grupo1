@@ -68,7 +68,17 @@ def execute_cycle():
 
     for coordinate in tray3:
         device.move_to(*coordinate, wait=True)
+        requests.post(host + '/toggle_weight', json = {"weight_state": State.ON}) # Ativar celula de carga
+
+    for coordinate in tray3:
+        device.move_to(*coordinate, wait=True)
         requests.post(host + '/toggle_magnet', json = {"magnet_state": State.OFF}) # Desliga ímã
+
+    for coordinate in tray3:
+        device.move_to(*coordinate, wait=True)
+        requests.post(host + '/toggle_weight', json = {"weight_state": State.OFF}) # Desliga celula de carga
+        
+
 
 def rehome():
     device.move_to(*home, wait=True)

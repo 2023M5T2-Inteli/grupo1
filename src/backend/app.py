@@ -17,6 +17,7 @@ class State(Enum):
 cycle_count = 0 # Contagem de ciclo atual do robô (quantas passadas ele já fez no ensaio atual)
 magnet_state = State.OFF  
 pump_state = State.OFF 
+weight_state = State.OFF 
 
 # Número de passadas em cada ciclo. A ser dinamizado através das rotas nas próximas sprints.
 cycles_per_trial = 5
@@ -59,7 +60,8 @@ def incrementCycle():
 def get_states():
     global magnet_state
     global pump_state
-    return {"magnet": magnet_state, "pump": pump_state}
+    global weight_state
+    return {"magnet": magnet_state, "pump": pump_state, "weight": weight_state}
 
 # Rota que devolve apenas valor do estado do ímã para o Raspberry
 @app.route('/magnet_state')
@@ -72,6 +74,12 @@ def get_magnet_state():
 def get_pump_state():
     global pump_state
     return str(pump_state)
+
+# Rota que devolve apenas valor do estado da celula de carga para o Raspberry
+@app.route('/weight_state')
+def get_weight_state():
+    global weight_state
+    return str(weight_state)
 
 # CÓDIGO PARA MODIFICAR ESTADO DO ÍMÃ
 # Nesse caso, foi preciso separar as rotas das funções que modificam os valores, por serem variáveis
@@ -132,3 +140,33 @@ def disable_pump():
 def enable_pump():  
     global pump_state
     pump_state = State.OFF
+
+# CÓDIGO PARA MODIFICAR ESTADO DA CELULA DE CARGA
+# Nesse caso, foi preciso separar as rotas das funções que modificam os valores, por serem variáveis
+# globais. Quando tentamos deixar tudo na mesma função da rota, o programa apresentava erros.
+
+# Esta rota recebe um JSON no body com chave "pump_state" e valor booleano.
+@app.route('/toggle_weight', methods=['POST'])
+def weight():
+    try:
+        weight_state = bool(request.json['weight_state']) # Pega valor booleano do JSON
+        if weight_state == True:
+            enable_weight()
+            response = {'status': 'success', 'message': 'weight on'}
+        elif weight_state == False:
+            disable_weight()
+            response = {'status': 'success', 'message': 'weight off'}
+        else:
+            response = {'status': 'error', 'message': 'invalid value'}
+    except Exception as e:
+        response = {'status': 'error', 'message': str(e)}
+    return response
+
+def disable_weight():  
+    global weight_state
+    weight_state = State.OFF
+
+
+def enable_weight():  
+    global weight_state
+    weight_state = State.OFF

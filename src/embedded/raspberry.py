@@ -7,6 +7,7 @@ import time
 import network  # Permite conexão
 import urequests  # Permite envio de requisições
 from actuators import * # Classes para atuadores
+from weight_cell.carga import * 
 
 # Definição da rede local a ser utilizada
 ssid = 'Inteli-COLLEGE'
@@ -21,6 +22,8 @@ magnets = [PWMActuator(10, 11, magnet_max_voltage), PWMActuator(9, 8, magnet_max
 
 # Definição das bombas d'água. Não precisamos utilizar PWM, pois não variaremos a intensidade.
 pumps = [Actuator(0, 1), Actuator(2, 3)]
+
+weights = [Cargona(0,1)]
 
 def connectToWiFi():
     wlan = network.WLAN(network.STA_IF)
@@ -43,6 +46,7 @@ try:
         # por ora estamos utilizando rotas separadas para cada estado.
         magnet_state = urequests.get(host + '/magnet_state')
         pump_state = urequests.get(host + '/pump_state')
+        weight_state = urequests.get(host + '/weight_state')
         
         print('Magnet: ' + magnet_state.text)
         print('Pump: ' + pump_state.text)
@@ -60,6 +64,12 @@ try:
         else: # Desliga se for 0
             map(lambda pump: pump.disable(), pumps)
 
+        # Liga a celula de carga se o valor lido no servidor for maior que 0
+        if (int(weight_state.text)):
+            
+            map(lambda weight: weight.enable(), weights)
+        else: 
+            map(lambda weight: weight.disable(), weights)
         time.sleep(0.1)
         
 except KeyboardInterrupt:
