@@ -4,6 +4,7 @@ from magnetum.utils.Tray import Tray
 from magnetum.models.tables.routine import Routine
 from datetime import datetime
 from magnetum.config.db import session
+from magnetum.controllers import cycle
 
 # Quantidade de ciclos que o robô deve fazer em cada ensaio (a ser dinamizado)
 cycles_per_trial = 5
@@ -37,9 +38,11 @@ def get_by_id(id):
 # Cria ensaio com dados de request, em JSON 
 def create(new_routine):
     try:
-        routine = Routine(name=new_routine['name'], client_id=new_routine['client_id'], initiated_at=datetime.now().isoformat(), sample_name=new_routine['sample_name'], initial_sample_mass=new_routine['initial_sample_mass'], initial_water_mass=new_routine['initial_water_mass'], user_id=new_routine['user_id'], project_id=new_routine['project_id'])
+        routine = Routine(initiated_at=datetime.now(), sample_name=new_routine['sample_name'], initial_sample_mass=new_routine['initial_sample_mass'], initial_water_mass=new_routine['initial_water_mass'], user_id=new_routine['user_id'], project_id=new_routine['project_id'])
+        print(routine)
         session.add(routine)
         session.commit()
+        return routine.id
     except Exception as e:
         response = {'status': 'error', 'message': str(e)}
         return response, 500
@@ -48,17 +51,13 @@ def create(new_routine):
 def update(request, id):
     try:
         routine = session.query(Routine).filter(Routine.id == id).first()
-        routine.name = request.json['name']
-        routine.client_id = request.json['client_id']
         routine.sample_name = request.json['sample_name']
         routine.initial_sample_mass = request.json['initial_sample_mass']
         routine.initial_water_mass = request.json['initial_water_mass']
-        routine.initiated_at = request.json['initiated_at']
-        routine.finished_at = request.json['finished_at']
         routine.user_id = request.json['user_id']
         routine.project_id = request.json['project_id']
         session.commit()
-        return routine.return_json().id
+        return routine.return_json()
     except Exception as e:
         response = {'status': 'error', 'message': str(e)}
         return response, 500
@@ -67,7 +66,7 @@ def update(request, id):
 def finish(id):
     try:
         routine = session.query(Routine).filter(Routine.id == id).first()
-        routine.finished_at = datetime.now().isoformat()
+        routine.finished_at = datetime.now()
         session.commit()
         return routine.return_json(), 201
     except Exception as e:
@@ -83,13 +82,11 @@ def delete(id):
         return {'status': 'success', 'message': 'routine deleted'}, 200
     except Exception as e:
         response = {'status': 'error', 'message': str(e)}
-        return response, 500
+        return response, 204
 
 # Executa ensaio, chamando o robô para realizar o número de ciclos definido e criando o ensaio no banco de dados
 def execute_routine(request):
     routine = {
-        'name': request.json['name'],
-        'client_id': request.json['client_id'],
         'sample_name': request.json['sample_name'],
         'initial_sample_mass': request.json['initial_sample_mass'],
         'initial_water_mass': request.json['initial_water_mass'],
@@ -100,12 +97,14 @@ def execute_routine(request):
     id = create(routine)
 
     restartCycleCount()
-    robot.rehome()  # Função do módulo do robô para levá-lo ao ponto neutro
+    # robot.rehome()  # Função do módulo do robô para levá-lo ao ponto neutro
 
-    # Loop para realizar um número arbitrário de passadas.
+    # # Loop para realizar um número arbitrário de passadas.
     for i in range(cycles_per_trial):
-        robot.execute_cycle()
-        incrementCycle()
+
+    #     robot.execute_cycle()
+        cycle.create(id)
+    #     incrementCycle()
 
     finish(id)
 
