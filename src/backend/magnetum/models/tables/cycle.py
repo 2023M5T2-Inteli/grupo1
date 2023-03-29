@@ -3,8 +3,6 @@
 from magnetum.models.tables.base import Base
 from sqlalchemy import Column, Integer, DateTime, ForeignKey
 from sqlalchemy.sql import func
-from sqlalchemy.orm import relationship
-
 
 class Cycle(Base): #Estrutura para criar uma tabela
    __tablename__ = "cycle"

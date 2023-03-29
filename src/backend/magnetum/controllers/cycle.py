@@ -8,7 +8,13 @@ from magnetum.config.db import session
 from flask import request
 
 # Pegar todos os ciclos
-def get_all(
+def get_all():
+    try:
+        cycles = session.query(Cycle).all()
+        return [cycle.return_json() for cycle in cycles], 200
+    except Exception as e:
+        response = {'status': 'error', 'message': str(e)}
+        return response, 500
 
 # Pegar ciclo por id
 def get_by_id(id):
@@ -22,8 +28,9 @@ def get_by_id(id):
 # Criar ciclo com dados de request, em JSON
 def create(routine_id):
     try:
-        cycle = Cycle(routine_id=routine_id, magnet_intensity=magnets.get_intensity()) # Intensidade é adicionada automaticamente
-        cycle.save()
+        cycle = Cycle(routine_id=routine_id, magnet_intensity=magnets.get_intensity())
+        session.add(cycle)
+        session.commit()
         return cycle.return_json(), 201
     except Exception as e:
         response = {'status': 'error', 'message': str(e)}
@@ -32,9 +39,10 @@ def create(routine_id):
 # Deletar ciclo por id
 def delete(id):
     try:
-        cycle = Cycle.query.filter(Cycle.id == id).first()
-        cycle.delete()
-        return {'status': 'success', 'message': 'cycle deleted'}, 204
+        cycle = session.query(Cycle).filter(Cycle.id == id).first()
+        session.delete(cycle)
+        session.commit()
+        return {'status': 'success', 'message': 'Cycle deleted'}, 204
     except Exception as e:
         response = {'status': 'error', 'message': str(e)}
         return response, 500
