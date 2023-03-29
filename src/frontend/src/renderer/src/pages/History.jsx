@@ -1,9 +1,29 @@
 // Script para a página de histórico de ensaios
 
+import { useEffect, useState } from 'react';
 import Card from '../components/CardHistory'
 import Sidebar from '../components/Sidebar';
 
+
+
 function History() {
+    // Faz requisição para pegar as informações do histórico
+    const [cards, all_cards] = useState([]);
+
+    const get_all_cards = async (url) =>{
+        const res = await fetch(url);
+        const data = await res.json();
+
+        all_cards(data.results);
+    };
+
+    useEffect(
+        () =>{
+            let url = "http://127.0.0.1:5000"
+            get_all_cards(url+"/routine")
+        },[]
+    );
+
     return (
         <div>
             <Sidebar />
@@ -21,12 +41,9 @@ function History() {
                     <button className="font-montserrat font-bold text-white bg-indigo-900 w-1/12 h-9 rounded-xl shadow-xl  hover:scale-105 hover:bg-indigo-800	">Filtrar</button>
                 </div>
                 <div className="justify-around flex flex-wrap">
-                    <Card />
-                    <Card />
-                    <Card />
-                    <Card />
+                    <Card massa={`${"s"}mg`} id={"9"} data={"00/00/0000"}/>
+                    {cards && cards.map((card) => <p>{card}</p>)}
                 </div>
-
             </div>
         </div>
 
