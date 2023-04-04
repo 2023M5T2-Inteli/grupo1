@@ -38,7 +38,7 @@ function Home() {
   const watchAmostra = methods.watch("amostra")
 
   // Declaração do endereço do servidor atual
-  const serverHost = "http://10.128.0.159:5000";
+  const serverHost = "http://127.0.0.1:5000";
 
   // Desliza tela para card de detalhes
   function showDetails() {
@@ -142,8 +142,28 @@ function Home() {
       setCycleCount(res.data.cycleCount);
     }); // Atualiza estado com o valor lido
   }
+  
+  const [sample_name, setAmostra] = useState("");
+  const [client_id, setCliente] = useState("");
+  const [project_id, setProjeto] = useState("");
+  const [user_id, setOperador] = useState("");
+  const [initial_sample_mass, setMassaInicialSolido] = useState("");
+  const [initial_water_mass, setMassaInicialAgua] = useState("");
+  const [name, setEnsaio] = useState("");
 
-
+  const handleSubmit = async (event) => {
+    console.log( sample_name, client_id, project_id, user_id, initial_sample_mass, initial_water_mass, name )
+    event.preventDefault();
+    try {
+      const response = await Axios.post(serverHost+'/routine', { sample_name, client_id, project_id, user_id, initial_sample_mass, initial_water_mass, name });
+      console.log(response.data);
+      // Aqui você pode exibir uma mensagem de sucesso para o usuário
+    } catch (error) {
+      console.error(error);
+      // Aqui você pode exibir uma mensagem de erro para o usuário
+    }
+    };
+  
   return (
     <div className="w-full h-screen">
       <Sidebar />
@@ -153,12 +173,12 @@ function Home() {
           <form onSubmit={methods.handleSubmit(handleCreateNewCycle)}>
             <div className="flex h-screen items-center gap-10 justify-center">
               {/* Botão de iniciar ensaio */}
-              <button type="submit" disabled={!watchAmostra} className={allowPointer()}>
-                <img className={allowButton()} src={startButton} />
+              <button onClick={handleSubmit} type="submit"   >
+                <img  src={startButton} />
               </button>
               <div>
                 <h1 className="text-3xl font-bold mb-5 font-montserrat">
-                  Novo ensaio
+                  <input placeholder="Novo Ensaio"  className="ml-3 border-b border-b-purple outline-0 w-auto font-montserrat" type="text" value={name} onChange={(event) => setEnsaio(event.target.value)}/>
                 </h1>
                 <div className="flex">
                   {/* Grupo de inputs de informações */}
@@ -166,14 +186,37 @@ function Home() {
                     <p className="text-slate-500 small-caps font-montserrat">
                       INFORMAÇÕES
                     </p>
-                    <Input title="amostra" type="text" />
-                    <Input title="cliente" type="text" />
-                    <Input title="peso" type="number" />
-                    <Input title="data" type="date" />
-                    <Input title="horário" type="time" />
-                    <Input title="duração" type="text" />
-                  </div>
-
+                    <label>
+                    Amostra:
+                    <input  className="ml-3 border-b border-b-purple outline-0 w-auto font-montserrat" type="text" value={sample_name} onChange={(event) => setAmostra(event.target.value)}/>
+                    </label>
+                    <br />
+                    <label>
+                    Cliente:
+                    <input className="ml-3 border-b border-b-purple outline-0 w-auto font-montserrat" type="text" value={client_id} onChange={(event) => setCliente(event.target.value)}/>
+                    </label>
+                    <br />
+                    <label>
+                    Projeto:
+                    <input className="ml-3 border-b border-b-purple outline-0 w-auto font-montserrat" type="text" value={project_id} onChange={(event) => setProjeto(event.target.value)}/>
+                    </label>
+                    <br />
+                    <label>
+                    Operador:
+                    <input className="ml-3 border-b border-b-purple outline-0 w-auto font-montserrat" type="text"value={user_id} onChange={(event) => setOperador(event.target.value)} />
+                    </label>
+                    <br />
+                    <label>
+                    Masssa do Solido:
+                    <input className="ml-3 border-b border-b-purple outline-0 w-auto font-montserrat" type="number"value={initial_sample_mass} onChange={(event) => setMassaInicialSolido(event.target.value)}/>
+                    </label>
+                    <br />
+                    <label>
+                    Masssa da Agua:
+                    <input className="ml-3 border-b border-b-purple outline-0 w-auto font-montserrat" type="number"value={initial_water_mass} onChange={(event) => setMassaInicialAgua(event.target.value)}/>
+                    </label>
+                    <br />  
+                    </div>
                   {/* Grupo de controles */}
                   <div className="pr-5 pl-2 w-96 flex flex-col justify-between gap-4">
                     <p className="text-slate-500 small-caps font-montserrat">
