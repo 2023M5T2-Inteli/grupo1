@@ -13,14 +13,16 @@ function History() {
     const get_all_cards = async (url) =>{
         const res = await fetch(url);
         const data = await res.json();
-        console.log(data)
-        all_cards(data);
+
+        all_cards(data.results);
     };
 
-    useEffect(() =>{
+    useEffect(
+        () =>{
             let url = "http://127.0.0.1:5000"
             get_all_cards(url+"/routine")
-        },[]);
+        },[]
+    );
 
     return (
         <div>
@@ -39,9 +41,8 @@ function History() {
                     <button className="font-montserrat font-bold text-white bg-indigo-900 w-1/12 h-9 rounded-xl shadow-xl  hover:scale-105 hover:bg-indigo-800	">Filtrar</button>
                 </div>
                 <div className="justify-around flex flex-wrap">
-                    {cards.length > 0 && cards.map((card) => 
-                        <Card massa={card.initial_sample_mass} water={card.initial_water_mass} id={card.id} name={card.sample_name} data={card.finished_at}{...console.log(card.finished_at)}/>
-                    )}
+                    <Card massa={`${"s"}mg`} id={"9"} data={"00/00/0000"}/>
+                    {cards && cards.map((card) => <p>{card}</p>)}
                 </div>
             </div>
         </div>
