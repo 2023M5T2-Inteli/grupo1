@@ -26,7 +26,7 @@ const Trays = {
 
 function Home() {
   // Definição de hooks
-  const [intensity, setIntensity] = useState([0, 11])
+  const [intensity, setIntensity] = useState(0)
   const [cycleCount, setCycleCount] = useState(0);
   const [magnetState, setMagnetState] = useState(false);
   const [pumpState, setPumpState] = useState(0);
@@ -47,10 +47,12 @@ function Home() {
 
   // Faz requisição ao servidor para trocar estado e atualiza estado local
   const toggleMagnet = () => {
+    console.log({intensity})
+    console.log(magnetState)
     fetch(serverHost + "/current/magnet", {
       method: "POST",
       body: JSON.stringify({
-        magnet_state: !magnetState,
+        magnet_state: !Boolean(magnetState),
         magnet_intensity: intensity
       }),
       headers: { "Content-type": "application/json" },
@@ -88,12 +90,12 @@ function Home() {
     fetch(serverHost + "/current/magnet")
       .then((res) => res.json())
       .then((data) => {
-        setMagnetState(Number.parseInt(data.magnet));
+        setMagnetState(data.magnet_state);
       });
       fetch(serverHost + "/current/pump")
       .then((res) => res.json())
       .then((data) => {
-        setPumpState(Number.parseInt(data.pump));
+        setPumpState(data.pump_state);
       });
   };
 
@@ -186,14 +188,14 @@ function Home() {
                     </p>
 
                     <span className="flex gap-5 justify-around">
-                      <button>
+                      <button type='button'>
                         <img
                           className="w-9 hover:scale-105"
                           src={magnetIcon}
                           onClick={toggleMagnet}
                         ></img>
                       </button>
-                      <button>
+                      <button type='button'>
                         <img
                           className="w-9 hover:scale-105"
                           src={pumpIcon}
@@ -206,9 +208,9 @@ function Home() {
                       className="flex gap-2 items-center justify-between font-montserrat w-full "
                     >
                       <p className="font-bold font-montserrat">
-                      Intensidade do ímã:{" "}
+                      Intensidade do ímã:
                     </p>
-                      <RangeSlider value={intensity} setValue={setIntensity} />
+                      <RangeSlider value={intensity} setValue={setIntensity} state={magnetState}/>
 
                     </span>
 

@@ -8,6 +8,10 @@ from flask_cors import CORS  # módulo para evitar erros de CORS
 from magnetum.routes import magnet, pump, routine, client, user, project, cycle, tray, current_cycle # Rotas
 from magnetum.config import db # Configurações do banco de dados
 
+import logging
+log = logging.getLogger('werkzeug')
+log.setLevel(logging.ERROR)
+
 def create_app():
     app = Flask(__name__)  # Cria servidor
     CORS(app)  # Adiciona proteção contra erros CORS

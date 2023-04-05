@@ -7,6 +7,7 @@ def init_app(app):
     
     @app.route('/current/magnet', methods=['POST'])
     def set_current_magnet():
+        print('bati')
         return magnet.set_current(request)
     
     @app.route('/current/magnet', methods=['GET'])
