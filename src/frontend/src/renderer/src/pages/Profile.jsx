@@ -52,11 +52,17 @@ const Profile = () => {
 
   return (
     <div>
-    <Sidebar/>
-      <div  className="ml-20 flex flex-col items-center justify-center">
+        <div>
+            <Sidebar/>
+            
+        </div>
+        
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center',  }} >
+    
+      <div  style={{ display: 'inline-block', marginTop: '20%', display: 'flex', justifyContent: 'center', alignItems: 'center' }} className="ml-20 flex flex-col items-center justify-center flex flex-wrap space-x-3">
       
         <h2>Cliente</h2>
-        <form onSubmit={handleNewClientSubmit}>
+        <form style={{ marginTop: '15px', display: 'flex', justifyContent: 'center', alignItems: 'center' }} className="pr-5 pl-2 flex flex-col justify-between"onSubmit={handleNewClientSubmit}>
           <label>
             Nome:
             <input className="ml-3 border-b border-b-purple outline-0 w-auto font-montserrat" type="text" value={newClientName} onChange={(event) => setNewClientName(event.target.value)} />
@@ -65,12 +71,12 @@ const Profile = () => {
             CNPJ:
             <input className="ml-3 border-b border-b-purple outline-0 w-auto font-montserrat" type="text" value={newClientCnpj} onChange={(event) => setNewClientCnpj(event.target.value)} />
           </label>
-          <button type="submit">Enviar</button>
+          <button style={{ marginTop: '15px' }} className="font-montserrat font-bold text-white bg-indigo-900 w-4/12 h-9 rounded-xl shadow-xl  hover:scale-105 hover:bg-indigo-800  " type="submit">Enviar</button>
         </form>
       </div>
-      <div className="ml-20 flex flex-col items-center justify-center">
+      <div style={{ display: 'inline-block', marginTop: '20%',display: 'flex', justifyContent: 'center', alignItems: 'center'  }} className="flex flex-wrap space-x-3 ml-20 flex flex-col">
         <h2>Projeto</h2>
-        <form onSubmit={handleNewProjectSubmit}>
+        <form style={{ marginTop: '15px',  display: 'flex', justifyContent: 'center', alignItems: 'center' }} className="pr-5 pl-2 flex flex-col justify-between" onSubmit={handleNewProjectSubmit}>
           <label>
             Cliente:
             <select value={selectedClient} onChange={(event) => setSelectedClient(event.target.value)}>
@@ -80,13 +86,15 @@ const Profile = () => {
               ))}
             </select>
           </label>
+          
           <label>
             Nome:
             <input className="ml-3 border-b border-b-purple outline-0 w-auto font-montserrat" type="text" value={newProjectName} onChange={(event) => setNewProjectName(event.target.value)} />
           </label>
-          <button type="submit">Enviar</button>
+          <button style={{ marginTop: '15px' }}className="font-montserrat font-bold text-white bg-indigo-900 w-4/12 h-9 rounded-xl shadow-xl  hover:scale-105 hover:bg-indigo-800  "  type="submit">Enviar</button>
         </form>
       </div>
+    </div>
     </div>
   );
 };
