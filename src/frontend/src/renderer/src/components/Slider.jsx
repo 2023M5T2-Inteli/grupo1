@@ -28,7 +28,7 @@ function RangeSlider(props) {
             headers: { "Content-type": "application/json" },
         })
             .then((response) => {
-                response.json()
+                return response.json()
             })
             .then((data) => { console.log(data) });
 

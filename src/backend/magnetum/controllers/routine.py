@@ -12,7 +12,7 @@ cycles_per_trial = 5
 cycle_count = 0
 
 # Bandeja atual do robô (onde ele está)
-current_tray = Tray.CAPTURA
+current_tray = Tray.DESATIVADO
 
 # Pega todos os ensaios
 def get_all():
@@ -94,8 +94,8 @@ def execute_routine(request):
         'initial_sample_mass': request.json['initial_sample_mass'],
         'initial_water_mass': request.json['initial_water_mass'],
         'user_id': request.json['user_id'],
-        'project_id': request.json['project_id']
-
+        'project_id': request.json['project_id'],
+        
     }
     id = create(routine)
 
@@ -104,14 +104,14 @@ def execute_routine(request):
 
     # Loop para realizar um número arbitrário de passadas.
     for i in range(cycles_per_trial):
-        robot.execute_cycle()
+        robot.execute_cycle(12)
         incrementCycle()
 
     finish(id)
 
     # Reseta bandejas
     global current_tray
-    current_tray = 0
+    current_tray = Tray.DESATIVADO
 
     return "Success", 200
 
@@ -133,7 +133,8 @@ def get_current_cycle():
 # Função para retornar variável global de bandeja
 def get_current_tray():
     global current_tray
-    response = {'current_tray': str(current_tray)}
+    print(current_tray)
+    response = {'current_tray': str(current_tray.value)}
     return response, 200
 
 # Função para modificar variável global de bandeja

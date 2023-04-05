@@ -104,7 +104,9 @@ function Home() {
     fetch(serverHost + "/current/tray")
       .then((res) => res.json())
       .then((data) => {
-        setCurrentTray(Trays[Number.parseInt(data.current_tray)]);
+        console.log(data)
+        setCurrentTray(Trays[Number.parseInt(data['current_tray'])]);
+        console.log(currentTray)
       });
   };
 
@@ -145,10 +147,24 @@ function Home() {
 
   // Função que envia dados para o servidor (No momento so printa)
   function handleCreateNewCycle(data) {
-    Axios.get(serverHost + "/start_trial").then((res) => {
-      setCycleCount(res.data.cycleCount);
-    }); // Atualiza estado com o valor lido
+    console.log('enviando request')
+    fetch(serverHost + "/routine", {
+      method: "POST",
+      body: JSON.stringify({
+        name: 'elisa',
+        client_id: 1,
+        sample_name: 'aa',
+        initial_sample_mass: 1,
+        initial_water_mass: 1,
+        user_id: 1,
+        project_id: 1
+      }),
+      headers: { "Content-type": "application/json" },
+    }).then(response => response.json())
+    .then(data => console.log(data))
   }
+
+ 
 
 
   return (
