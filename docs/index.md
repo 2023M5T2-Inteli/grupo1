@@ -591,6 +591,8 @@ O código em sua íntegra está disponível em src/embedded/weight_cell. Não fo
 
 Isso tudo foi testado em um ESP-32 com C++. Pretendemos adaptar essa funcionalidade para o Raspberry Pi Pico W com Micropython, integrando isso ao resto do sistema, na Sprint 3.
 
+O principal da célula de carga é que seu output é um valor alto, por volta dos 11 mil. O que o código faz pega esse valor e faz as contas necessárias, deduzidas pela documentação da própria, para termos o valor real do peso. O código calibra a célula de carga e deixa pronto para a integração com o restante do código. A integração da célula de carga foi feita de forma muito parecida com as duas outras integrações, a do imã e a da bomba d'água. A única coisa que de fato muda quando compara as integrações é o código que chama o arquivo que faz a célula de carga funcionar.
+
 ### Relatório de entradas e saídas dos testes
 
 | Componente                             | Entrada                                                       | Saída esperada                                                                   | Resultado do teste                                                                                                                                                                                                                                 |
