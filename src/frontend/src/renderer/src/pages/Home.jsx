@@ -38,7 +38,7 @@ function Home() {
   const watchAmostra = methods.watch("amostra")
 
   // Declaração do endereço do servidor atual
-  const serverHost = "http://10.128.0.159:5000";
+  const serverHost = "http://10.128.65.51:5000";
 
   // Desliza tela para card de detalhes
   function showDetails() {
@@ -51,8 +51,9 @@ function Home() {
       method: "POST",
       body: JSON.stringify({
         magnet_state: !magnetState,
+        magnet_intensity: intensity
       }),
-      headers: { "Content-type": "application/json;charset=UTF-8" },
+      headers: { "Content-type": "application/json" },
     })
       .then((response) => response.json())
       .then((data) => console.log(data));
@@ -67,7 +68,7 @@ function Home() {
       body: JSON.stringify({
         pump_state: !pumpState,
       }),
-      headers: { "Content-type": "application/json;charset=UTF-8" },
+      headers: { "Content-type": "application/json" },
     })
       .then((response) => response.json())
       .then((data) => console.log(data));
@@ -84,10 +85,14 @@ function Home() {
 
 // Faz requisição para estados atuais do ímã e da bomba
   const getStates = () => {
-    fetch(serverHost + "/current/states")
+    fetch(serverHost + "/current/magnet")
       .then((res) => res.json())
       .then((data) => {
         setMagnetState(Number.parseInt(data.magnet));
+      });
+      fetch(serverHost + "/current/pump")
+      .then((res) => res.json())
+      .then((data) => {
         setPumpState(Number.parseInt(data.pump));
       });
   };
