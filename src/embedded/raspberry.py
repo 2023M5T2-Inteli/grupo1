@@ -44,21 +44,26 @@ try:
         pump = json.loads(urequests.get(host + '/current/pump').text)
         
         print(magnet)
+        print(pump)
 
         # Liga ímãs se o valor lido no servidor for maior que 0
         if (int(magnet['magnet_state'])):
-            map(lambda magnet: magnet.enable(intensity=magnet.magnet_intensity), magnets)
+            magnets[0].enable(intensity=magnet['magnet_intensity'])
+            magnets[1].enable(intensity=magnet['magnet_intensity'])
             
         else: # Desliga se for 0
-            map(lambda magnet: magnet.disable(), magnets)
+            magnets[0].disable()
+            magnets[1].disable()
 
         # Liga bombas se o valor lido no servidor for maior que 0
         if (int(pump['pump_state'])):
+            print('ligar')
             # Acessa cada elemento do array de bombas e executa a função de ligar
-            map(lambda pump: pump.enable(), pumps)
+            pumps[0].enable()
+            pumps[1].enable()
         else: # Desliga se for 0
-            map(lambda pump: pump.disable(), pumps)
-
+            pumps[0].disable()
+            pumps[1].disable()
         time.sleep(0.1)
         
 except KeyboardInterrupt:
