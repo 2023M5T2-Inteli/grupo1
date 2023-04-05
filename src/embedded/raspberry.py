@@ -12,14 +12,23 @@ import json
 # Definição da rede local a ser utilizada
 ssid = 'Inteli-COLLEGE'
 password = 'QazWsx@123' 
+<<<<<<< HEAD
 host = 'http://10.128.65.51:5000'
+=======
+host = 'http://10.128.65.232:5000'
+>>>>>>> d2998e8ffa77886210184785c3e33d2a803cc0b4
 
 magnet_max_voltage = 12
 
 # Definição dos ímãs.
 # Cada objeto corresponde a dois ímãs ligados em paralelo a um lado da ponte H. Utilizamos PWM para variar a intesidade.
+<<<<<<< HEAD
 magnets = [PWMActuator(2, magnet_max_voltage), PWMActuator(3, magnet_max_voltage)]
 pumps = [Actuator(27), Actuator(26)]
+=======
+magnets = [PWMActuator(12, magnet_max_voltage), PWMActuator(10, magnet_max_voltage)]
+pumps = [Actuator(18), Actuator(20)]
+>>>>>>> d2998e8ffa77886210184785c3e33d2a803cc0b4
 
 def connectToWiFi():
     wlan = network.WLAN(network.STA_IF)
@@ -43,6 +52,7 @@ try:
         magnet = json.loads(urequests.get(host + '/current/magnet').text)
         pump = json.loads(urequests.get(host + '/current/pump').text)
         
+<<<<<<< HEAD
         print(magnet)
         print(pump)
 
@@ -50,6 +60,15 @@ try:
         if (int(magnet['magnet_state'])):
             magnets[0].enable(intensity=magnet['magnet_intensity'])
             magnets[1].enable(intensity=magnet['magnet_intensity'])
+=======
+        print('Magnet: ' + str(magnet))
+        print('Pump: ' + str(pump))
+
+        # Liga ímãs se o valor lido no servidor for maior que 0
+        if (int(magnet['magnet_state'])):
+            magnets[0].enable(int(magnet['magnet_intensity']))
+            magnets[1].enable(int(magnet['magnet_intensity']))
+>>>>>>> d2998e8ffa77886210184785c3e33d2a803cc0b4
             
         else: # Desliga se for 0
             magnets[0].disable()
@@ -57,7 +76,10 @@ try:
 
         # Liga bombas se o valor lido no servidor for maior que 0
         if (int(pump['pump_state'])):
+<<<<<<< HEAD
             print('ligar')
+=======
+>>>>>>> d2998e8ffa77886210184785c3e33d2a803cc0b4
             # Acessa cada elemento do array de bombas e executa a função de ligar
             pumps[0].enable()
             pumps[1].enable()
