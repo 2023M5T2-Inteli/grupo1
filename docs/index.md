@@ -138,7 +138,7 @@ Riscos análisados:
 
 A análise de oceano azul examina como nossa solução se compara aos concorrentes existentes; em especial, identificamos quais aspectous e/ou características sofrem aumento, redução, eliminação ou criação. No caso, comparamos o Magnetum apenas ao método tradicional.
 
-![image](https://github.com/2023M5T2-Inteli/tectonics/blob/main/media/ux_e_negocios/oceano_azul.png?raw=true)
+![image](https://github.com/2023M5T2-Inteli/tectonics/blob/main/media/ux_e_negocios/oceano.png?raw=true)
 
 **Aumentar**
 * Precisão da análise: o uso do braço robótico e do microcontorlador permite a padronização de distância e insidade magnética
@@ -160,7 +160,7 @@ A análise de oceano azul examina como nossa solução se compara aos concorrent
 
 ## Análise financeira
 
-![image](https://user-images.githubusercontent.com/99221221/221013030-38d26f0c-d581-48ee-bd99-0469c0546937.png)
+![image](https://github.com/2023M5T2-Inteli/tectonics/blob/main/media/ux_e_negocios/analise_financeira.png?raw=true)
 
 **Aspectos considerados:**
 
@@ -189,14 +189,26 @@ Com base nesses ganhos, criamos um produto que pode aliviar as dores identificad
 
 Ao analisar o mercado e os concorrentes, percebemos que poucas empresas oferecem soluções automatizadas e precisas para a separação magnética de amostras de ensaio. Portanto, acreditamos que o nosso produto pode ser uma alternativa inovadora e eficiente para esse processo.
 
-![image](https://user-images.githubusercontent.com/99221221/221010689-70564924-dd1f-4ee7-84db-0faa57005949.png)
+![image](https://github.com/2023M5T2-Inteli/tectonics/blob/main/media/ux_e_negocios/canvas.png?raw=true)
 
 ## Personas
+A criação de personas é uma técnica importante no design de soluções, pois permite entender as necessidades e desejos dos usuários para desenvolver produtos ou serviços que atendam às suas expectativas.
+
+Para isso, realizamos uma pesquisa aprofundada, incluindo entrevistas com técnicos que atuam na área de ensaios minerais e visitas a oficinas onde esses ensaios são realizados. Dessa forma, conseguimos entender a rotina de trabalho desses profissionais e identificar as dores e desafios enfrentados no processo de separação magnética.
+
+Nesse contexto, apresentamos Tiago Silva, uma persona que representa um dos usuários finais dessa solução. Tiago é um técnico de 32 anos, casado, com ensino técnico completo e atua na área de ensaios minerais. Ele enfrenta uma dor comum a muitos profissionais dessa área, que é o processo manual de separação magnética que demanda muito tempo e esforço repetitivo e maçante, além de apresentar baixa precisão devido a erros humanos ao manter a distância do ímã constante.
 
 ![image](https://user-images.githubusercontent.com/99221221/221011051-d283f015-dc3d-49fe-9435-14929ac38111.png)
 
+Com a compreensão das dores e objetivos do usuário, podemos desenvolver uma solução que atenda às suas necessidades, aumentando a eficiência e precisão do processo de separação magnética e permitindo que o usuário dedique seu tempo a tarefas mais relevantes e estimulantes. Dessa forma, a criação de personas é uma etapa crucial no processo de design de soluções, pois permite que o produto final seja desenvolvido de forma mais eficiente e eficaz, com foco nas necessidades do usuário.
 
 ## Histórias dos usuários (user stories)
+
+User stories são uma técnica amplamente utilizada em metodologias ágeis de desenvolvimento de software para capturar as necessidades e requisitos dos usuários de maneira clara e sucinta. Essas histórias são escritas em linguagem natural e descrevem a funcionalidade que o usuário deseja ou precisa ter para alcançar um objetivo específico. 
+
+As user stories geralmente incluem uma descrição do usuário, o que ele deseja realizar e o motivo pelo qual isso é importante para ele. Essas histórias são uma forma eficiente de capturar requisitos complexos em pequenos fragmentos de funcionalidade, permitindo que a equipe de desenvolvimento trabalhe de maneira mais ágil e iterativa. 
+
+Nesta documentação de solução, as user stories podem ser usadas para definir os requisitos do sistema de maneira clara e concisa, facilitando a comunicação e a colaboração entre a equipe de desenvolvimento e os usuários finais.
 
 **Épico 1: Como técnico, quero separar o material magnético de uma amostra com eficiência e precisão**
 
