@@ -29,12 +29,13 @@ function History() {
                         <option value="opcao3">Outros</option>
                     </select>
                     <input type="date" className="font-montserrat bg-gray-300 w-2/12 h-9 font-bold rounded-xl text-center mr-4 cursor-pointer hover:scale-105"></input>
-                    <button className="font-montserrat font-bold text-white bg-indigo-900 w-1/12 h-9 rounded-xl shadow-xl  hover:scale-105 hover:bg-indigo-800  ">Filtrar</button>
+                    <button className="font-montserrat font-bold text-white bg-indigo-900 w-1/12 h-9 rounded-xl shadow-xl  hover:scale-105 hover:bg-indigo-800 ">Filtrar</button>
                 </div>
                 <div className="justify-around flex flex-wrap">
                     {cards.length > 0 && cards.map((card) =>
                         <Card mass={card.initial_sample_mass} water={card.initial_water_mass} id={card.id} name={card.sample_name} data={card.finished_at}/>
                     )}
+                    <Card />
                 </div>
             </div>
         </div>
