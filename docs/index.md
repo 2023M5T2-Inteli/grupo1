@@ -32,14 +32,12 @@ Magnetum | Concepção de sistema de automação industrial para separação mag
 - [Arquitetura do Sistema](#arquitetura-do-sistema)
   - [Diagrama geral](#diagrama-geral)
   - [Projeto mecânico](#projeto-mecânico)
+    - [Validação dos dispositivos mecânicos fabricados](#validação-dos-dispositivos-mecânicos-fabricados)
   - [Projeto eletrônico](#projeto-eletrônico)
     - [Esquemático do circuito](#esquemático-do-circuito)
     - [Implementação do circuito](#implementação-do-circuito)
       - [Componentes utilizados](#componentes-utilizados)
       - [Validação dos dispositivos eletrônicos](#validação-dos-dispositivos-eletrônicos)
-  - [Módulos do Sistema e Visão Geral (Big Picture)](#módulos-do-sistema-e-visão-geral-big-picture)
-  - [Descrição dos Subsistemas](#descrição-dos-subsistemas)
-    - [Descrição dos componentes](#descrição-dos-componentes)
   - [Tecnologias Utilizadas](#tecnologias-utilizadas)
     - [Testes de componentes](#testes-de-componentes)
       - [Movimentação do robô](#movimentação-do-robô)
@@ -54,12 +52,7 @@ Magnetum | Concepção de sistema de automação industrial para separação mag
 - [Teste de Software](#teste-de-software)
   - [Movimentação do robô](#movimentação-do-robô-1)
   - [Integração de hardware com frontend](#integração-de-hardware-com-frontend)
-  - [Testes Unitários](#testes-unitários)
-  - [Teste de Usabilidade](#teste-de-usabilidade)
-- [Manuais](#manuais)
-  - [Manual de Implantação](#manual-de-implantação)
-  - [Manual do Usuário](#manual-do-usuário)
-  - [Manual do Administrador](#manual-do-administrador)
+- [Validação da eficácia do sistema](#validação-da-eficácia-do-sistema)
 - [Referências](#referências)
 
 
@@ -96,7 +89,16 @@ Desenvolver um solução de automação industrial para aumentar a precisão e e
 
 ### Objetivos específicos
 
-O projeto objetiva a automatização dos ensaios de separação magnética de amostras de minerais, por meio de um braço mecânico capaz de coletar, limpar e despejar o material captado. Esse processo visa aumentar a produtividade, repetibilidade, eficiência e precisão dos ensaios. Para isso, temos como métricas de sucesso a precisão da altura dos ímãs em relação à amostra, o ajuste da velocidade e o ajuste da intensidade dos ímãs.
+O projeto objetiva a automatização dos ensaios de separação magnética de amostras de minerais, por meio de um braço mecânico capaz de coletar, limpar e despejar o material captado. Esse processo visa aumentar a produtividade, repetibilidade, eficiência e precisão dos ensaios. Para isso, temos como métricas de sucesso a precisão da altura dos ímãs em relação à amostra, o ajuste da velocidade e o ajuste da intensidade dos ímãs. Em mais detalhes, temos como objetivos:
+
+1. Implementar um sistema capaz de varrer as três bandejas de modo consistente e programável;
+2. Otimizar a altura dos ímãs para maximizar a captura de material magnético;
+3. Assegurar a limpeza do material captado com o auxílio de bombas d'águas estrategicamente posicionadas;
+4. Viabilizar a configuração de intensidade magnética dos eletroímãs a partir de uma interface gráfica;
+5. Viabilizar a configuração do número de passadas e o início do ensaio a partir de uma interface gráfica;
+6. Gerar relatórios de ensaios passados na interface gráfica;
+7. Oferecer ferramentas de controle direto e imediato do sistema, no que tange a ligar e desligar eletroímãs e bombas d'água, independentemente do estado atual do sistema;
+8. Oferecer o agrupamento de ensaios por cliente e projeto, facilitando a repetibilidade de amostras através da associação de ensaios diferentes em um tema em comum
 
 ## Partes interessadas
 
@@ -161,12 +163,31 @@ A análise de oceano azul examina como nossa solução se compara aos concorrent
 ![image](https://user-images.githubusercontent.com/99221221/221013030-38d26f0c-d581-48ee-bd99-0469c0546937.png)
 
 **Aspectos considerados:**
+
+A análise financeira é fundamental para avaliar a viabilidade e a eficiência de um projeto ou investimento. Nesse contexto, é necessário considerar todos os custos envolvidos no processo e comparar as alternativas disponíveis. Neste estudo, faremos uma análise financeira comparando o custo do uso do Magnetum com o custo do método tradicional de ensaio.
+
+* Custo fixo de instalação do sistema: R$ 15.301,50 (Dobot Magician Lite + eletrônicos periféricos)
+* Custo mensal de manutenção e energia: R$ 764,98
 * Custo do Magnetum por ensaio (gasto energético + manutenção): R$ 2,125
 * Custo do trabalhador por ensaio tradicional: R$ 7,81
 
-Levando em conta que o uso do método tradicional é mais caro e demorado do que o uso do Magnetum, e considerando que a máquina trabalhará por 6 horas todos os dias, enquanto o trabalhador trabalhará por 8 horas, é possível estimar que, após 3000 utilizações (equivalente a cerca de 168 dias), os custos totais com o trabalhador serão maiores do que com o uso do Magnetum.
+A análise de custo fixo foi feita considerando o custo de uma unidade do braço robótico somado aos valores dos componentes eletrônicos periféricos, como o microcontrolador, as bombas d'água e os eletroímãs. Para o custo mensal, estimamos um gasto energético de 14,4kWh junto de um orçamento para manutenção referente a 5% do valor do braço mecânico, seguindo a teoria de estimativa de custos para manutenção. Por fim, inferimos o custo por hora do trabalhador considerando o salário médio de um técnico de trabalhador que opera seis horas por dia, chegando a R$ 7,81 por ensaio tradicional.
+
+Assim, levando em conta que o uso do método tradicional é mais caro e demorado do que o uso do Magnetum, e considerando que a máquina trabalhará por 6 horas todos os dias, enquanto o trabalhador trabalhará por 8 horas, é possível estimar que, após 3000 utilizações (equivalente a cerca de 168 dias), os custos totais com o trabalhador serão maiores do que com o uso do Magnetum.
+
+Com base na análise financeira realizada, podemos concluir que o uso do Magnetum é mais vantajoso do que o método tradicional de ensaio. Embora o custo fixo de instalação do sistema seja alto, o custo mensal de manutenção e energia é baixo, o que resulta em um custo menor por ensaio. Além disso, a máquina pode realizar o processo com maior precisão e rapidez, reduzindo a necessidade de repetições e aumentando a eficiência do trabalho. Dessa forma, é possível obter uma economia significativa a longo prazo, tornando o Magnetum uma opção mais rentável e eficiente para o processo de ensaio.
 
 ## Proposta de Valor: Value Proposition Canvas
+
+Após realizar uma pesquisa de campo e entrevistar um técnico responsável pelo processo de separação magnética de amostras de ensaio, visitamos o local onde é realizado esse processo e analisamos o mercado e os concorrentes. Com base nessas informações, criamos um canvas de proposta de valor para um produto que pode solucionar as dores e problemas identificados pelo técnico e melhorar a eficiência do processo como um todo.
+
+O canvas é composto por três seções: Tarefas, Dores e Ganhos. Na seção Tarefas, identificamos as atividades-chave que o técnico realiza no processo, como determinar a viabilidade de mineração em certa região e separar material magnético em uma amostra com alta precisão. Na seção Dores, listamos os problemas e frustrações que o técnico enfrenta, como ter que repetir ensaios manualmente e não obter a precisão desejada, mesmo com muito esforço.
+
+Por fim, na seção Ganhos, destacamos as melhorias e benefícios que o nosso produto pode trazer para o processo, como a geração de relatórios precisos e padronizados de cada ensaio.
+
+Com base nesses ganhos, criamos um produto que pode aliviar as dores identificadas pelo técnico. O nosso produto é um braço robótico conectado a um eletroímã para a separação magnética precisa e automatizada de amostras de ensaio. Além disso, o produto conta com a geração de relatórios baseados em um template com os dados coletados no ensaio.
+
+Ao analisar o mercado e os concorrentes, percebemos que poucas empresas oferecem soluções automatizadas e precisas para a separação magnética de amostras de ensaio. Portanto, acreditamos que o nosso produto pode ser uma alternativa inovadora e eficiente para esse processo.
 
 ![image](https://user-images.githubusercontent.com/99221221/221010689-70564924-dd1f-4ee7-84db-0faa57005949.png)
 
@@ -177,18 +198,28 @@ Levando em conta que o uso do método tradicional é mais caro e demorado do que
 
 ## Histórias dos usuários (user stories)
 
-**Épico: Como técnico, quero separar o material magnético de uma amostra para otimizar meu tempo e a qualidade da operação**
-* Como técnico, quero acionar o início do ensaio por meio de um botão para que ele se realize sem intervenção
-* Como técnico, quero parametrizar a intensidade magnética para captar diferentes materiais com o mesmo eletroímã
-* Como técnico, quero parametrizar o número de passadas de cada ensaio para adaptar a duração do ensaio para cada tipo de amostra 
-* Como técnico, quero que o braço mecânico passe em cada bandeja para que realize coleta, limpeza e despejo dos materiais.
-* Como técnico, quero que o sistema mantenha a distância e intensidade magnéticas constantes para que os resultados sejam precisos e confiáveis
+**Épico 1: Como técnico, quero separar o material magnético de uma amostra com eficiência e precisão**
 
-**Épico: Como técnico, quero acessar relatórios precisos e padronizados de cada ensaio para analisar os resultados, filtrar dados e chegar a conclusões empiricamente embasadas.**
-* Como técnico, quero ter um histórico das separações magnéticas que fiz para que possa consultar futuramente.
-* Como técnico, quero filtrar os históricos consultar meus arquivos com maior facilidade.
+* Como técnico, quero iniciar o ensaio com um botão para que ele seja executado automaticamente.
+* Como técnico, quero ajustar a intensidade magnética do eletroímã para capturar materiais diferentes com a mesma amostra.
+* Como técnico, quero ajustar o número de passadas do ensaio para adaptá-lo à duração ideal de cada tipo de amostra.
+* Como técnico, quero que o braço mecânico colete, limpe e despeje os materiais em cada bandeja automaticamente.
+* Como técnico, quero que o sistema mantenha a distância e intensidade magnética constante para garantir resultados precisos e confiáveis.
+
+**Épico: Como técnico, quero acessar relatórios precisos e padronizados de cada ensaio para análise de dados**
+
+* Como técnico, quero ter acesso ao histórico de separações magnéticas para uma referência futura.
+* Como técnico, quero poder filtrar os resultados para analisar dados específicos com mais facilidade.
+* Como técnico, quero que os relatórios incluam informações como a data e hora do ensaio, o tipo de material testado e os detalhes de cada ciclo em um certo ensaio para que eu possa rastrear e analisar os dados com mais facilidade.
 
 # Arquitetura do Sistema
+
+A utilização de braços robóticos para automação de processos industriais é cada vez mais comum, trazendo ganhos em produtividade e qualidade. No entanto, para aplicações específicas, como a separação magnética, é necessário um sistema que seja capaz de controlar eletroímãs e bombas d'água de forma precisa e eficiente, garantindo a captura e limpeza dos materiais analisados.
+
+Neste contexto, apresentamos uma arquitetura de solução que utiliza um Raspberry Pi Pico W e um Dobot Magician Lite para controlar os eletroímãs e bombas d'água necessários para a separação magnética. Além disso, o sistema conta com duas pontes H para o controle dos motores das bombas, uma conexão sem fio com a internet e um servidor com front-end em React para monitoramento e controle remoto do sistema. Nesse sentido, o servidor também cumpre a função de controlar o movimento do braço robótico e garantir a lisura e integração de todo o processo.
+
+Com essa arquitetura, espera-se que o sistema de separação magnética seja capaz de realizar a tarefa de forma mais eficiente e precisa, trazendo mais praticidade e segurança para o usuário.
+
 
 ## Diagrama geral
 ![image](https://github.com/2023M5T2-Inteli/tectonics/blob/main/media/Arquitetura%20Do%20Sistema/DiagramaDaSolucao.png?raw=true)
@@ -206,7 +237,6 @@ Levando em conta que o uso do método tradicional é mais caro e demorado do que
 | Bandeja de captura                                        | Contém amostra inicial misturada em água, o qual é agitado pela bomba d’água a fim de elevar partículas à superfície do líquido.                                                                                                                                                                                                                                              | N/A                             |
 | Bandeja de limpeza                                        | Recipiente utilizado para remover impurezas do material atraído pelo ímã, com o auxílio do atrito causado por uma bomba d’água.                                                                                                                                                                                                                                               | N/A                             |
 | Bandeja de despejo                                        | Recebe o material magnético limpo.                                                                                                                                                                                                                                                                                                                                            | N/A                             |
-| Hotspot                                                   | A criação de um hotspot (soft access point) no Raspberry permite a conexão com uma interface gráfica intermediária, associada a um WiFi Manager, para que o usuário possa escolher a qual rede local conectar o Magnetum através do browser do celular.                                                                                                                       | Entrada e saída                 |
 | IR-SF (Interface gráfica e rede local - sem fio)          | As informações inseridas na interface gráfica são redirecionadas ao servidor através da rede local.                                                                                                                                                                                                                                                                           | Conexão                         |
 | RS-SF (Rede local e servidor - sem fio)                   | A rede local direciona dados da interface gráfica ao servidor.                                                                                                                                                                                                                                                                                                                | Conexão                         |
 | SBA-SF (Servidor e banco de dados - sem fio)              | Servidor acessa banco de dados para manipular dados persistentes.                                                                                                                                                                                                                                                                                                             | Conexão                         |
@@ -227,30 +257,29 @@ O projeto mecânico para nossa solução envolve três módulos:
 - um invólucro resistente à água que protege os ímãs nesse suporte;
 - uma case simples para o circuito principal, incluindo Raspberry, placa e pontes H, a ser posicionada na traseira do robô.
 
-As conexões por fio serão organizadas ao longo do corpo do robô utilizando fixadores como fita adesiva, a fim de diminuir o risco de nós, curto-circuito ou qualquer outro dano à integridade eletrônica do projeto.
+As conexões por fio foram organizadas ao longo do corpo do robô utilizando fixadores como fita adesiva, a fim de diminuir o risco de nós, curto-circuito ou qualquer outro dano à integridade eletrônica do projeto.
 
 
 **Visão Superior**
 
 ![image](https://github.com/2023M5T2-Inteli/tectonics/blob/main/media/Arquitetura%20Do%20Sistema/CroquiVisaoSuperior.png?raw=true)
 
-O suporte para PCB será produzido em plástico ABS, através de impressão 3D. Escolhemos esse material por sua durabilidade, facilidade de processamento e baixo custo. Essas características são importantes para oferecer uma solução robusta, capaz de suportar choques mecânicos simples a um reduzido investimento inicial. Ademais, por não ser transparente, cumpre a tarefa de ocultar o circuito de vista, otimizando a experiência do usuário. Por fim, como essa case não entrará em contato direto com a água, não é necessário total impermeabilidade, viabilizando o uso da impressão 3D.
+O suporte para PCB foi produzido em plástico ABS, através de impressão 3D. Escolhemos esse material por sua durabilidade, facilidade de processamento e baixo custo. Essas características são importantes para oferecer uma solução robusta, capaz de suportar choques mecânicos simples a um reduzido investimento inicial. Ademais, por não ser transparente, cumpre a tarefa de ocultar o circuito de vista, otimizando a experiência do usuário. Por fim, como essa case não entrará em contato direto com a água, não é necessário total impermeabilidade, viabilizando o uso da impressão 3D.
 
 ![image](https://github.com/2023M5T2-Inteli/tectonics/blob/dev/media/projeto%20mecanico/case.jpeg?raw=true)
 
-O case terá as dimensões 12 cm x 12 cm x 5 cm e será posicionado logo atrás do braço robótico. Caso a produção desse artefato não seja possível por falta de tempo ou acesso à infraestrutura necessária, pretendemos adquirir um case eletrônico IP65 online com dimensões semelhantes às desejadas.
+O case tem as dimensões 12 cm x 12 cm x 5 cm e fica posicionado logo atrás do braço robótico. Cumpre a função de organizar o circuito principal e abstraí-lo do uso do usuário final, melhorando, assim, sua experiência com o produto.
 
 **Visão Lateral**
 
 
 ![image](https://github.com/2023M5T2-Inteli/tectonics/blob/main/media/Arquitetura%20Do%20Sistema/CroquiVisaoLateral.png?raw=true)
 
-
-O suporte para ímãs consiste em uma case octagonal, na qual serão fixados de dois a quatro ímãs. Por entrar em contato direto com a água, é essencial que o material de fabricação seja muito resistente a líquidos e, ao mesmo tempo, exerça interferência mínima no campo magnético. 
+O suporte para ímãs consiste em uma case octagonal, na qual são fixados quatro ímãs. Por entrar em contato direto com a água, é essencial que o material de fabricação seja muito resistente a líquidos e, ao mesmo tempo, exerça interferência mínima no campo magnético. 
 
 ![image](https://github.com/2023M5T2-Inteli/tectonics/blob/dev/media/projeto%20mecanico/suporte_ima.jpeg?raw=true)
 
-Nesse sentido, nossa objetivo é produzir a placa ortogonal em ABS através de impressão 3D, sob a qual os ímãs serão posicionados. Então, agregaremos uma capa de plástico flexível ou proteção rígida de acrílico sob a base dos eletroímãs para assegurar a resistência à água. 
+Nesse sentido, produzimos a placa ortogonal em ABS através de impressão 3D, sob a qual os ímãs foram posicionados. Então, agregamos uma capa de plástico flexível para assegurar a resistência à água. 
 
 **Visão Robô**
 
@@ -258,10 +287,12 @@ A figura abaixo apresenta as dimensões do braço robótico Magician Lite, confo
 
 ![image](https://github.com/2023M5T2-Inteli/tectonics/blob/main/media/Arquitetura%20Do%20Sistema/CroquiRobo.png?raw=true)
 
+### Validação dos dispositivos mecânicos fabricados
+
 
 ## Projeto eletrônico
 
-Como demonstrado na arquitetura da solução, o âmbito eletrônico do nosso projeto contempla, em visão geral, uma Raspberry Pi Pico W, eletroímãs e bombas d'água. A conexão entre esses componentes, por sua vez, é viabilizada através de reguladores de tensão e pontes H. Ressaltamos que, na esquemático e implementação do circuito da Sprint 3, utilizamos apenas quatro eletroímãs e duas bombas da água, conectados a duas pontes H, para prova de conceito. Futuramente, pretendemos agregar mais desses atuadores através de testes de eficácia e otimização.
+Como demonstrado na arquitetura da solução, o âmbito eletrônico do nosso projeto contempla, em visão geral, uma Raspberry Pi Pico W, eletroímãs e bombas d'água. A conexão entre esses componentes, por sua vez, é viabilizada através de reguladores de tensão e pontes H.
 
 ###  Esquemático do circuito
 ![image](https://github.com/2023M5T2-Inteli/tectonics/blob/dev/media/Arquitetura%20Do%20Sistema/EsquematicoDoCircuito.png?raw=true)
@@ -275,11 +306,9 @@ Nesta ponte H, conectamos dois ímãs de cada lado, em paralelo. Assim, pudemos 
 Já a segunda ponte H é alimentada diretamente pelos 5V e controla as duas bombas d'água. Não foi necessário utilizar o regulador de tensão nesta parte porque a especificação de voltagem das bombas é exatamente de 5V. Assim, conectamos os pinos de direção delas também a quatro GPIOs do microcontrolador (8, 9, 10, 11).
 
 ###  Implementação do circuito
-A implementação do circuito se deu em uma placa perfurada de dimensão 12x18 cm, na qual foram soldados o microcontrolador e os fios de conexão entre componentes. Esses fios foram posicionados no lado inferior da placa por motivos estéticos. Ademais, por falta de suporte específico, ficaram apenas acoplados, através de jumpers soldados, as pontes H, o regulador de tensão, os eletroímãs e as bombas d'água. 
+A implementação do circuito se deu em uma placa perfurada de dimensão 12x18 cm, na qual foram soldados o microcontrolador e os fios de conexão entre componentes. Esses fios foram posicionados no lado inferior da placa por motivos estéticos. Ademais, por falta de suporte específico, ficaram apenas acoplados, através de jumpers soldados, as pontes H, o regulador de tensão e as bombas d'água. 
 
 Nesse sentido, durante os testes, para minimizar riscos de curto-circuito e/ou contato com água, utilizamos fita isolante para proteger as soldas expostas, ampliamos os fios de conexão dos atuadores e prendemos essas conexões ao corpo do robô com fita adesiva.
-
-Nas próximas sprints, pretendemos refatorar esse circuito, otimizando a organização da fiação e examinando a possibilidade de se produzir um PCB. Junto da case do projeto mecânico, o módulo eletrônico será muito mais resistente e de fácil manutenção.
 
 #### Componentes utilizados
 | Unidades | Nome | Link |
@@ -309,21 +338,7 @@ Os testes de validação de nosso circuito foram executados utilizando o mesmo c
 
 Entretanto, ao examinar a voltagem em diferentes pontos do circuito utilizando um voltímetro, descobrimos que, apesar de a ponte H receber 12V do regulador de tensão, ela está enviando apenas 0,65V-0,75V para os ímãs. Logo, acreditamos ser um problema de divisão de corrente dentro do componente. 
 
-Portanto, na Sprint 4, pretendemos testar a troca da ponte H e, se isso não funcionar, a diminuição do número de eletroímãs por ponte.
-
-
-O teste de integração pode ser visto [neste link](https://drive.google.com/file/d/1cPIdNrdqBF0necSuE6qcQWNYOLx2EU66/view?usp=sharing).
-
-## Módulos do Sistema e Visão Geral (Big Picture)
-
-![image](https://github.com/2023M5T2-Inteli/tectonics/blob/main/media/Arquitetura%20Do%20Sistema/Tabela1.png?raw=true)
-
-## Descrição dos Subsistemas
-
-### Descrição dos componentes
-
-![image](https://raw.githubusercontent.com/2023M5T2-Inteli/tectonics/main/media/Arquitetura%20Do%20Sistema/TabelaDeFun%C3%A7%C3%B5es.png)
-
+Na Sprint 5, descobrimos que esse erro originou-se da falta de conexão da ponte H com o GND do microcontrolador. Ao soldar essa conexão, os eletroímãs voltaram a funcionar conforme o esperado.
 
 
 ## Tecnologias Utilizadas
@@ -594,7 +609,7 @@ O código em sua íntegra está disponível em src/embedded/weight_cell. Não fo
 
 [Vídeo do teste realizado](https://drive.google.com/file/d/19G_qC6mr0JAeuuYVfvO6fVKM8mR57QWV/view?usp=share_link)
 
-Isso tudo foi testado em um ESP-32 com C++. Pretendemos adaptar essa funcionalidade para o Raspberry Pi Pico W com Micropython, integrando isso ao resto do sistema, na Sprint 3.
+Isso tudo foi testado em um ESP-32 com C++. Posteriormente, ao tentar diversas vezes integrar a célula de carga em Micropython ao sistema sem sucesso, decidimos finalizar o projeto sem essa feature devido à falta de documentação online para o desenvolvimento desse tipo de tecnologia.
 
 ### Relatório de entradas e saídas dos testes
 
@@ -613,14 +628,11 @@ Isso tudo foi testado em um ESP-32 com C++. Pretendemos adaptar essa funcionalid
 | Contagem de ciclos (interface gráfica) | Finalização de um ensaio                                      | Reset da contagem de ciclos, voltando ao 0.                                      | Sucesso. Ao terminar um ensaio, assim que o robô parava de se movimentar, o contador voltava a 0.                                                                                                                                                  |
 
 
-
 # UX e UI Design
-
-Na Sprint 3, implementamos as principais telas da interface gráfica e ampliamos a integração da página "/demo" para testes. Na Sprint 4, pretendemos integrar o as telas oficiais, isto é, as implementadas na Sprint 3 com base no design do Figma, com o resto do sistema.
 
 Como linha geral, priorizamos elementos minimalistas, intuitivos e de fácil entendimento. Seguindo o estilo utilizado até agora nos slides e logotipos, apostamos em uma paleta de cores com alto contraste e foco em tons de roxo. 
 
-A interface oficial apresenta uma sidebar simples, com tela inicial, histórico de relatórios, perfil e link temporário à página de demo. A tela principal, por sua vez, traz um botão de destaque para iniciar um ciclo, assim como campos de preenchimento de mais informações para cada execução. Clicando na seta na base da página, pode-se visualizar um card na qual serão disponibilizadas mais detalhes sobre o ensaio. O template dessas informações será implementado na Sprint 4.
+A interface oficial apresenta uma sidebar simples, com tela inicial, histórico de relatórios e hub de adição de novos clientes, usuários e projetos. A tela principal, por sua vez, traz um botão de destaque para iniciar um ciclo, assim como campos de preenchimento de mais informações para cada execução.
 
 ![image](https://github.com/2023M5T2-Inteli/tectonics/blob/dev/media/interface_grafica/home1.png?raw=true)
 
@@ -631,8 +643,6 @@ Já na aba de histórico, tem-se ensaios antigos com diversas funcionalidades de
 ![image](https://github.com/2023M5T2-Inteli/tectonics/blob/dev/media/interface_grafica/history1.png?raw=true)
 
 ![image](https://github.com/2023M5T2-Inteli/tectonics/blob/dev/media/interface_grafica/history2.png?raw=true)
-
-Por fim, a página de perfil permanece em construção.
 
 O design inicial do Figma pode ser conferido [aqui](https://www.figma.com/file/6mBFBLaAB9pjVo9Z3GzauB/Magnetum?node-id=23%3A2&t=tj4cyeV3llJXr2hb-1). Para a interface de testes, utilizamos um design simples, com um único vetor em tons de verde para decoração na base da página.
 
@@ -708,20 +718,7 @@ Os testes de integração do hardware (movimentação do robô e acionamento dos
 
 Todos esses casos foram executados conforme o esperado, com as atualizações e modificações desejadas. Uma ressalva é que o comportamento dos ímãs foi relativamente inconsistente, com flutuações na intensidade. No entanto, após análise mais aprofundada, percebemos que isso se deu por problemas de conexão do próprio hardware, como a solda e a placa perfurada, e não da integração do código de frontend com o de backend e embarcado. Logo, consideramos os testes de integração um sucesso.
 
-## Testes Unitários
-
-
-## Teste de Usabilidade
-
-
-# Manuais
-
-## Manual de Implantação
-
-## Manual do Usuário
-
-## Manual do Administrador
-
+# Validação da eficácia do sistema
 
 # Referências
 
