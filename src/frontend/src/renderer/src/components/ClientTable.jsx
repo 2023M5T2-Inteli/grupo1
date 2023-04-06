@@ -28,6 +28,25 @@ export function ClientTable() {
             .catch((error) => console.log(error));
     };
 
+    const handleAddProject = () => {
+        fetch('http://127.0.0.1:5000/project', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name: projectName,
+                client_id: selectedItem.id
+            })
+        }).then(() => {
+            setProjectName('');
+            fetchData(); 
+
+        })
+            .catch((error) => console.log(error));
+    };
+
+
     const fetchData = () => {
         fetch('http://127.0.0.1:5000/client')
             .then((response) => response.json())
@@ -69,7 +88,7 @@ export function ClientTable() {
                         </tr>
                     </thead>
                     <tbody>
-                        {console.log({ data })}
+
                         {data.map((item) => (
                             <tr
                                 key={item.id}
@@ -113,11 +132,15 @@ export function ClientTable() {
                                         <table className="w-full border-collapse table-fixed mt-4">
                                             <tbody>
                                                 {selectedItem.projects.map((project) => (
-                                                    <tr key={project.name} >
+                                                    <tr key={project.id} >
                                                         <td className="w-1/2 py-2 px-4 border-b border-gray-500 text-sm">{project.name}</td>
                                                     </tr>
                                                 ))}
-                                                <div className="flex w-full">
+                                                
+                                            </tbody>
+                                            
+                                        </table>
+                                        <div className="flex w-full mt-5">
                                                     <input
                                                         type="text"
                                                         placeholder="Nome do projeto"
@@ -126,33 +149,23 @@ export function ClientTable() {
                                                         onChange={(e) => setProjectName(e.target.value)}
                                                     />
                                                     <button
-                                        type="button"
-                                        className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-purple hover:bg-[#7456ea] text-base font-medium text-white  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm"
-                                        onClick={handleAddClient}
-                                    >
-                                        Salvar
-                                    </button>
+                                                        type="button"
+                                                        className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-purple hover:bg-[#7456ea] text-base font-medium text-white  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm"
+                                                        onClick={handleAddProject}
+                                                    >
+                                                        Salvar
+                                                    </button>
 
                                                 </div>
-                                            </tbody>
-                                        </table>
                                     </div>
                                     <div className="bg-gray-50 px-4 py-3 flex justify-end">
-                                    <button
-                                        type="button"
-                                        className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-gray-500 hover:bg-gray-400 text-base font-medium text-white  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm"
-                                        onClick={handleAddModalClose}
-                                    >
-                                        Fechar
-                                    </button>
-
-                                    <button
-                                        type="button"
-                                        className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-purple hover:bg-[#7456ea] text-base font-medium text-white  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm"
-                                        onClick={handleAddClient}
-                                    >
-                                        Salvar
-                                    </button>
+                                        <button
+                                            type="button"
+                                            className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-gray-500 hover:bg-gray-400 text-base font-medium text-white  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm"
+                                            onClick={handleModalClose}
+                                        >
+                                            Fechar
+                                        </button>
                                     </div>
                                 </div>
                             </div>
