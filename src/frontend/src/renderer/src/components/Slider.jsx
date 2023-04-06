@@ -1,12 +1,10 @@
 import { useEffect } from 'react';
 
-const serverHost = "http://10.128.65.51:5000";
-
-
+const serverHost = "http://127.0.0.1:5000";
 
 function RangeSlider(props) {
     useEffect(() => {
-        fetch('http://10.128.65.51:5000/current/magnet')
+        fetch('http://127.0.0.1:5000/current/magnet')
         .then((response) => {
             console.log(response)
             return response.json()
