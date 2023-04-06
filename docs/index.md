@@ -92,11 +92,11 @@ O IPT é uma instituição que atua em diversas áreas, incluindo a de materiais
 
 ### Objetivos gerais
 
-Desenvolver um equipamento automatizado capaz de aplicar um campo magnético constante, com intensidade e distância ajustáveis, sobre toda a amostra. Isso permitirá separar os minerais magnéticos, que serão depositados em um recipiente diferente dos minerais não magnéticos, que permanecerão na bandeja original.
+Desenvolver um solução de automação industrial para aumentar a precisão e eficiência de ensaios de separação magnética, padronizando a captura, limpeza e despejo dos materiais analisados.
 
 ### Objetivos específicos
 
-O projeto objetiva a automatização dos ensaios de separação magnética de amostras de minerais, por meio de um braço mecânico capaz de coletar, limpar e despejar o material captado. Esse processo visa aumentar a produtividade, repetibilidade, eficiência e precisão dos ensaios. Para isso, foi utilizado um  braço mecânico (Dobot Magician Lite),um eletroímã com intensidade ajustável para diferentes tipos de minerais e sensores capazes de detectar o peso do material extraído e medir o fluxo magnético produzido pelo eletroímã.
+O projeto objetiva a automatização dos ensaios de separação magnética de amostras de minerais, por meio de um braço mecânico capaz de coletar, limpar e despejar o material captado. Esse processo visa aumentar a produtividade, repetibilidade, eficiência e precisão dos ensaios. Para isso, temos como métricas de sucesso a precisão da altura dos ímãs em relação à amostra, o ajuste da velocidade e o ajuste da intensidade dos ímãs.
 
 ## Partes interessadas
 
@@ -105,11 +105,11 @@ O projeto objetiva a automatização dos ensaios de separação magnética de am
 
 # Análise do Problema
 
-Para melhor entender o contexto do projeto, realizamos uma análise de Oceano Azul para identificar nosso posicionamento em relação ao método tradicional de separação magnético. Buscamos também concorrentes, como o HGMS da empresa Metso, mas concluímos que sua aplicação não servia ao mesmo nicho que nosso projeto.
+Para melhor entender o contexto do projeto, realizamos uma análise de Oceano Azul para identificar nosso posicionamento em relação ao método tradicional de separação magnética. Buscamos também concorrentes, como o HGMS da empresa Metso, mas concluímos que sua aplicação não servia ao mesmo nicho que nosso projeto. Na realidade, não encontramos nenhum concorrente que se adeque ao mercado que pretendemos atender, isto é, o de ensaios de separação magnética para análise de amostras de mineração em pequena escala.
 
 Ademais, criamos uma matriz de risco sobre o desenvolvimento do projeto, com base em nossas experiências conjuntas de riscos e oportunidades de módulos passados aplicados às possibilidades do bimestre vigente. 
 
-Por fim, a partir da análise das informações citadas acima e dados obtidos do entendimento do design, sintetizamos o canvas de proposta de valor da solução
+Por fim, a partir da análise das informações citadas acima e dados obtidos do entendimento do design, sintetizamos o canvas de proposta de valor da solução.
 
 ## Matriz de Risco
 
@@ -134,25 +134,27 @@ Riscos análisados:
 
 ## Oceano Azul
 
+A análise de oceano azul examina como nossa solução se compara aos concorrentes existentes; em especial, identificamos quais aspectous e/ou características sofrem aumento, redução, eliminação ou criação. No caso, comparamos o Magnetum apenas ao método tradicional.
+
 ![image](https://user-images.githubusercontent.com/99221221/221012067-e4c738e2-1bcd-433f-8a77-9b477575add9.png)
 
 **Aumentar**
-* Precisão da análise
-* Custo
-* Velocidade
-* Tecnologia
-* Eficiência
+* Precisão da análise: o uso do braço robótico e do microcontorlador permite a padronização de distância e insidade magnética
+* Custo: o custo de setup inicial é significativamente maior do que o custo por hora de um trabalhador manual
+* Velocidade: o robô pode funcionar 24h por dia
+* Tecnologia: o sistema traz mais tecnologia quando comparado a um técnico manual
+* Eficiência: a padronização dos ensaios reduz o retrabalho e erro humano
 
 **Diminuir**
-* Mantenabilidade
-* Robustez
+* Mantenabilidade: o uso de um sistema automatizado traz mais dificuldades para manutenção
+* Durabilidade: o braço robótico é muito mais frágil do que um ímã permanente
 
 **Criar**
-* Parametrização
-* Gasto energético
+* Parametrização: a solução permite a configuração de parâmetros confiáveis e constantes para o processo
+* Gasto energético: o processo atual não gasta nenhuma energia elétrica; com o Magnetum, será necessário utilizar uma fonte de alimentação.
 
-**Elimiar**
-* Interveção humana
+**Eliminar**
+* Intervenção humana: o Magnetum permite que a separação magnética em si seja feita de modo totalmente automatizado. É preciso apenas que um técnico configure as condições do ensaio e prepare o material.
 
 ## Análise financeira
 
@@ -162,7 +164,7 @@ Riscos análisados:
 * Custo do Magnetum por ensaio (gasto energético + manutenção): R$ 2,125
 * Custo do trabalhador por ensaio tradicional: R$ 7,81
 
-Considerando que uso do tradicional custe e demore mais que do Magnetum e que a máquina fará uma jornada de trabalho de 6 horas todos os dias, enquanto o trabalhador fará uma de 8, estima-se que com 3000 usos, o equivalente a 168 dias, os gastos totais com o trabalhador supere o do Magnetum. 
+Levando em conta que o uso do método tradicional é mais caro e demorado do que o uso do Magnetum, e considerando que a máquina trabalhará por 6 horas todos os dias, enquanto o trabalhador trabalhará por 8 horas, é possível estimar que, após 3000 utilizações (equivalente a cerca de 168 dias), os custos totais com o trabalhador serão maiores do que com o uso do Magnetum.
 
 ## Proposta de Valor: Value Proposition Canvas
 
@@ -175,17 +177,16 @@ Considerando que uso do tradicional custe e demore mais que do Magnetum e que a 
 
 ## Histórias dos usuários (user stories)
 
-**Épico: Como técnico, quero separar o material magnético de uma amostra com alta precisão e de modo automatizado para otimizar meu tempo e a qualidade da operação**
-* Como técnico, quero acionar o início do ensaio por meio de um botão, após preparar a amostra nas bandejas, para que ele se realiza sem intervenção
-* Como técnico, quero parametrizar as variáveis envolvidas no ensaio, como velocidade de passagem, intensidade magnética e distância, para analisar os resultados de forma precisa em diferentes condições
-* Como técnico, quero ser alertado que o ensaio terminou por meio de sinal sonoro para que possa me concentrar em outras tarefas durante a execução do processo
-* Como técnico, quero que o ensaio finalize automaticamente quando o ímã não atrair mais quantidade significativa de material magnético
+**Épico: Como técnico, quero separar o material magnético de uma amostra para otimizar meu tempo e a qualidade da operação**
+* Como técnico, quero acionar o início do ensaio por meio de um botão para que ele se realize sem intervenção
+* Como técnico, quero parametrizar a intensidade magnética para captar diferentes materiais com o mesmo eletroímã
+* Como técnico, quero parametrizar o número de passadas de cada ensaio para adaptar a duração do ensaio para cada tipo de amostra 
 * Como técnico, quero que o braço mecânico passe em cada bandeja para que realize coleta, limpeza e despejo dos materiais.
 * Como técnico, quero que o sistema mantenha a distância e intensidade magnéticas constantes para que os resultados sejam precisos e confiáveis
 
 **Épico: Como técnico, quero acessar relatórios precisos e padronizados de cada ensaio para analisar os resultados, filtrar dados e chegar a conclusões empiricamente embasadas.**
 * Como técnico, quero ter um histórico das separações magnéticas que fiz para que possa consultar futuramente.
-* Como técnico, quero que tenha filtros de busca por data de realização e por material para que consiga consultar com maior facilidade.
+* Como técnico, quero filtrar os históricos consultar meus arquivos com maior facilidade.
 
 # Arquitetura do Sistema
 
