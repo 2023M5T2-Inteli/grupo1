@@ -12,14 +12,23 @@ import json
 # Definição da rede local a ser utilizada
 ssid = 'Inteli-COLLEGE'
 password = 'QazWsx@123' 
-host = 'http://10.128.0.159:5000'
+<<<<<<< HEAD
+host = 'http://10.128.65.51:5000'
+=======
+host = 'http://10.128.65.232:5000'
+>>>>>>> d2998e8ffa77886210184785c3e33d2a803cc0b4
 
 magnet_max_voltage = 12
 
 # Definição dos ímãs.
 # Cada objeto corresponde a dois ímãs ligados em paralelo a um lado da ponte H. Utilizamos PWM para variar a intesidade.
+<<<<<<< HEAD
+magnets = [PWMActuator(2, magnet_max_voltage), PWMActuator(3, magnet_max_voltage)]
+pumps = [Actuator(27), Actuator(26)]
+=======
 magnets = [PWMActuator(12, magnet_max_voltage), PWMActuator(10, magnet_max_voltage)]
-pumps = [Actuator(18, magnet_max_voltage), Actuator(20, magnet_max_voltage)]
+pumps = [Actuator(18), Actuator(20)]
+>>>>>>> d2998e8ffa77886210184785c3e33d2a803cc0b4
 
 def connectToWiFi():
     wlan = network.WLAN(network.STA_IF)
@@ -40,28 +49,43 @@ try:
     while True:  # Loop principal do programa
         # Ainda não descobrimos como processar um objeto json em micropython. Por isso,
         # por ora estamos utilizando rotas separadas para cada estado.
-        magnet_state = urequests.get(host + '/current/magnet')
-        pump_state = urequests.get(host + '/current/pump')
-        magnet_intensity = urequests.get(host + '/magnet_intensity')
+        magnet = json.loads(urequests.get(host + '/current/magnet').text)
+        pump = json.loads(urequests.get(host + '/current/pump').text)
         
-        print('Magnet: ' + magnet_state.text)
-        print('Pump: ' + pump_state.text)
-        print('Magnet Intensity: ' + magnet_intensity.text)
+<<<<<<< HEAD
+        print(magnet)
+        print(pump)
 
         # Liga ímãs se o valor lido no servidor for maior que 0
-        if (int(magnet_state.text)):
-            map(lambda magnet: magnet.enable(intensity=magnet_intensity), magnets)
+        if (int(magnet['magnet_state'])):
+            magnets[0].enable(intensity=magnet['magnet_intensity'])
+            magnets[1].enable(intensity=magnet['magnet_intensity'])
+=======
+        print('Magnet: ' + str(magnet))
+        print('Pump: ' + str(pump))
+
+        # Liga ímãs se o valor lido no servidor for maior que 0
+        if (int(magnet['magnet_state'])):
+            magnets[0].enable(int(magnet['magnet_intensity']))
+            magnets[1].enable(int(magnet['magnet_intensity']))
+>>>>>>> d2998e8ffa77886210184785c3e33d2a803cc0b4
             
         else: # Desliga se for 0
-            map(lambda magnet: magnet.disable(), magnets)
+            magnets[0].disable()
+            magnets[1].disable()
 
         # Liga bombas se o valor lido no servidor for maior que 0
-        if (int(pump_state.text)):
+        if (int(pump['pump_state'])):
+<<<<<<< HEAD
+            print('ligar')
+=======
+>>>>>>> d2998e8ffa77886210184785c3e33d2a803cc0b4
             # Acessa cada elemento do array de bombas e executa a função de ligar
-            map(lambda pump: pump.enable(), pumps)
+            pumps[0].enable()
+            pumps[1].enable()
         else: # Desliga se for 0
-            map(lambda pump: pump.disable(), pumps)
-
+            pumps[0].disable()
+            pumps[1].disable()
         time.sleep(0.1)
         
 except KeyboardInterrupt:
