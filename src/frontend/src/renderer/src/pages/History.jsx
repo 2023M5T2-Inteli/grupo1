@@ -33,9 +33,8 @@ function History() {
                 </div>
                 <div className="justify-around flex flex-wrap">
                     {cards.length > 0 && cards.map((card) =>
-                        <Card mass={card.initial_sample_mass} water={card.initial_water_mass} id={card.id} name={card.sample_name} data={card.finished_at}/>
+                        <Card mass={card.initial_sample_mass} water={card.initial_water_mass} id={card.id} name={card.sample_name} data_fim={card.finished_at} info={card}/>
                     )}
-                    <Card />
                 </div>
             </div>
         </div>
