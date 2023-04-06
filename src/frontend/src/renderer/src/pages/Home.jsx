@@ -168,6 +168,11 @@ function Home() {
   const [initial_sample_mass, setMassaInicialSolido] = useState("");
   const [initial_water_mass, setMassaInicialAgua] = useState("");
   const [name, setEnsaio] = useState("");
+  const [clients, setClients] = useState([]);
+  const [users, setUsers] = useState([]);
+  const [projects, setProjects] = useState([]);
+  const [selectedClient, setSelectedClient] = useState("");
+  const [selectedProject, setSelectedProject] = useState("");
 
   const handleSubmit = async (event) => {
 
@@ -181,6 +186,19 @@ function Home() {
       // Aqui você pode exibir uma mensagem de erro para o usuário
     }
   };
+
+  useEffect(() => {
+    fetchDropdowns()
+  }, [])
+
+  const fetchDropdowns = async () => {
+    const clients = await Axios.get(serverHost + '/client');
+    const users = await Axios.get(serverHost + '/user');
+    const projects = await Axios.get(serverHost + '/project');
+    setClients(clients.data);
+    setUsers(users.data);
+    setProjects(projects.data);
+  }
 
   return (
     <div className="w-full h-screen">
@@ -209,15 +227,22 @@ function Home() {
                       <input className="ml-3 border-b border-b-purple outline-0 w-auto font-montserrat" type="text" value={sample_name} onChange={(event) => setAmostra(event.target.value)} />
                     </label>
                     <br />
-                    <label>
-                      Cliente:
-                      <input className="ml-3 border-b border-b-purple outline-0 w-auto font-montserrat" type="text" value={client_id} onChange={(event) => setCliente(event.target.value)} />
-                    </label>
+                    <label htmlFor="clients">Cliente:</label>
+                    <select id="clients" value={selectedClient} onChange={(e) => setSelectedClient(e.target.value)}>
+                      <option value="">Selecione um cliente</option>
+                      {clients.map(client => (
+                        <option key={client.id} value={client.id}>{client.full_name}</option>
+                      ))}
+                    </select>
                     <br />
-                    <label>
-                      Projeto:
-                      <input className="ml-3 border-b border-b-purple outline-0 w-auto font-montserrat" type="text" value={project_id} onChange={(event) => setProjeto(event.target.value)} />
-                    </label>
+                    <label htmlFor="projects">Projeto:</label>
+                    <select id="projects" value={selectedProject} onChange={(e) => setSelectedProject(e.target.value)}>
+                      <option value="">Selecione um projeto</option>
+                      {
+                        projects.filter(project => project.client_id == selectedClient).map(project => (
+                          <option key={project.id} value={project.id}>{project.name}</option>
+                        ))}
+                    </select>
                     <br />
                     <label>
                       Operador:
