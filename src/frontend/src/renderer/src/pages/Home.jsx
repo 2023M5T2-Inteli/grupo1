@@ -173,6 +173,7 @@ function Home() {
   const [projects, setProjects] = useState([]);
   const [selectedClient, setSelectedClient] = useState("");
   const [selectedProject, setSelectedProject] = useState("");
+  const [selectedUser, setSelectedUser] = useState("");
 
   const handleSubmit = async (event) => {
 
@@ -244,10 +245,14 @@ function Home() {
                         ))}
                     </select>
                     <br />
-                    <label>
-                      Operador:
-                      <input className="ml-3 border-b border-b-purple outline-0 w-auto font-montserrat" type="text" value={user_id} onChange={(event) => setOperador(event.target.value)} />
-                    </label>
+                    <label htmlFor="users">Operador:</label>
+                    <select id="users" value={selectedUser} onChange={(e) => setSelectedUser(e.target.value)}>
+                      <option value="">Selecione um operador</option>
+                      {
+                        users.map(user => (
+                          <option key={user.id} value={user.id}>{user.full_name}</option>
+                        ))}
+                    </select>
                     <br />
                     <label>
                       Massa do sólido:
