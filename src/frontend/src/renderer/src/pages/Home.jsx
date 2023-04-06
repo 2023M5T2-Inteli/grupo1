@@ -1,6 +1,6 @@
 // Página de início
 
-import { useRef, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 
 import Sidebar from "../components/Sidebar"
@@ -30,19 +30,13 @@ function Home() {
   const [magnetState, setMagnetState] = useState(false);
   const [pumpState, setPumpState] = useState(0);
   const [currentTray, setCurrentTray] = useState(Trays[0]);
-
-  const detailsRef = useRef();
+  let routine = 0
 
   const methods = useForm();
   const watchAmostra = methods.watch("amostra")
 
   // Declaração do endereço do servidor atual
   const serverHost = "http://127.0.0.1:5000";
-
-  // Desliza tela para card de detalhes
-  function showDetails() {
-    detailsRef.current.scrollIntoView({ behavior: 'smooth' });
-  }
 
   // Faz requisição ao servidor para trocar estado e atualiza estado local
   const toggleMagnet = () => {
@@ -110,6 +104,7 @@ function Home() {
     getCycleCount();
     getStates();
     getCurrentTray();
+    fetchCycles();
   };
 
   // Hook para atualizar dados regularmente (a cada 1 segundo)
@@ -155,7 +150,10 @@ function Home() {
       }),
       headers: { "Content-type": "application/json" },
     }).then(response => response.json())
-      .then(data => console.log(data))
+      .then(data => {
+        setRoutineId(data.routine_id)
+        console.log(routineId)
+      })
   }
 
   const [sample, setSample] = useState("");
@@ -168,6 +166,8 @@ function Home() {
   const [selectedProject, setSelectedProject] = useState("");
   const [selectedUser, setSelectedUser] = useState("");
   const [cycleNumber, setCycleNumber] = useState(0);
+  const [routineId, setRoutineId] = useState(0);
+  const [cycles, setCycles] = useState([]);
 
   useEffect(() => {
     fetchDropdowns()
@@ -180,6 +180,17 @@ function Home() {
     setClients(clients.data);
     setUsers(users.data);
     setProjects(projects.data);
+  }
+
+  const fetchCycles = async () => {
+    console.log(routine)
+    if (routine) {
+      console.log('inside')
+      fetch(serverHost + '/routine/' + routine).then((res) => res.json()).then((data) => {
+        setCycles(data['cycles'])
+        console.log({ cycles })
+      })
+    }
   }
 
   return (
@@ -298,20 +309,6 @@ function Home() {
             </div>
           </form>
         </FormProvider>
-        {/* Botão para mostrar card de mais detalhes */}
-        <button
-          className="w-14 absolute bottom-5 flex justify-center"
-          onClick={showDetails}
-        >
-          <img src={seeMore} />
-        </button>
-        {/* Card de mais informações */}
-        <div
-          className="w-[90%] h-96 bg-white rounded-xl shadow-2xl m-5 flex justify-center items-center"
-          ref={detailsRef}
-        >
-          MAIS INFORMAÇÕES
-        </div>
       </div>
     </div>
   );
