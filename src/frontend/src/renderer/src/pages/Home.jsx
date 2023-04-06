@@ -11,7 +11,6 @@ import RangeSlider from "../components/Slider";
 //Importando imagens 
 import pumpIcon from '../assets/pumpIcon.png'
 import magnetIcon from '../assets/sidebarMagnet.png'
-import seeMore from '../assets/seeMoreArrow.png'
 
 import Axios from 'axios'
 

@@ -111,6 +111,8 @@ def execute_routine(request):
     global current_tray
     current_tray = Tray.DESATIVADO
 
+    restartCycleCount()
+
     return {"routine_id": id}, 200
 
 # Funções para modificar variável global de ciclo

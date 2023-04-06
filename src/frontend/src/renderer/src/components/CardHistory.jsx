@@ -6,10 +6,10 @@ import 'jspdf-autotable'
 
 function Card(props) {
 
-    const data_inicio = String(props.info.initiated_at).replace('Wed, ', '').replace(' GMT', '')
-    const hora_inicio = String(props.info.initiated_at).slice(17, 25)
-    const hora_fim = String(props.info.finished_at).slice(17, 25)
-  
+  const data_inicio = String(props.info.initiated_at).replace('Wed, ', '').replace(' GMT', '')
+  const hora_inicio = String(props.info.initiated_at).slice(17, 25)
+  const hora_fim = String(props.info.finished_at).slice(17, 25)
+
   //const hora = String(props.data).replace('Wed, ', '').replace(' GMT', '')
 
   const [showPopup, setShowPopup] = useState(false)
@@ -35,14 +35,14 @@ function Card(props) {
           .then((data) => setClient(data))
       })
 
-      fetch('http://127.0.0.1:5000/user/' + props.info.user_id)
+    fetch('http://127.0.0.1:5000/user/' + props.info.user_id)
       .then((response) => response.json())
       .then((data) => {
         setUser(data)
       })
   }, [project])
 
-  
+
   return (
     <>
       <div
@@ -50,24 +50,24 @@ function Card(props) {
         className="shadow-2xl rounded-3xl md:w-1/4 flex flex-col justify-center items-center h-96 max-w-s mx-4 mb-8 hover:scale-105"
       >
         <img className="pb-10" src={finalizado} />
-        <h3 className="font-montserrat font-bold p-3 text-2xl">Amostra #{props.id}</h3>
-        <div className="flex flex-wrap space-x-3">
-          <p className="font-montserrat font-medium">Data</p>
-          <p className="font-montserrat object-right">{props.data}</p>
+        <h3 className="font-montserrat font-bold p-3 text-2xl">Amostra {props.info.sample_name}</h3>
+        <div className="flex items-baseline gap-2">
+          <p className="font-montserrat font-bold">Cliente: </p>
+          <p className="font-montserrat">{client.full_name}</p>
         </div>
-        <div className="flex flex-wrap space-x-3">
-          <p className="font-montserrat font-medium">Peso</p>
-          <p className="font-montserrat object-right">{props.massa}</p>
+        <div className="flex items-baseline gap-2">
+          <p className="font-montserrat font-bold">Projeto: </p>
+          <p className="font-montserrat">{project.name}</p>
         </div>
       </div>
       {showPopup && (
-        
-        // Add your popup component here
-        <div className="fixed inset-0 flex justify-center items-center bg-gray-500 bg-opacity-50">
-          <div className="bg-white w-3/4 h-3/4 rounded-lg">
+
+
+        <div className="fixed inset-0 flex justify-center items-center bg-gray-500 bg-opacity-50 overflow-y-scroll">
+          <div className="bg-white w-3/4 h-3/4 rounded-lg overflow-y-auto">
             <div className="flex items-center justify-between p-5 border-b rounded-t dark:border-gray-600">
               <h1 className="text-4xl font-bold font-montserrat mb-4 pt-4 pl-4">
-                Amostra: #{props.id}
+                Amostra: {props.info.sample_name}
               </h1>
               <button
                 type="button"
@@ -90,39 +90,43 @@ function Card(props) {
                 </svg>
               </button>
             </div>
-            <div className="pl-12 pr-12 pt-8 pb-8 flex items-center ">
-              <div className="w-1/2">
-                <h5 className="text-xl font-montserrat font-medium">
-                  Nome da amostra: {props.name}
-                </h5>
+            <h5 className="text-xl font-bold font-montserrat pl-12 pt-4">
+                    Ensaio
+                  </h5>
+            <div className="pl-12 pr-12 pt-2 flex items-center ">
+            
+              <div className="w-1/2 flex flex-col items-start">
+                <p className="text-md font-montserrat font-medium">Nome do cliente: {client.full_name}</p>
                 <br />
-                <h5 className="text-xl font-montserrat font-medium">Nome do cliente: {client.full_name}</h5>
+                <p className="text-md font-montserrat font-medium">Data: {new Date(Date.parse(props.info.initiated_at)).toLocaleDateString()}</p>
                 <br />
-                <h5 className="text-xl font-montserrat font-medium">Data: {data_inicio}</h5>
+                <p className="text-md font-montserrat font-medium">Horário de início: {new Date(Date.parse(props.info.initiated_at)).toLocaleTimeString()}</p>
                 <br />
-                <h5 className="text-xl font-montserrat font-medium">Horário de início: {hora_inicio}</h5>
-                <br />
-                <h5 className="text-xl font-montserrat font-medium">Horário de termino: {hora_fim}</h5>
-                <br />
-              </div>
-              <div className="w-1/2">
-                <h5 className="text-xl font-montserrat font-medium">Operador: {user.full_name}</h5>
-                <br />
-                <h5 className="text-xl font-montserrat font-medium">
-                  Massa inicial dos sólidos: {props.mass}
-                </h5>
-                <br />
-                <h5 className="text-xl font-montserrat font-medium">
-                  Massa inicial da água: {props.water}
-                </h5>
-                <br />
-                <h5 className="text-xl font-montserrat font-medium">
-                  Campo magnético utilizado: {}
-                </h5>
-                <br />
-                <h5 className="text-xl font-montserrat font-medium">Tempo do ciclo: {}</h5>
+                <p className="text-md font-montserrat font-medium">Horário de término: {new Date(Date.parse(props.info.finished_at)).toLocaleTimeString()}</p>
                 <br />
               </div>
+              <div className="w-1/2 flex flex-col justify-start ">
+                <h5 className="text-sm font-montserrat font-medium">Operador: {user.full_name}</h5>
+                <br />
+                <h5 className="text-sm font-montserrat font-medium">
+                  Massa inicial dos sólidos: {props.info.initial_sample_mass} g
+                </h5>
+                <br />
+                <h5 className="text-sm font-montserrat font-medium">
+                  Massa inicial da água: {props.info.initial_sample_mass} g
+                </h5>
+              </div>
+            </div>
+            <div>
+              {props.info.cycles.map((cycle, index) => (
+                <div className="flex flex-col pl-12 pr-12 mb-2">
+                  <h5 className="text-md font-bold font-montserrat mb-3 pt-4">
+                    Ciclo {index + 1}
+                  </h5>
+                  <p className="font-montserrat">Intensidade magnética: {cycle.magnet_intensity}V</p>
+                  <p className="font-montserrat">Início: {new Date(Date.parse(cycle.initiated_at)).toLocaleTimeString()}</p>
+                  <p className="font-montserrat">Fim: {new Date(Date.parse(cycle.finished_at)).toLocaleTimeString()}</p>
+                </div>))}
             </div>
           </div>
         </div>
