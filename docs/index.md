@@ -138,7 +138,7 @@ Riscos análisados:
 
 A análise de oceano azul examina como nossa solução se compara aos concorrentes existentes; em especial, identificamos quais aspectous e/ou características sofrem aumento, redução, eliminação ou criação. No caso, comparamos o Magnetum apenas ao método tradicional.
 
-![image](https://user-images.githubusercontent.com/99221221/221012067-e4c738e2-1bcd-433f-8a77-9b477575add9.png)
+![image](https://github.com/2023M5T2-Inteli/tectonics/blob/main/media/ux_e_negocios/oceano_azul.png?raw=true)
 
 **Aumentar**
 * Precisão da análise: o uso do braço robótico e do microcontorlador permite a padronização de distância e insidade magnética
