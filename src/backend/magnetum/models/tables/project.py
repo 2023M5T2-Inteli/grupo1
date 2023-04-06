@@ -11,14 +11,15 @@ class Project(Base):  # Estrutura para criar uma tabela
     name = Column(String, nullable=False)
     client_id = Column(Integer, ForeignKey('client.id'))
     # Relacionamento com a tabela routine (one to many)
-    routines = relationship('Routine', backref='project')
+    routines = relationship('Routine')
 
     def __repr__(self):
-        return f"Project {self.name}, client: {self.client}, routines: {self.routines}"
+        return f"Project {self.name}, client: {self.client_id}, routines: {self.routines}"
 
     def return_json(self):
         return {
             "id": self.id,
             "name": self.name,
-            "client": self.client.return_json(),
+            "client_id": self.client_id,
+            "routines": [routine.return_json() for routine in self.routines]
         }

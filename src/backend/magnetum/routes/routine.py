@@ -17,6 +17,7 @@ def init_app(app):
     # Inicia ensaio e salva no banco de dados
     @app.route('/routine', methods=['POST'])
     def start_routine():
+        print('start routine')
         return routine.execute_routine(request)
 
     @app.route('/routine/<int:id>', methods=['PUT'])

@@ -8,9 +8,10 @@ from magnetum.models.tables.user import User
 from magnetum.models.tables.project import Project
 from magnetum.models.tables.cycle import Cycle
 from magnetum.models.tables.routine import Routine
+from magnetum.models.tables.server import Server
 
 # Cria banco de dados caso ele não exista e estabelece conexão
-engine = create_engine('sqlite+pysqlite:///app.db', echo=True)
+engine = create_engine('sqlite+pysqlite:///app.db', echo=False)
 
 # Estabelece sessão
 Session = sessionmaker(bind=engine)

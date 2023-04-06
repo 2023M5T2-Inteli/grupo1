@@ -11,7 +11,7 @@ class User(Base): #Estrutura para criar uma tabela
    cpf=Column(Integer)
    full_name=Column(String)
    # Relacionamento com a tabela routine (one to many)
-   routines= relationship('Routine', backref='user')
+   routines= relationship('Routine')
 
    def __repr__(self):
       return f"User {self.full_name}, CPF: {self.cpf}, routines: {self.routines}"
