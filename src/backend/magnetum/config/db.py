@@ -11,7 +11,7 @@ from magnetum.models.tables.routine import Routine
 from magnetum.models.tables.server import Server
 
 # Cria banco de dados caso ele não exista e estabelece conexão
-engine = create_engine('sqlite+pysqlite:///app.db', echo=True)
+engine = create_engine('sqlite+pysqlite:///app.db', echo=False)
 
 # Estabelece sessão
 Session = sessionmaker(bind=engine)

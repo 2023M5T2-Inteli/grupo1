@@ -7,7 +7,7 @@ from magnetum.utils.State import State
 # Especificação da porta em que o robô está conectado.
 # TO-DO: conexão sem especificar porta antes, já que ela muda de PC para PC (talvez um loop testando todas as possíveis, com try-catch?)
 robot_port = 'COM11'
-host = 'http://10.128.65.51:5000'
+host = 'http://127.0.0.1:5000'
 
 # Coordenadas do ponto neutro do robô segundo especificação técnica
 home = (226, 0, 150, 0)
@@ -43,7 +43,7 @@ intermediary_points = [
     (216, -248, high_height, rotation)  # Ponto alto inicial da bandeja 2
 ]
 
-device = pydobot.Dobot(port=robot_port, verbose=False)
+#device = pydobot.Dobot(port=robot_port, verbose=False)
 
 # Função para executar um ciclo completo do robô
 def execute_cycle(magnet_intensity):
