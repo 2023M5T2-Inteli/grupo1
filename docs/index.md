@@ -78,17 +78,21 @@ Magnetum | Concepção de sistema de automação industrial para separação mag
 
 ## Empresa
 
-O Instituto de Pesquisas Tecnológicas (IPT) é uma instituição de pesquisa brasileira que tem como objetivo contribuir para o desenvolvimento científico, tecnológico e insdustrial do país. Fundado em 1899, é um dos mais antigos centros de pesquisa tecnológica do país e tem uma ampla variedade de áreas de atuação. O instituto possui uma ampla infraestrutura de laboratórios e centros de pesquisa, com equipamentos de última geração e uma equipe multidisciplinar de pesquisadores, engenheiros, técnicos e especialistas. Além disso, realiza parcerias com empresas e instituições de pesquisa nacionais e internacionais, visando a transferência de tecnologia e a cooperação científica.
+O Instituto de Pesquisas Tecnológicas (IPT) é uma instituição de renome no cenário de pesquisa brasileiro. Seu principal objetivo é contribuir para o desenvolvimento científico, tecnológico e industrial do país. Fundado em 1899, é considerado um dos mais antigos centros de pesquisa tecnológica do Brasil, com uma vasta gama de áreas de atuação.
+
+O IPT é equipado com infraestrutura de ponta, incluindo laboratórios e centros de pesquisa, além de possuir uma equipe de pesquisadores, engenheiros, técnicos e especialistas altamente qualificados e multidisciplinares. O instituto estabelece parcerias com empresas e instituições de pesquisa nacionais e internacionais para promover a transferência de tecnologia e a cooperação científica.
+
+Em resumo, o IPT é uma instituição líder no avanço tecnológico do Brasil, oferecendo excelência em pesquisa, equipamentos de última geração e uma equipe multidisciplinar altamente qualificada, buscando contribuir para o desenvolvimento do país e do mundo.
 
 ## O Problema
 
-O IPT possui uma área de atuação em materiais avançados e a separação magnética é uma técnica comumente utilizada para avaliar a liberação de minerais e materiais com propriedades magnéticas. Entretanto, devido ao processo de separação magnética ser manual, a medição da distância não é precisa, o que afeta diretamente a precisão do campo eletromagnético aplicado às partículas. Como o campo eletromagnético é inversamente proporcional à distância, a determinação do campo correto para separar os minerais se torna complicada. Além disso, para experimentar diferentes campos, é preciso alternar os ímãs utilizados, requerendo uma variedade de ímãs disponíveis.
+O IPT é uma instituição que atua em diversas áreas, incluindo a de materiais avançados, e faz uso da separação magnética como técnica para avaliar a liberação de minerais e materiais com propriedades magnéticas. No entanto, devido ao fato do processo de separação magnética ser realizado manualmente, a medição da distância não é precisa, o que pode afetar a precisão do campo eletromagnético aplicado às partículas. Como o campo eletromagnético é inversamente proporcional à distância, a determinação do campo correto para separar os minerais pode se tornar complexa. Além disso, experimentar diferentes campos requer a alternância dos ímãs utilizados, o que demanda uma variedade de ímãs disponíveis. Em resumo, a falta de precisão no processo de separação magnética pode prejudicar a avaliação de minerais e materiais com propriedades magnéticas, comprometendo a eficiência das atividades realizadas pelo IPT na área de materiais avançados.
 
 ## Objetivos
 
 ### Objetivos gerais
 
-É necessário desenvolver um equipamento automatizado capaz de aplicar um campo magnético constante, com intensidade e distância ajustáveis, sobre toda a amostra. Isso permitirá separar os minerais magnéticos, que serão depositados em um recipiente diferente dos minerais não magnéticos, que permanecerão na bandeja original.
+Desenvolver um equipamento automatizado capaz de aplicar um campo magnético constante, com intensidade e distância ajustáveis, sobre toda a amostra. Isso permitirá separar os minerais magnéticos, que serão depositados em um recipiente diferente dos minerais não magnéticos, que permanecerão na bandeja original.
 
 ### Objetivos específicos
 

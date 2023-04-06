@@ -20,17 +20,11 @@ function Card(props) {
     }
 
     useEffect(() => {
-        fetch('https://127.0.0.1:5000/project/' + props.info.project_id)
+        fetch('http://127.0.0.1:5000/project/' + props.info.project_id)
         .then((response) => response.json())
             .then((data) => console.log(data))
     }, [])
 
-    function getDetails() {
-        console.log('DETAULS')
-        fetch('https://127.0.0.1:5000/project/' + props.info.project_id)
-        .then((response) => response.json())
-            .then((data) => console.log(data))
-    }
     const teste = () => {
         fetch('http://127.0.0.1:5000/client/')
             .then((response) => response.json())
