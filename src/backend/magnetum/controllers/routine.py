@@ -39,7 +39,6 @@ def get_by_id(id):
 def create(new_routine):
     try:
         routine = Routine(initiated_at=datetime.now(), sample_name=new_routine['sample_name'], initial_sample_mass=new_routine['initial_sample_mass'], initial_water_mass=new_routine['initial_water_mass'], user_id=new_routine['user_id'], project_id=new_routine['project_id'])
-        print(routine)
         session.add(routine)
         session.commit()
         return routine.id
@@ -100,9 +99,9 @@ def execute_routine(request):
     # robot.rehome()  # Função do módulo do robô para levá-lo ao ponto neutro
 
     # # Loop para realizar um número arbitrário de passadas.
-    for i in range(cycles_per_trial):
+    for i in range(int(request.json['cycleCount'])):
 
-        robot.execute_cycle(12)
+        #robot.execute_cycle(12)
         cycle.create(id)
         incrementCycle()
 
@@ -112,7 +111,7 @@ def execute_routine(request):
     global current_tray
     current_tray = Tray.DESATIVADO
 
-    return "Success", 200
+    return {'message': 'Success'}, 200
 
 # Funções para modificar variável global de ciclo
 def restartCycleCount():
@@ -132,7 +131,6 @@ def get_current_cycle():
 # Função para retornar variável global de bandeja
 def get_current_tray():
     global current_tray
-    print(current_tray)
     response = {'current_tray': str(current_tray.value)}
     return response, 200
 

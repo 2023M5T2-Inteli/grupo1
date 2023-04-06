@@ -5,7 +5,6 @@ import { useForm, FormProvider } from "react-hook-form";
 
 import Sidebar from "../components/Sidebar"
 import startButton from '../assets/startButton.png'
-import Input from "../components/Input";
 
 import RangeSlider from "../components/Slider";
 
@@ -102,9 +101,7 @@ function Home() {
     fetch(serverHost + "/current/tray")
       .then((res) => res.json())
       .then((data) => {
-        console.log(data)
         setCurrentTray(Trays[Number.parseInt(data['current_tray'])]);
-        console.log(currentTray)
       });
   };
 
@@ -144,49 +141,33 @@ function Home() {
   }
 
   // Função que envia dados para o servidor (No momento so printa)
-  function handleCreateNewCycle(data) {
+  function handleCreateNewCycle() {
     fetch(serverHost + "/routine", {
       method: "POST",
       body: JSON.stringify({
-        name: 'elisa',
-        client_id: 1,
-        sample_name: 'aa',
-        initial_sample_mass: 1,
-        initial_water_mass: 1,
-        user_id: 1,
-        project_id: 1
+        client_id: selectedClient,
+        sample_name: sample,
+        initial_sample_mass: initialSampleMass,
+        initial_water_mass: initialWaterMass,
+        user_id: selectedUser,
+        project_id: selectedProject,
+        cycleCount: cycleNumber
       }),
       headers: { "Content-type": "application/json" },
     }).then(response => response.json())
       .then(data => console.log(data))
   }
 
-  const [sample_name, setAmostra] = useState("");
-  const [client_id, setCliente] = useState("");
-  const [project_id, setProjeto] = useState("");
-  const [user_id, setOperador] = useState("");
-  const [initial_sample_mass, setMassaInicialSolido] = useState("");
-  const [initial_water_mass, setMassaInicialAgua] = useState("");
-  const [name, setEnsaio] = useState("");
+  const [sample, setSample] = useState("");
+  const [initialSampleMass, setInitialSampleMass] = useState("");
+  const [initialWaterMass, setInitialWaterMass] = useState("");
   const [clients, setClients] = useState([]);
   const [users, setUsers] = useState([]);
   const [projects, setProjects] = useState([]);
   const [selectedClient, setSelectedClient] = useState("");
   const [selectedProject, setSelectedProject] = useState("");
   const [selectedUser, setSelectedUser] = useState("");
-
-  const handleSubmit = async (event) => {
-
-    event.preventDefault();
-    try {
-      const response = await Axios.post(serverHost + '/routine', { sample_name, client_id, project_id, user_id, initial_sample_mass, initial_water_mass, name });
-      console.log(response.data);
-      // Aqui você pode exibir uma mensagem de sucesso para o usuário
-    } catch (error) {
-      console.error(error);
-      // Aqui você pode exibir uma mensagem de erro para o usuário
-    }
-  };
+  const [cycleNumber, setCycleNumber] = useState(0);
 
   useEffect(() => {
     fetchDropdowns()
@@ -210,7 +191,7 @@ function Home() {
           <form onSubmit={methods.handleSubmit(handleCreateNewCycle)}>
             <div className="flex h-screen items-center gap-10 justify-center">
               {/* Botão de iniciar ensaio */}
-              <button onClick={handleSubmit} type="submit"   >
+              <button type="submit"   >
                 <img src={startButton} />
               </button>
               <div>
@@ -225,7 +206,7 @@ function Home() {
                     </p>
                     <label>
                       Amostra:
-                      <input className="ml-3 border-b border-b-purple outline-0 w-auto font-montserrat" type="text" value={sample_name} onChange={(event) => setAmostra(event.target.value)} />
+                      <input className="ml-3 border-b border-b-purple outline-0 w-auto font-montserrat" type="text" value={sample} onChange={(event) => setSample(event.target.value)} />
                     </label>
                     <br />
                     <label htmlFor="clients">Cliente:</label>
@@ -256,14 +237,18 @@ function Home() {
                     <br />
                     <label>
                       Massa do sólido:
-                      <input className="ml-3 border-b border-b-purple outline-0 w-auto font-montserrat" type="number" value={initial_sample_mass} onChange={(event) => setMassaInicialSolido(event.target.value)} />
+                      <input className="ml-3 border-b border-b-purple outline-0 w-auto font-montserrat" type="number" value={initialSampleMass} onChange={(event) => setInitialSampleMass(event.target.value)} />
                     </label>
                     <br />
                     <label>
                       Massa da água:
-                      <input className="ml-3 border-b border-b-purple outline-0 w-auto font-montserrat" type="number" value={initial_water_mass} onChange={(event) => setMassaInicialAgua(event.target.value)} />
+                      <input className="ml-3 border-b border-b-purple outline-0 w-auto font-montserrat" type="number" value={initialWaterMass} onChange={(event) => setInitialWaterMass(event.target.value)} />
                     </label>
                     <br />
+                    <label>
+                      Nº de ciclos:
+                      <input className="ml-3 border-b border-b-purple outline-0 w-auto font-montserrat" type="number" value={cycleNumber} onChange={(event) => setCycleNumber(event.target.value)} />
+                    </label>
                   </div>
                   {/* Grupo de controles */}
                   <div className="pr-5 pl-2 w-96 flex flex-col justify-between gap-4">
