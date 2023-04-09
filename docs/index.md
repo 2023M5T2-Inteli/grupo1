@@ -282,6 +282,8 @@ O suporte para PCB foi produzido em plástico ABS, através de impressão 3D. Es
 
 O case tem as dimensões 12 cm x 12 cm x 5 cm e fica posicionado logo atrás do braço robótico. Cumpre a função de organizar o circuito principal e abstraí-lo do uso do usuário final, melhorando, assim, sua experiência com o produto.
 
+O suporte para PCB está feita e pronta para ser impressa mas por motivos de tempo o suporte para PCB não conseguiu ser produzido
+
 **Visão Lateral**
 
 
@@ -463,6 +465,8 @@ Para solucionar isso, conectamos o ímã a uma ponte H. Dessa forma, pudemos ali
 
 Feita essa configuração de hardware, iniciamos os testes com código. Pensando apenas no comportamento binário, construímos um programa simples que envia sinal de HIGH para apenas um pino na função de ligar o ímã, e mandava sinais de LOW para ambos os pinos na função de desligar o ímã. O código está disponível abaixo.
 
+Como observação, ao ligar a ponte h na fonte de alimentação, foi possivel reparar a necessidade de aumentar a tensão em 2 vols para que a ponte h funcionasse em sua capacidade total.
+
 
 ```
 import machine
@@ -556,6 +560,8 @@ def disable_pump():
 O teste unitário de cada função foi bem-sucedido. Então, conectamos essas funções também a rotas de servidor e um botão na interface gráfica, conforme descrito na pasta src deste repositório git. O vídeo abaixo sumariza o funcionamento final dos componentes da ponte H integrados ao frontend:
 
 [Componentes integrados](https://drive.google.com/file/d/1iMuU_Au-HOIZtkMis8Z6_jKLUNROaPFZ/view?usp=sharing)
+
+Como observação, ao ligar a ponte h na fonte de alimentação, foi possivel reparar a necessidade de aumentar a tensão em 2 vols para que a ponte h funcionasse em sua capacidade total.
 
 
 #### Sensor de campo eletromagnético
