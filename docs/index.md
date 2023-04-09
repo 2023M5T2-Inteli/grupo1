@@ -291,7 +291,9 @@ O suporte para PCB está feita e pronta para ser impressa mas por motivos de tem
 
 O suporte para ímãs consiste em uma case octagonal, na qual são fixados quatro ímãs. Por entrar em contato direto com a água, é essencial que o material de fabricação seja muito resistente a líquidos e, ao mesmo tempo, exerça interferência mínima no campo magnético. 
 
-![image]([https://github.com/2023M5T2-Inteli/tectonics/blob/dev/media/projeto%20mecanico/suporte_ima.jpeg?raw=true](https://github.com/2023M5T2-Inteli/tectonics/blob/main/media/projeto%20mecanico/suporte_ima.png))
+
+![image](https://github.com/2023M5T2-Inteli/tectonics/blob/main/media/projeto%20mecanico/suporte_ima.png?raw=true)
+
 
 Nesse sentido, produzimos a placa ortogonal em ABS através de impressão 3D, sob a qual os ímãs foram posicionados. Então, agregamos uma capa de plástico flexível para assegurar a resistência à água. 
 
