@@ -744,6 +744,10 @@ Todos esses casos foram executados conforme o esperado, com as atualizações e 
 
 # Validação da eficácia do sistema
 
+Para garantir a eficácia e usabilidade do sistema, foram realizados testes simulando o cenário real de uso da solução criada. As bandejas foram cuidadosamente posicionadas e todo o sistema, desde as peças de hardware até o software, foi conectado. Foram utilizadas amostras reais cedidas pelo IPT, nosso parceiro no projeto, dos materiais que passam pelo processo de separação magnética. Após a ativação do sistema nessas condições, foi constatada a eficiência da solução na realização da separação magnética.
+
+[Funcionamesto completo da solução](https://drive.google.com/file/d/1dWlpdSFzFSZiAK777VvRBB2AGD83wIbd/view?usp=sharing)
+
 # Referências
 
 [Random Nerd Tutorials](https://randomnerdtutorials.com/esp32-load-cell-hx711/)
