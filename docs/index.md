@@ -282,6 +282,8 @@ O suporte para PCB foi produzido em plástico ABS, através de impressão 3D. Es
 
 O case tem as dimensões 12 cm x 12 cm x 5 cm e fica posicionado logo atrás do braço robótico. Cumpre a função de organizar o circuito principal e abstraí-lo do uso do usuário final, melhorando, assim, sua experiência com o produto.
 
+O suporte para PCB está feita e pronta para ser impressa mas por motivos de tempo o suporte para PCB não conseguiu ser produzido
+
 **Visão Lateral**
 
 
@@ -289,7 +291,9 @@ O case tem as dimensões 12 cm x 12 cm x 5 cm e fica posicionado logo atrás do 
 
 O suporte para ímãs consiste em uma case octagonal, na qual são fixados quatro ímãs. Por entrar em contato direto com a água, é essencial que o material de fabricação seja muito resistente a líquidos e, ao mesmo tempo, exerça interferência mínima no campo magnético. 
 
-![image](https://github.com/2023M5T2-Inteli/tectonics/blob/dev/media/projeto%20mecanico/suporte_ima.jpeg?raw=true)
+
+![image](https://github.com/2023M5T2-Inteli/tectonics/blob/main/media/projeto%20mecanico/suporte_ima.png?raw=true)
+
 
 Nesse sentido, produzimos a placa ortogonal em ABS através de impressão 3D, sob a qual os ímãs foram posicionados. Então, agregamos uma capa de plástico flexível para assegurar a resistência à água. 
 
@@ -463,6 +467,8 @@ Para solucionar isso, conectamos o ímã a uma ponte H. Dessa forma, pudemos ali
 
 Feita essa configuração de hardware, iniciamos os testes com código. Pensando apenas no comportamento binário, construímos um programa simples que envia sinal de HIGH para apenas um pino na função de ligar o ímã, e mandava sinais de LOW para ambos os pinos na função de desligar o ímã. O código está disponível abaixo.
 
+Como observação, ao ligar a ponte h na fonte de alimentação, foi possivel reparar a necessidade de aumentar a tensão em 2 vols para que a ponte h funcionasse em sua capacidade total.
+
 
 ```
 import machine
@@ -556,6 +562,8 @@ def disable_pump():
 O teste unitário de cada função foi bem-sucedido. Então, conectamos essas funções também a rotas de servidor e um botão na interface gráfica, conforme descrito na pasta src deste repositório git. O vídeo abaixo sumariza o funcionamento final dos componentes da ponte H integrados ao frontend:
 
 [Componentes integrados](https://drive.google.com/file/d/1iMuU_Au-HOIZtkMis8Z6_jKLUNROaPFZ/view?usp=sharing)
+
+Como observação, ao ligar a ponte h na fonte de alimentação, foi possivel reparar a necessidade de aumentar a tensão em 2 vols para que a ponte h funcionasse em sua capacidade total.
 
 
 #### Sensor de campo eletromagnético
@@ -735,6 +743,22 @@ Os testes de integração do hardware (movimentação do robô e acionamento dos
 Todos esses casos foram executados conforme o esperado, com as atualizações e modificações desejadas. Uma ressalva é que o comportamento dos ímãs foi relativamente inconsistente, com flutuações na intensidade. No entanto, após análise mais aprofundada, percebemos que isso se deu por problemas de conexão do próprio hardware, como a solda e a placa perfurada, e não da integração do código de frontend com o de backend e embarcado. Logo, consideramos os testes de integração um sucesso.
 
 # Validação da eficácia do sistema
+
+Para garantir a eficácia e usabilidade do sistema, foram realizados testes simulando o cenário real de uso da solução criada. As bandejas foram cuidadosamente posicionadas e todo o sistema, desde as peças de hardware até o software, foi conectado. Foram utilizadas amostras reais cedidas pelo IPT, nosso parceiro no projeto, dos materiais que passam pelo processo de separação magnética. Após a ativação do sistema nessas condições, foi constatada a eficiência da solução na realização da separação magnética.
+
+[Funcionamesto completo da solução](https://drive.google.com/file/d/1dWlpdSFzFSZiAK777VvRBB2AGD83wIbd/view?usp=sharing)
+
+### Relatório de entradas e saídas do teste final
+
+| Componente                                     | Entrada                                                               | Saída                                                                                                                             | Resultado do teste             |
+|------------------------------------------------|-----------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------|--------------------------------|
+| Braço robótico                                 | Acionamento após pressionar botão de início                           | Movimento de acordo com as coordenadas previstas.                                                                                 | Sucesso, correu como esperado  |
+| Eletroíma                                      | Pressionamento do botão de iniciar sistema                            | Eletroímã ligar na primeira e segunda bandeja e desligar na ultima para soltar material atraído.                                  | Sucesso, ocorreu como esperado |
+| Bomba d'água                                   | Pressionamento do botão de iniciar sistema                            | Bomba d'água ser ativada ao braço mecânico passar pela bandeja e desligar ao braço mudar de bandeja                               | Sucesso, ocorreu como esperado |
+| Acionamento de componentes                     | Pressionamento do botão de iniciar sistema                            | Braço robótico começa a se mover e componentes (bombas d'água e eletroímã) são ativados de acordo com a posição do braço robótico | Sucesso, ocorreu como esperado |
+| Contagem dos ciclos (interface gráfica)        | Preenchimento da quantidade de ciclos necessários e inicio do sistema | Indicação na interface gráfica da quantidade de ciclos realizados                                                                 | Sucesso, ocorreu como esperado |
+| Indicação de bandeja atual (interface gráfica) | Pressionamento do botão de iniciar sistema                            | Indicação na interface gráfica da posição do robo de acordo com bandeja em que braço robótico está                                | Sucesso, ocorreu como esperado |
+
 
 # Referências
 
