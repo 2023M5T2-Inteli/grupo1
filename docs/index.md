@@ -33,6 +33,8 @@ Magnetum | Concepção de sistema de automação industrial para separação mag
   - [Diagrama geral](#diagrama-geral)
   - [Projeto mecânico](#projeto-mecânico)
     - [Validação dos dispositivos mecânicos fabricados](#validação-dos-dispositivos-mecânicos-fabricados)
+      - [Suporte para ímãs](#suporte-para-ímãs)
+      - [Case para PCB](#case-para-pcb)
   - [Projeto eletrônico](#projeto-eletrônico)
     - [Esquemático do circuito](#esquemático-do-circuito)
     - [Implementação do circuito](#implementação-do-circuito)
@@ -53,6 +55,7 @@ Magnetum | Concepção de sistema de automação industrial para separação mag
   - [Movimentação do robô](#movimentação-do-robô-1)
   - [Integração de hardware com frontend](#integração-de-hardware-com-frontend)
 - [Validação da eficácia do sistema](#validação-da-eficácia-do-sistema)
+    - [Relatório de entradas e saídas do teste final](#relatório-de-entradas-e-saídas-do-teste-final)
 - [Referências](#referências)
 
 
@@ -305,6 +308,8 @@ A figura abaixo apresenta as dimensões do braço robótico Magician Lite, confo
 
 ### Validação dos dispositivos mecânicos fabricados
 
+#### Suporte para ímãs
+#### Case para PCB
 
 ## Projeto eletrônico
 
@@ -649,7 +654,6 @@ O principal da célula de carga é que seu output é um valor alto, por volta do
 | Contagem de ciclos (interface gráfica) | Repetição dos ciclos (passadas) do robô em um mesmo ensaio    | Atualização do número de ciclos (passadas) no frontend.                          | Sucesso. A linha de contagem de ciclos mudou conforme o esperado.                                                                                                                                                                                  |
 | Contagem de ciclos (interface gráfica) | Finalização de um ensaio                                      | Reset da contagem de ciclos, voltando ao 0.                                      | Sucesso. Ao terminar um ensaio, assim que o robô parava de se movimentar, o contador voltava a 0.                                                                                                                                                  |
 
-
 # UX e UI Design
 
 Como linha geral, priorizamos elementos minimalistas, intuitivos e de fácil entendimento. Seguindo o estilo utilizado até agora nos slides e logotipos, apostamos em uma paleta de cores com alto contraste e foco em tons de roxo. 
@@ -744,20 +748,27 @@ Todos esses casos foram executados conforme o esperado, com as atualizações e 
 
 # Validação da eficácia do sistema
 
-Para garantir a eficácia e usabilidade do sistema, foram realizados testes simulando o cenário real de uso da solução criada. As bandejas foram cuidadosamente posicionadas e todo o sistema, desde as peças de hardware até o software, foi conectado. Foram utilizadas amostras reais cedidas pelo IPT, nosso parceiro no projeto, dos materiais que passam pelo processo de separação magnética. Após a ativação do sistema nessas condições, foi constatada a eficiência da solução na realização da separação magnética.
+Para garantir a eficácia e usabilidade do sistema, foram realizados testes simulando o cenário real de uso da solução criada. As bandejas foram cuidadosamente posicionadas e todo o sistema, desde as peças de hardware até o software, foi iniciado. Foram utilizadas amostras reais cedidas pelo IPT, nosso parceiro no projeto, dos materiais que passam pelo processo de separação magnética. Após a ativação do sistema nessas condições, foi constatada a eficiência da solução na realização da separação magnética. De fato, após algumas passadas, pudemos conferir o depósito de material magnético na última bandeja, a diminuição da massa na primeira bandeja e o escurecimento da água na segunda bandeja, evidenciando a transferência e limpeza dos minerais.
 
-[Funcionamesto completo da solução](https://drive.google.com/file/d/1dWlpdSFzFSZiAK777VvRBB2AGD83wIbd/view?usp=sharing)
+[Funcionamento completo da solução](https://drive.google.com/file/d/1dWlpdSFzFSZiAK777VvRBB2AGD83wIbd/view?usp=sharing)
 
 ### Relatório de entradas e saídas do teste final
 
-| Componente                                     | Entrada                                                               | Saída                                                                                                                             | Resultado do teste             |
-|------------------------------------------------|-----------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------|--------------------------------|
-| Braço robótico                                 | Acionamento após pressionar botão de início                           | Movimento de acordo com as coordenadas previstas.                                                                                 | Sucesso, correu como esperado  |
-| Eletroíma                                      | Pressionamento do botão de iniciar sistema                            | Eletroímã ligar na primeira e segunda bandeja e desligar na ultima para soltar material atraído.                                  | Sucesso, ocorreu como esperado |
-| Bomba d'água                                   | Pressionamento do botão de iniciar sistema                            | Bomba d'água ser ativada ao braço mecânico passar pela bandeja e desligar ao braço mudar de bandeja                               | Sucesso, ocorreu como esperado |
-| Acionamento de componentes                     | Pressionamento do botão de iniciar sistema                            | Braço robótico começa a se mover e componentes (bombas d'água e eletroímã) são ativados de acordo com a posição do braço robótico | Sucesso, ocorreu como esperado |
-| Contagem dos ciclos (interface gráfica)        | Preenchimento da quantidade de ciclos necessários e inicio do sistema | Indicação na interface gráfica da quantidade de ciclos realizados                                                                 | Sucesso, ocorreu como esperado |
-| Indicação de bandeja atual (interface gráfica) | Pressionamento do botão de iniciar sistema                            | Indicação na interface gráfica da posição do robo de acordo com bandeja em que braço robótico está                                | Sucesso, ocorreu como esperado |
+| **Componente**                                 | **Entrada**                                                                    | **Saída**                                                                                                                         | **Resultado do teste**         |
+|------------------------------------------------|--------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------|--------------------------------|
+| Braço robótico                                 | Acionamento após pressionar botão de início                                    | Movimento de acordo com as coordenadas previstas.                                                                                 | Sucesso, ocorreu como esperado |
+| Eletroímã                                      | Pressionamento do botão de iniciar sistema                                     | Eletroímã ligar na primeira e segunda bandeja e desligar na ultima para soltar material atraído.                                  | Sucesso, ocorreu como esperado |
+| Eletroímã                                      | Alteração do input no slider de intensidade magnética                          | Alteração proporcional na voltagem recebida pelo eletroímã                                                                        | Sucesso, ocorreu como esperado |
+| Bomba d'água                                   | Pressionamento do botão de iniciar sistema                                     | Bomba d'água ser ativada ao braço mecânico passar pela bandeja e desligar ao braço mudar de bandeja                               | Sucesso, ocorreu como esperado |
+| Acionamento de componentes                     | Pressionamento do botão de iniciar sistema                                     | Braço robótico começa a se mover e componentes (bombas d'água e eletroímã) são ativados de acordo com a posição do braço robótico | Sucesso, ocorreu como esperado |
+| Contagem dos ciclos (interface gráfica)        | Preenchimento da quantidade de ciclos necessários e inicio do sistema          | Indicação na interface gráfica da quantidade de ciclos realizados                                                                 | Sucesso, ocorreu como esperado |
+| Indicação de bandeja atual (interface gráfica) | Pressionamento do botão de iniciar sistema                                     | Indicação na interface gráfica da posição do robô de acordo com bandeja em que braço robótico está                                | Sucesso, ocorreu como esperado |
+| Integração com banco de dados                  | Acesso à página principal da interface gráfica                                 | Atualização dos itens nos dropdowns da página principal conforme cliente, usuário e projeto selecionados                          | Sucesso, ocorreu como esperado |
+| Integração com banco de dados                  | Acesso à página de adição de componentes                                       | Atualização das tabelas de usuários, clientes e projetos conforme itens relacionados do banco de dados                            | Sucesso, ocorreu como esperado |
+| Integração com banco de dados                  | Pressionamento do botão de adicionar das tabelas de cliente, projeto e usuário | Adição de novos itens na tabela mesmo após recarregamento da página                                                               | Sucesso, ocorreu como esperado |
+| Integração com banco de dados                  | Acesso à página de histórico                                                   | Atualização dos cards com os ensaios já realizados                                                                                | Sucesso, ocorreu como esperado |
+| Integração com banco de dados                  | Pressionamento no botão de um dos cards da página de histórico                 | Abertura de modal com mais informações, relacionando dados das tabelas de ensaio, usuário, cliente, projeto e ciclo               | Sucesso, ocorreu como esperado |
+
 
 
 # Referências
