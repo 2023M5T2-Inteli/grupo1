@@ -8,7 +8,7 @@ import { Routes, Route, HashRouter as Router } from 'react-router-dom'; // Impor
 // Páginas
 import History from './pages/History';
 import Home from './pages/Home';
-import Profile from './pages/Profile';
+import Add from './pages/Add';
 
 // Componente principal
 function App() {
@@ -21,7 +21,7 @@ function App() {
 
           <Route path='/' element={<Home />} /> {/* Define a rota inicial */}
           <Route path='/archive' element={<History />} /> {/* Define a rota para a página de histórico */}
-          <Route path='/profile' element={<Profile/>} /> {/* Define a rota para a página de perfil (em construção) */}
+          <Route path='/profile' element={<Add/>} /> {/* Define a rota para a página de perfil (em construção) */}
         </Routes>
       </Router>
 

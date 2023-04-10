@@ -1,6 +1,10 @@
+// Componente da tabela de clientes
+
 import { useState, useEffect } from 'react';
 
 export function ClientTable() {
+
+    // Definição de estados
     const [data, setData] = useState([]);
     const [selectedItem, setSelectedItem] = useState(null);
     const [showModal, setShowModal] = useState(false);
@@ -9,6 +13,7 @@ export function ClientTable() {
     const [newName, setNewName] = useState('');
     const [projectName, setProjectName] = useState('');
 
+    // Adiciona cliente
     const handleAddClient = () => {
         fetch('http://127.0.0.1:5000/client', {
             method: 'POST',
@@ -28,6 +33,7 @@ export function ClientTable() {
             .catch((error) => console.log(error));
     };
 
+    // Adiciona projeto
     const handleAddProject = () => {
         fetch('http://127.0.0.1:5000/project', {
             method: 'POST',
@@ -40,13 +46,13 @@ export function ClientTable() {
             })
         }).then(() => {
             setProjectName('');
-            fetchData(); 
+            fetchData();
 
         })
             .catch((error) => console.log(error));
     };
 
-
+    // Lê dados do servidor
     const fetchData = () => {
         fetch('http://127.0.0.1:5000/client')
             .then((response) => response.json())
@@ -54,20 +60,24 @@ export function ClientTable() {
             .catch((error) => console.log(error));
     };
 
+    // Hook para atualizar dados ao carregar a página
     useEffect(() => {
         fetchData();
     }, []);
 
+    // Abre modal de projetos
     const handleRowClick = (item) => {
         setSelectedItem(item);
         setShowModal(true);
     };
 
+    // Fecha modal de projetos
     const handleModalClose = () => {
         setSelectedItem(null);
         setShowModal(false);
     };
 
+    // Fecha modal de adicionar cliente
     const handleAddModalClose = () => {
         setShowAddModal(false);
     };
@@ -110,7 +120,7 @@ export function ClientTable() {
                         Adicionar
                     </button>
                 </div>
-
+            {/* Modal de adicionar cliente */}
                 {
                     showModal && (
                         <div className="fixed z-10 inset-0 overflow-y-auto">
@@ -136,27 +146,27 @@ export function ClientTable() {
                                                         <td className="w-1/2 py-2 px-4 border-b border-gray-500 text-sm">{project.name}</td>
                                                     </tr>
                                                 ))}
-                                                
+
                                             </tbody>
-                                            
+
                                         </table>
                                         <div className="flex w-full mt-5">
-                                                    <input
-                                                        type="text"
-                                                        placeholder="Nome do projeto"
-                                                        className="border px-4 py-2 w-1/2 mr-2"
-                                                        value={projectName}
-                                                        onChange={(e) => setProjectName(e.target.value)}
-                                                    />
-                                                    <button
-                                                        type="button"
-                                                        className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-purple hover:bg-[#7456ea] text-base font-medium text-white  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm"
-                                                        onClick={handleAddProject}
-                                                    >
-                                                        Salvar
-                                                    </button>
+                                            <input
+                                                type="text"
+                                                placeholder="Nome do projeto"
+                                                className="border px-4 py-2 w-1/2 mr-2"
+                                                value={projectName}
+                                                onChange={(e) => setProjectName(e.target.value)}
+                                            />
+                                            <button
+                                                type="button"
+                                                className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-purple hover:bg-[#7456ea] text-base font-medium text-white  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm"
+                                                onClick={handleAddProject}
+                                            >
+                                                Salvar
+                                            </button>
 
-                                                </div>
+                                        </div>
                                     </div>
                                     <div className="bg-gray-50 px-4 py-3 flex justify-end">
                                         <button
@@ -172,6 +182,7 @@ export function ClientTable() {
                         </div>
                     )
                 }
+                {/* Modal de adicionar cliente */}
                 {showAddModal && (
                     <div className="fixed z-10 inset-0 overflow-y-auto">
                         <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">

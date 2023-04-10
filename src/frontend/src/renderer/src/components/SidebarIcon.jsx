@@ -1,3 +1,5 @@
+// Componentes para os ícones dos botões na sidebar com navegação e tooltip
+
 import 'react-tooltip/dist/react-tooltip.css'
 import { Tooltip } from 'react-tooltip'
 import { useNavigate } from 'react-router-dom';

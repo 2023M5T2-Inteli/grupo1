@@ -1,20 +1,25 @@
 // Script para a página de histórico de ensaios
+
 import { useEffect, useState } from 'react';
 import Card from '../components/CardHistory'
 import Sidebar from '../components/Sidebar';
+
 function History() {
-    // Faz requisição para pegar as informações do histórico
-    const [cards, all_cards] = useState([]);
-    const get_all_cards = async (url) =>{
-        const res = await fetch(url);
+
+    const [cards, setCards] = useState([]);
+
+    // Lê dados do servidor sobre rotinas passadas e atualiza estado dos cards
+    const fetchCards = async () => {
+        const res = await fetch('http://127.0.0.1:5000/routine');
         const data = await res.json();
-        console.log(data)
-        all_cards(data);
+        setCards(data);
     };
-    useEffect(() =>{
-            let url = "http://127.0.0.1:5000"
-            get_all_cards(url+"/routine")
-        },[]);
+
+    // Hook para atualizar dados ao carregar a página
+    useEffect(() => {
+        fetchCards()
+    }, []);
+
     return (
         <div>
             <Sidebar />
@@ -32,8 +37,9 @@ function History() {
                     <button className="font-montserrat font-bold text-white bg-indigo-900 w-1/12 h-9 rounded-xl shadow-xl  hover:scale-105 hover:bg-indigo-800 ">Filtrar</button>
                 </div>
                 <div className="justify-around flex flex-wrap">
+                    {/* Cria card para cada elemento na array de rotinas no servidor */}
                     {cards.length > 0 && cards.map((card) =>
-                        <Card info={card}/>
+                        <Card info={card} />
                     )}
                 </div>
             </div>

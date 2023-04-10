@@ -20,6 +20,11 @@ $ npm install
 $ npm run dev
 ```
 
+Para rodar com o servidor:
+
+```bash
+$ npm run server
+```
 ### Build
 
 ```bash

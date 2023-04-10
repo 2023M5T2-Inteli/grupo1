@@ -1,18 +1,14 @@
+// Componente para card de histórico
+
 import finalizado from '../assets/finalizado_icon.svg'
 import { useState, useEffect } from 'react'
-import jsPDF from 'jspdf'
-import 'jspdf-autotable'
-
 
 function Card(props) {
 
-  const data_inicio = String(props.info.initiated_at).replace('Wed, ', '').replace(' GMT', '')
-  const hora_inicio = String(props.info.initiated_at).slice(17, 25)
-  const hora_fim = String(props.info.finished_at).slice(17, 25)
-
-  //const hora = String(props.data).replace('Wed, ', '').replace(' GMT', '')
-
   const [showPopup, setShowPopup] = useState(false)
+  const [project, setProject] = useState('')
+  const [client, setClient] = useState('')
+  const [user, setUser] = useState('')
 
   const handleCardClick = () => {
     setShowPopup(true)
@@ -21,10 +17,8 @@ function Card(props) {
   const handleCloseClick = () => {
     setShowPopup(false)
   }
-  const [project, setProject] = useState('')
-  const [client, setClient] = useState('')
-  const [user, setUser] = useState('')
-
+  
+  // Atualiza dados ao carregar página, fazendo fetches para projeto, cliente e usuário
   useEffect(() => {
     fetch('http://127.0.0.1:5000/project/' + props.info.project_id)
       .then((response) => response.json())
@@ -60,8 +54,9 @@ function Card(props) {
           <p className="font-montserrat">{project.name}</p>
         </div>
       </div>
-      {showPopup && (
 
+      {/* Popup de detalhes do card */}
+      {showPopup && (
 
         <div className="fixed inset-0 flex justify-center items-center bg-gray-500 bg-opacity-50 overflow-y-scroll">
           <div className="bg-white w-3/4 h-3/4 rounded-lg overflow-y-auto">

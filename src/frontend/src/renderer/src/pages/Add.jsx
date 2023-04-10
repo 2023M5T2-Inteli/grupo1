@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+// Página para adicionar novos clientes, usuários e projetos
+
 import Sidebar from "../components/Sidebar"
 import { UserTable } from '../components/UserTable';
 import { ClientTable } from '../components/ClientTable';
 
-const Profile = () => {
+const Add = () => {
 
   return (
     <div className='h-screen'>
@@ -14,10 +14,9 @@ const Profile = () => {
           <ClientTable />
           <UserTable />
         </div>
-
       </div>
     </div>
   );
 };
 
-export default Profile;
+export default Add;

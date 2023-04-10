@@ -2,45 +2,52 @@ import { useEffect, useState } from 'react'
 
 export function UserTable() {
 
-    const [data, setData] = useState([]);
-    const [showAddModal, setShowAddModal] = useState(false);
+    // Define estados
+    const [data, setData] = useState([]); // Dados de usuários
+    const [showAddModal, setShowAddModal] = useState(false); // Se modal está aberto
+    // Inputs
     const [newName, setNewName] = useState('');
     const [newCpf, setNewCpf] = useState('');
 
+    // Função para buscar dados
     const fetchData = () => {
         fetch('http://127.0.0.1:5000/user')
-          .then((response) => response.json())
-          .then((data) => setData(data))
-          .catch((error) => console.log(error));
-      };
-    
-      useEffect(() => {
-        fetchData();
-      }, []);
+            .then((response) => response.json())
+            .then((data) => setData(data))
+            .catch((error) => console.log(error));
+    };
 
+    // Hook para atualizar dados ao carregar a página
+    useEffect(() => {
+        fetchData();
+    }, []);
+
+    // Fecha modal
     const handleAddModalClose = () => {
         setShowAddModal(false);
     };
 
+    // Adiciona usuário por requisição
     const handleAddUser = () => {
         fetch('http://127.0.0.1:5000/user', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            full_name: newName,
-            cpf: newCpf,
-          }),
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                full_name: newName,
+                cpf: newCpf,
+            }),
         })
-          .then(() => {
-            setShowAddModal(false);
-            setNewName('');
-            setNewCpf('');
-            fetchData(); // refetch data after adding user
-          })
-          .catch((error) => console.log(error));
-      };
+            .then(() => {
+                // fecha modal e limpar inputs
+                setShowAddModal(false);
+                setNewName('');
+                setNewCpf('');
+                fetchData();
+            })
+            .catch((error) => console.log(error));
+    };
 
     return (
         <div>
@@ -58,6 +65,7 @@ export function UserTable() {
                         </tr>
                     </thead>
                     <tbody>
+                        {/* adicionar linha para cada usuário */}
                         {data?.map((item) => (
                             <tr
                                 key={item.id}
@@ -78,6 +86,7 @@ export function UserTable() {
                     </button>
                 </div>
             </div>
+            {/* Modal */}
             {showAddModal && (
                 <div className="fixed z-10 inset-0 overflow-y-auto">
                     <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
@@ -95,6 +104,7 @@ export function UserTable() {
                                 <h3 className="text-lg font-medium leading-6 text-gray-900 mb-6" id="modal-headline">
                                     Adicionar novo usuário
                                 </h3>
+                                {/* Inputs */}
                                 <div className="flex w-full">
                                     <input
                                         type="text"
@@ -115,7 +125,7 @@ export function UserTable() {
 
                             </div>
                             <div className="bg-gray-50 px-4 py-3 flex justify-end">
-
+                                {/* Botões */}
                                 <button
                                     type="button"
                                     className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-gray-500 hover:bg-gray-400 text-base font-medium text-white  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm"

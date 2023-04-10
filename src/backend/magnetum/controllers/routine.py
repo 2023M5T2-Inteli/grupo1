@@ -96,12 +96,12 @@ def execute_routine(request):
     id = create(routine)
 
     restartCycleCount()
-    # robot.rehome()  # Função do módulo do robô para levá-lo ao ponto neutro
+    robot.rehome()  # Função do módulo do robô para levá-lo ao ponto neutro
 
     # # Loop para realizar um número arbitrário de passadas.
     for i in range(int(request.json['cycleCount'])):
 
-        #robot.execute_cycle(12)
+        robot.execute_cycle(12)
         cycle.create(id)
         incrementCycle()
 
