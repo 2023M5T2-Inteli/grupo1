@@ -662,17 +662,29 @@ A interface oficial apresenta uma sidebar simples, com tela inicial, histórico 
 
 ![image](https://github.com/2023M5T2-Inteli/tectonics/blob/dev/media/interface_grafica/home1.png?raw=true)
 
-![image](https://github.com/2023M5T2-Inteli/tectonics/blob/dev/media/interface_grafica/home2.png?raw=true)
-
-Já na aba de histórico, tem-se ensaios antigos com diversas funcionalidades de filtragem. Futuramente, objetivamos adicionar opções de compilação, exportação e compartilhamento também.
+Já na aba de histórico, tem-se ensaios antigos com diversas funcionalidades de filtragem. Ao clicar em qualquer card, pode-se ver mais informações sobre o ensaios e os ciclos que o compõem.
 
 ![image](https://github.com/2023M5T2-Inteli/tectonics/blob/dev/media/interface_grafica/history1.png?raw=true)
 
-![image](https://github.com/2023M5T2-Inteli/tectonics/blob/dev/media/interface_grafica/history2.png?raw=true)
+![image](https://github.com/2023M5T2-Inteli/tectonics/blob/main/media/interface_grafica/history2.png?raw=true)
+
+Por fim, o hub de adição traz duas tabelas: de usuários e de clientes. 
+
+![image](https://github.com/2023M5T2-Inteli/tectonics/blob/main/media/interface_grafica/add.png?raw=true)
+
+Na tabela de clientes, pode-se clicar em qualquer um deles para ver seus projetos. 
+
+![image](https://github.com/2023M5T2-Inteli/tectonics/blob/main/media/interface_grafica/projects.png?raw=true)
+
+Ao clicar em "Adicionar" em qualquer tabela, tem-se um pop-ups para adicionar novos elementos.
+
+![image](https://github.com/2023M5T2-Inteli/tectonics/blob/main/media/interface_grafica/addUser.png?raw=true)
+
+![image](https://github.com/2023M5T2-Inteli/tectonics/blob/main/media/interface_grafica/addClient.png?raw=true)
 
 O design inicial do Figma pode ser conferido [aqui](https://www.figma.com/file/6mBFBLaAB9pjVo9Z3GzauB/Magnetum?node-id=23%3A2&t=tj4cyeV3llJXr2hb-1). Para a interface de testes, utilizamos um design simples, com um único vetor em tons de verde para decoração na base da página.
 
-![image](https://github.com/2023M5T2-Inteli/tectonics/blob/main/media/interface_grafica/interface_demo.png)
+![image](https://github.com/2023M5T2-Inteli/tectonics/blob/main/media/interface_grafica/interface_demo.png?raw=true)
 
 # Backend
 
