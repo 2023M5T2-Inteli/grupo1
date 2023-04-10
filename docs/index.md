@@ -268,7 +268,7 @@ O suporte para PCB foi produzido em plástico ABS, através de impressão 3D. Es
 
 ![image](https://github.com/2023M5T2-Inteli/tectonics/blob/dev/media/projeto%20mecanico/case.jpeg?raw=true)
 
-O case tem as dimensões 12 cm x 12 cm x 5 cm e fica posicionado logo atrás do braço robótico. Cumpre a função de organizar o circuito principal e abstraí-lo do uso do usuário final, melhorando, assim, sua experiência com o produto.
+O case tem as dimensões 12 cm x 12 cm x 5 cm e fica posicionado logo atrás do braço robótico. Cumpre a função de organizar o circuito principal e abstraí-lo do uso do usuário final, melhorando, assim, sua experiência com o produto. Além disso ele possui saídas para otimizar o espaço ocupado pelos cabos.
 
 **Visão Lateral**
 
