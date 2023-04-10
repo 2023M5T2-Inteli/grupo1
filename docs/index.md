@@ -309,7 +309,14 @@ A figura abaixo apresenta as dimensões do braço robótico Magician Lite, confo
 ### Validação dos dispositivos mecânicos fabricados
 
 #### Suporte para ímãs
+O suporte para ímãs precisou ser impresso duas vezes por problemas com os arquivos enviados. Felizmente, a segunda versão proporcionou o encaixe perfeito com os quatro eletroímãs e com a ponta do robô.
+
+Em nossos testes, durante toda a movimentação do braço robótico, o suporte se manteve estável na garra. Na captura de materiais magnéticos, o acréscimo de peso não impediu o movimento nem tirou o suporte de seu devido lugar. O posicionamento dos eletroímãs no suporte também não afetou sua intensidade magnética, de modo que a captura e despejo de materiais ocorreram conforme o esperado.
+
+Em suma, a validação do principal artefato mecânico, o suporte para os quatro eletroímãs, foi um sucesso.
+
 #### Case para PCB
+Não foi fabricado por falta de tempo e acesso às impressoras 3D.
 
 ## Projeto eletrônico
 
