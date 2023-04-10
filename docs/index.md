@@ -748,6 +748,18 @@ Para garantir a eficácia e usabilidade do sistema, foram realizados testes simu
 
 [Funcionamesto completo da solução](https://drive.google.com/file/d/1dWlpdSFzFSZiAK777VvRBB2AGD83wIbd/view?usp=sharing)
 
+### Relatório de entradas e saídas do teste final
+
+| Componente                                     | Entrada                                                               | Saída                                                                                                                             | Resultado do teste             |
+|------------------------------------------------|-----------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------|--------------------------------|
+| Braço robótico                                 | Acionamento após pressionar botão de início                           | Movimento de acordo com as coordenadas previstas.                                                                                 | Sucesso, correu como esperado  |
+| Eletroíma                                      | Pressionamento do botão de iniciar sistema                            | Eletroímã ligar na primeira e segunda bandeja e desligar na ultima para soltar material atraído.                                  | Sucesso, ocorreu como esperado |
+| Bomba d'água                                   | Pressionamento do botão de iniciar sistema                            | Bomba d'água ser ativada ao braço mecânico passar pela bandeja e desligar ao braço mudar de bandeja                               | Sucesso, ocorreu como esperado |
+| Acionamento de componentes                     | Pressionamento do botão de iniciar sistema                            | Braço robótico começa a se mover e componentes (bombas d'água e eletroímã) são ativados de acordo com a posição do braço robótico | Sucesso, ocorreu como esperado |
+| Contagem dos ciclos (interface gráfica)        | Preenchimento da quantidade de ciclos necessários e inicio do sistema | Indicação na interface gráfica da quantidade de ciclos realizados                                                                 | Sucesso, ocorreu como esperado |
+| Indicação de bandeja atual (interface gráfica) | Pressionamento do botão de iniciar sistema                            | Indicação na interface gráfica da posição do robo de acordo com bandeja em que braço robótico está                                | Sucesso, ocorreu como esperado |
+
+
 # Referências
 
 [Random Nerd Tutorials](https://randomnerdtutorials.com/esp32-load-cell-hx711/)
